@@ -1,8 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="title">
-  This is my blog made with Zola.
-</h1>
+
+<div class="font-sans">
+  <h1 class="font-bold font-sans break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl">Welcome to Minimal Blog</h1>
+  <p class="text-sm md:text-base font-normal text-gray-600">Published 19 February 2019</p>
+</div>
+
 <p>Click <a href="/blog/">here</a> to see my posts.</p>
+
+<p class="py-6">
+  👋 Welcome fellow <a class="text-green-500 no-underline hover:underline" href="https://www.tailwindcss.com">Tailwind CSS</a> and miminal monochrome blog fan. This starter template provides a starting point to create your own minimal monochrome blog using Tailwind CSS and vanilla Javascript.
+</p>
+
+<p class="py-6">The basic blog page layout is available and all using the default Tailwind CSS classes (although there are a few hardcoded style tags). If you are going to use this in your project, you will want to convert the classes into components.</p>
+
 {% endblock content %}

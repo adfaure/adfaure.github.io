@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 
+
+{% block nav %}
+  {{ macros_nav::nav(website_title=config.title, menu_items=config.extra.menu_items, active_item=section.extra.name) }}
+{% endblock nav %}
+
+
 {% block content %}
 <h1 class="title">
   {{ section.title }}

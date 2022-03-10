@@ -4,7 +4,7 @@ base_url = "https://adrien-faure.fr"
 # Whether to automatically compile all Sass files in the sass directory
 compile_sass = true
 
-title = "Adrien Faure website"
+title = "Adrien Faure"
 
 # Whether to build a search index to be used later on by a JavaScript library
 build_search_index = false
@@ -14,5 +14,6 @@ build_search_index = false
 # Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
 highlight_code = false
 
-# [extra]
-# Put all your custom variables here
+[extra]
+
+menu_items = [ "Blog", "Research", "Teaching" ]
