@@ -9,6 +9,13 @@ title = "Adrien Faure"
 # Whether to build a search index to be used later on by a JavaScript library
 build_search_index = false
 
+# Various slugification strategies, see below for details
+# Defaults to everything being a slug
+[slugify]
+paths = "on"
+taxonomies = "on"
+anchors = "on"
+
 [markdown]
 # Whether to do syntax highlighting
 # Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
