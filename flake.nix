@@ -31,11 +31,15 @@
             "config.toml"
           ];
           base-url = "https://batsim.org";
-          buildInputs = [ pkgs.zola ];
+          buildInputs = [
+            pkgs.zola
+            pkgs.nodePackages.tailwindcss
+          ];
           checkPhase = ''
             zola check
           '';
           installPhase = ''
+            tailwindcss -i styles/styles.css -o static/styles/styles.css
             zola build -o $out --base-url ${base-url}
           '';
         };
@@ -43,6 +47,7 @@
       devShell.x86_64-linux = pkgs.mkShell {
         buildInputs = with pkgs; [
           zola
+          nodePackages.tailwindcss
         ];
         shellHook = "zsh; exit 0";
       };

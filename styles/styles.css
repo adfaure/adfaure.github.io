@@ -1,0 +1,9 @@
+/* ./styles/styles.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#header {
+  background-color: white;
+}
