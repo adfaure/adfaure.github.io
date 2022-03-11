@@ -6,11 +6,24 @@
 
   outputs = { self, nixpkgs, oxalica }:
     let
+      system = "x86_64-linux";
       pkgs = import nixpkgs {
         system = "x86_64-linux";
         overlays = [ oxalica.overlay ];
         config.allowUnfree = true;
       };
+
+      # To update the tailwind packages use node2nix
+      # node2nix -c tailwindcss.nix
+      nodeDependencies = (pkgs.callPackage ({ pkgs, system }:
+        let nodePackages = import ./tailwindcss.nix { inherit pkgs system; };
+        in nodePackages // {
+          shell = nodePackages.shell.override {
+            buildInputs = [
+              # pkgs.nodePackages.node-gyp-build
+            ];
+          };
+        }) { }).shell.nodeDependencies;
     in {
 
       packages.x86_64-linux = {
@@ -26,30 +39,46 @@
             "^templates/.*"
             "^themes"
             "^themes/.*"
-            "^styles/.*"
+            "^styles"
             "^styles/.*\.css"
+            "tailwind.config.js"
             "config.toml"
           ];
-          base-url = "https://batsim.org";
           buildInputs = [
             pkgs.zola
-            pkgs.nodePackages.tailwindcss
+            pkgs.nodePackages.npm
           ];
+
           checkPhase = ''
             zola check
           '';
+
+          buildPhase = ''
+            ln -s ${nodeDependencies}/lib/node_modules ./node_modules
+            export PATH="${nodeDependencies}/bin:$PATH"
+
+            ls -l
+            npx tailwindcss -i styles/styles.css -o static/styles/styles.css
+          '';
+
+          base-url = "https://batsim.org";
           installPhase = ''
-            tailwindcss -i styles/styles.css -o static/styles/styles.css
             zola build -o $out --base-url ${base-url}
           '';
         };
       };
+      # Use `nix develop` to activate the shell
       devShell.x86_64-linux = pkgs.mkShell {
         buildInputs = with pkgs; [
           zola
-          nodePackages.tailwindcss
+          nodeDependencies
+          nodePackages.npm
+          nodePackages.node2nix
         ];
-        shellHook = "zsh; exit 0";
+        # This tells npx where to find the node lib.
+        # The css generation can be done with:
+        # npx tailwindcss -i styles/styles.css -o static/styles/styles.css
+        NODE_PATH="${nodeDependencies}/lib/node_modules";
       };
     };
 }
