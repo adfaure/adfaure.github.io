@@ -1,15 +1,14 @@
 +++
 title = "Nixops on Vultr"
 date = 2018-10-23
+description = """This post describes how to set up a NixOS on vultr, and manage the instance
+with nixops."""
 tags = ["nixOS", "nixops"]
 categories = ["nixOS", "nixops"]
 featured = false
 +++
 
 ## Summary
-
-**This post describes how to set up a NixOS on vultr, and manage the instance
-with nixops.**
 
 **Requirements:**
 

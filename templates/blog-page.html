@@ -1,13 +1,22 @@
 {% extends "base.html" %}
 
+{% block nav %}
+  {{ macros_nav::nav(website_title=config.title, menu_items=config.extra.menu_items, active_item="Blog") }}
+{% endblock nav %}
+
 {% block content %}
-<div class="font-sans">
-  <h1 class="font-bold font-sans break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl">{{ page.title }}</h1>
+<div class="py-4 border-solid ">
+  <h1 class="font-bold font-sans break-normal text-gray-900 pt-6 text-3xl md:text-4xl">{{ page.title }}</h1>
   <p class="text-sm md:text-base font-normal text-gray-600">Published {{ page.date }}</p>
 </div>
 
-<div class="prose prose-indigo prose-lg">
+{% if page.extra.tldr %}
+<p class="pb-4 text-gray-600"> <span class="font-bold">TLDR.</span> {{ page.extra.tldr | safe }} </p>
+<hr class="border-b-1 border-gray-400 mb-8">
+{% endif %}
+
+<article class="prose prose-indigo prose">
 	{{ page.content | safe }}
-</div>
+</article>
 
 {% endblock content %}

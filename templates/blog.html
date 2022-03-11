@@ -1,20 +1,27 @@
 {% extends "base.html" %}
 
-
 {% block nav %}
   {{ macros_nav::nav(website_title=config.title, menu_items=config.extra.menu_items, active_item=section.extra.name) }}
 {% endblock nav %}
 
-
 {% block content %}
-<div class="font-sans">
-  <h1 class="font-bold font-sans break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl">Blog</h1>
+<div class="font-sans pb-6">
+  <h1 class="font-bold font-sans break-normal text-gray-900 pb-2 text-3xl md:text-4xl">{{ section.extra.name }}</h1>
 </div>
 
 <ul>
 {% for page in section.pages %}
-  <li><a href="{{ page.permalink | safe }}">{{ page.title }}</a></li>
+  <li class="pb-3">
+    <a  href="{{ page.permalink | safe }}">
+      <h2 class="text-1xl font-bold text-sky-600">{{ page.title }} </h2>
+      {% if page.summary %}
+      <p class="pb-1"> {{ page.summary | safe }} </p>
+      {% elif page.description %}
+      <p class="pb-1"> {{ page.description | safe }} </p>
+      {% endif %}
+      <p class="text-sm text-slate-400"> {{ page.date }} • wordcount: {{ page.word_count }} • {{ page.reading_time }} min read </p>
+    </a>
+  </li>
 {% endfor %}
 </ul>
-
 {% endblock content %}

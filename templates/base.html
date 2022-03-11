@@ -17,7 +17,7 @@
   {% endblock head %}
 </head>
 
-<body class="bg-gray-100 font-sans leding-normal tracking-normal">
+<body class="bg-white font-sans leding-normal tracking-normal">
 
   <!-- Top nav bar -->
   {% block nav %}
@@ -25,15 +25,16 @@
   {% endblock nav %}
 
   <!-- Container -->
-  <div class="container w-full md:max-w-3xl mx-auto pt-20">
-    <div class="text-gray-800 leading-normal" style="font-family:Georgia,serif;">
+  <div class="container w-full md:max-w-3xl mx-auto pt-20 pb-8">
+    <div class="leading-normal" style="font-family:Georgia,serif;">
     {% block content %}
     {% endblock content %}
     </div>
   </div>
 
   {% block footer %}
-  <footer>
+  <footer class="text-sm bg-white border-t border-gray-400 text-gray-400 container w-full md:max-w-3xl mx-auto pb-3">
+    © Adrien Faure. Made with <a target="_blank" href="https://getzola.org">zola</a>.
   </footer>
   {% endblock footer %}
 

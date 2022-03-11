@@ -16,4 +16,4 @@ highlight_code = true
 highlight_theme = "base16-ocean-dark"
 
 [extra]
-menu_items = [ "Blog", "Research", "Teaching" ]
+menu_items = [ "Blog", "Projects" ]
