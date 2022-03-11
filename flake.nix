@@ -26,8 +26,8 @@
             "^templates/.*"
             "^themes"
             "^themes/.*"
-            "^sass/.*"
-            "^sass/.*\.scss"
+            "^styles/.*"
+            "^styles/.*\.css"
             "config.toml"
           ];
           base-url = "https://batsim.org";
