@@ -1,9 +1,9 @@
 {% macro nav(website_title, menu_items, active_item="") %}
-<nav id="header" class="w-full z-10 top-0 shadow-md">
+<nav id="header" class="w-full z-10 top-0 shadow-md mx-0">
   <div id="progress" class="top-0"></div>
   <div class="w-full md:max-w-4xl mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
     <div class="pl-4">
-      <a class="text-lg text-gray-900 text-base no-underline hover:no-underline font-extrabold text-xl" href="{{ config.base_url }}">
+      <a class="text-gray-900 text-base no-underline hover:no-underline font-extrabold" href="{{ config.base_url }}">
         {{ website_title }}
       </a>
     </div>
