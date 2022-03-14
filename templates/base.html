@@ -4,6 +4,9 @@
 <html lang="en">
 
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
   {% block head %}
     <meta charset="utf-8">
     {{ macros_head::stylesheet() }}
@@ -17,7 +20,7 @@
   {% endblock head %}
 </head>
 
-<body class="bg-white font-sans leding-normal tracking-normal">
+<body class="bg-white font-sans leading-normal tracking-normal">
 
   <!-- Top nav bar -->
   {% block nav %}
@@ -25,16 +28,16 @@
   {% endblock nav %}
 
   <!-- Container -->
-  <div class="container w-full md:max-w-3xl mx-auto pb-8 px-3">
-    <div class="leading-normal" style="font-family:Georgia,serif;">
-    {% block content %}
-    {% endblock content %}
-    </div>
-  </div>
+  {% block content %}
+  {% endblock content %}
+
+  <!-- <div class="sticky bottom-0 px-3">
+    <a href="#page-top">Back to top of page</a>
+  </div> -->
 
   {% block footer %}
-  <footer class="text-sm bg-white border-t border-gray-400 text-gray-400 container w-full md:max-w-3xl mx-auto pb-3">
-    © Adrien Faure. Made with <a target="_blank" href="https://getzola.org">zola</a>.
+  <footer class="text-sm bg-white border-t border-gray-400 text-gray-400 container max-w-4xl mx-auto mt-8">
+    © {{ config.title }}. Made with <a target="_blank" href="https://getzola.org">zola</a>.
   </footer>
   {% endblock footer %}
 

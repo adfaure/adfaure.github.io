@@ -2,17 +2,24 @@
 
 {% block content %}
 
-<div class="font-sans">
-  <h1 class="font-bold font-sans break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl">Welcome to Minimal Blog</h1>
-  <p class="text-sm md:text-base font-normal text-gray-600">Published 19 February 2019</p>
+<div class="container max-w-4xl mx-auto">
+  <div class="flex py-10 md:flex-row flex-wrap sm:flex-nowrap px-8 justify-center">
+    <div class="basis-full sm:basis-2/5 sm:px-3">
+      <div class="container mx-auto">
+        <img class="object-center w-52 h-52 rounded-full mx-auto" src="{{ config.base_url }}/img/kodama.png" alt="Profile image"/>
+        <h1 class="text-center font-bold break-normal text-gray-900 text-3xl py-1">{{ config.title }}</h1>
+        {% if section.extra.title %}
+        <h2 class="text-center font-bold break-normal text-gray-400 text-lg py-1">{{ section.extra.title }}</h2>
+        {% endif %}
+      </div>
+    </div>
+    <div class="basis-full sm:basis-3/5 sm:px-1">
+      <h1 class="font-bold font-sans break-normal text-gray-900 text-3xl py-1">Biography</h1>
+      <article class="prose prose-indigo prose max-w-3xl">
+      {{ section.content | safe }}
+      </article>
+    </div>
+  </div>
 </div>
-
-<p>Click <a href="/blog/">here</a> to see my posts.</p>
-
-<p class="py-6">
-  👋 Welcome fellow <a class="text-green-500 no-underline hover:underline" href="https://www.tailwindcss.com">Tailwind CSS</a> and miminal monochrome blog fan. This starter template provides a starting point to create your own minimal monochrome blog using Tailwind CSS and vanilla Javascript.
-</p>
-
-<p class="py-6">The basic blog page layout is available and all using the default Tailwind CSS classes (although there are a few hardcoded style tags). If you are going to use this in your project, you will want to convert the classes into components.</p>
 
 {% endblock content %}

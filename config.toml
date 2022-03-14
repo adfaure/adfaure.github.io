@@ -23,4 +23,8 @@ highlight_code = true
 highlight_theme = "base16-ocean-dark"
 
 [extra]
-menu_items = [ "Blog", "Projects" ]
+menu_items = [
+  { path = "blog", name = "Blog" },
+  { path = "projects", name = "Projects" },
+  { path = "contact", name = "Contact" }
+]
