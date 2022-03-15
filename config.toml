@@ -9,8 +9,6 @@ title = "Adrien Faure"
 # Whether to build a search index to be used later on by a JavaScript library
 build_search_index = false
 
-minify_html = true
-
 # Various slugification strategies, see below for details
 # Defaults to everything being a slug
 [slugify]
