@@ -7,11 +7,11 @@
 
 {% block content %}
 
-{% set bibtex_path = page.permalink ~ "bib" -%}
-{% set plaintex = load_data(url=bibtex_path, required=false, format="plain") -%}
+{% set bibtex_path = page.path ~ "bib" -%}
+{% set plaintex = load_data(path=bibtex_path, required=false, format="plain") -%}
 
 {% if plaintex %}
-  {% set bibtex = load_data(url=bibtex_path, required=false, format="bibtex") -%}
+  {% set bibtex = load_data(path=bibtex_path, required=false, format="bibtex") -%}
   {% set bibdata = bibtex.bibliographies[0].tags -%}
 {% endif %}
 

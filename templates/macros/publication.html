@@ -1,6 +1,6 @@
 {% macro publication_summary(page) -%}
-{% set bibtex_path = page.permalink ~ "bib" -%}
-{% set bibtex = load_data(url=bibtex_path, required=false, format="bibtex") -%}
+{% set bibtex_path = page.path ~ "bib" -%}
+{% set bibtex = load_data(path=bibtex_path, required=false, format="bibtex") -%}
 
 {% if bibtex %}
   {% set bibdata = bibtex.bibliographies[0].tags -%}
