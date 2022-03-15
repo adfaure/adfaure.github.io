@@ -14,15 +14,7 @@
   <ul>
   {% for page in section.pages %}
     <li class="pb-3">
-      <a  href="{{ page.permalink | safe }}">
-        <h2 class="text-1xl font-bold text-sky-600">{{ page.title }}</h2>
-        {% if page.summary %}
-        <p class="pb-1"> {{ page.summary | safe }} </p>
-        {% elif page.description %}
-        <p class="pb-1"> {{ page.description | safe }} </p>
-        {% endif %}
-        <p class="text-sm text-slate-400"> {{ page.date }} • wordcount: {{ page.word_count }} • {{ page.reading_time }} min read </p>
-      </a>
+      {{ blog::page_summary(page=page) }}
     </li>
   {% endfor %}
   </ul>

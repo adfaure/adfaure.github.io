@@ -1,4 +1,5 @@
 {% import 'macros/contact.html' as macros_contact -%}
+{% import 'macros/blog.html' as macros_blog -%}
 
 {% macro contact_from_config(section, config) %}
   {% set email = "" %}
@@ -14,5 +15,26 @@
   {% endif %}
   <a name="contacts"></a>
   {{ macros_contact::contact_list(title="Contact", links=links, email=email) }}
+  </div>
+{% endmacro %}
+
+{% macro section_index_summary(section_path, title="") %}
+  {% set section = get_section(path=section_path) %}
+
+  <div class="flex sm:flex-row flex-col py-4">
+    <div class="sm:basis-1/2 grow pb-4 sm:pb-0">
+      <div class="prose">
+        <h2 class="">{{ title }} <h2>
+      </div>
+    </div>
+    <div class="sm:basis-1/2 grow">
+      <ul>
+        {% for page in section.pages | slice(end=2) %}
+          <li class="pb-3">
+            {{ blog::page_summary(page=page) }}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
   </div>
 {% endmacro %}
