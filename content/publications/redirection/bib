@@ -1,0 +1,18 @@
+@inproceedings{DBLP:conf/ipps/FaureLRT20,
+  author    = {Adrien Faure and
+               Giorgio Lucarelli and
+               Olivier Richard and
+               Denis Trystram},
+  title     = {Online Scheduling with Redirection for Parallel Jobs},
+  booktitle = {2020 IEEE International Parallel and Distributed Processing Symposium
+               Workshops, IPDPSW 2020, New Orleans, LA, USA, May 18-22, 2020},
+  abstract = {An important component of High Performance Computing (HPC) clusters is the job scheduling algorithm, which decides the allocation and the scheduling of the jobs in the system. Such scheduling algorithms need to be scalable to confront the growth both in size and in complexity of the modern clusters. We propose in this paper a new algorithm for scheduling parallel jobs with redirection. Specifically, our algorithm redirects the jobs whose execution affects significantly an important number of other jobs. A redirected job is stopped and restarted from the beginning in a dedicated part of the cluster. We show the effectiveness of our method through an intensive experimental campaign of simulations of production cluster log traces.},
+  pages     = {326--329},
+  publisher = {{IEEE}},
+  year      = {2020},
+  url       = {https://doi.org/10.1109/IPDPSW50202.2020.00066},
+  doi       = {10.1109/IPDPSW50202.2020.00066},
+  timestamp = {Thu, 01 Apr 2021 15:25:02 +0200},
+  biburl    = {https://dblp.org/rec/conf/ipps/FaureLRT20.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}

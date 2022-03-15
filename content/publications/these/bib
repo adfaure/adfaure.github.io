@@ -1,0 +1,12 @@
+@phdthesis{DBLP:phd/hal/Faure20,
+  author    = {Adrien Faure},
+  title     = {Advanced Simulation for Resource Management. (Simulation avancée
+               pour la gestion de ressources des superordinateurs)},
+  school    = {Grenoble Alpes University, France},
+  year      = {2020},
+  url       = {https://tel.archives-ouvertes.fr/tel-03155702},
+  timestamp = {Thu, 01 Apr 2021 15:24:56 +0200},
+  biburl    = {https://dblp.org/rec/phd/hal/Faure20.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org},
+  abstract  = {High-Performance Computing (HPC) provides the computational power dedicated to solving complex problems of our society.  HPC computers are large scale and distributed infrastructures composed of several thousands of computing cores. The management of theses systems is left to unique software: the Resource and Job Management System (RJMS). The objective of the RJMS is multiple: Managing the physical infrastructure, and handling the user requests to access to the computing power. The scheduling algorithm is the cornerstone of the RJMS, it decides where and when the user's jobs will be executed. Scheduling is a difficult problem; to manage large scale platforms RJMS needs to dispose of efficient yet scalable scheduling heuristics Evaluating and testing new scheduling algorithms is crucial before releasing it in production. Any failure can have a dramatic impact on the HPC platform leading to wasted time, energy, and resources. The lack of a platform dedicated experiments and tests compels RJMS designers and HPC center's administrators to use different tools and methodologies to evaluate new algorithms. In the first part of this dissertation, we present and evaluate a new scheduling heuristics with job redirection. The evaluation is done using a large simulation campaign, it results that by redirecting jobs can improve the efficiency of the scheduling. In the second part, we focus on and extend the tools and methodologies available to experiment with RJMS. This part is twofold: Firstly, we propose to extend scheduling simulations with job models to simulate network contention between jobs. Secondly, we propose new tools that enable experiment with production RJMS without the need for an HPC platform. This dissertation aims to broaden the experimental landscape of tools and methodologies to experiment with RJMS and therefore help the release in the production of new scheduling algorithms.},
+}

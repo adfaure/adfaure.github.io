@@ -28,5 +28,6 @@ contact_in_index = true
 menu_items = [
   { path = "blog", name = "Blog" },
   { path = "projects", name = "Projects" },
-  { path = "#contacts", name = "Contact" }
+  { path = "publications", name = "Research"},
+  { path = "#contacts", name = "Contact" },
 ]

@@ -19,7 +19,7 @@
       </article>
       <div class="flex md:flex-row flex-wrap sm:flex-nowrap justify-center container mx-auto max-w-4xl sm:py-10 py-4">
         <div class="basis-full sm:basis-1/2 pb-4">
-          <h2 class="font-bold font-sans break-normal text-gray-900 text-2xl py-1">Interest</h2>
+          <h2 class="font-bold font-sans break-normal text-gray-900 text-2xl py-1">Interests</h2>
           <ul class="list-disc pl-4">
             {% for interest in section.extra.interests %}
             <li class="py-1"> {{ interest }} </li>
@@ -55,7 +55,7 @@
 
   {% if config.extra.contact_in_index and config.extra.contact_in_index == true %}
   <div class="">
-    <div class="container max-w-4xl mx-auto px-4 py-8">
+    <div class="container max-w-4xl mx-auto px-4">
      {{ macros::contact_from_config(section=section, config=config) }}
     </div>
   </div>
