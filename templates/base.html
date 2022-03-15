@@ -16,40 +16,34 @@
   {% block head %}
     <meta charset="utf-8">
     {{ macros_head::stylesheet() }}
-    {% block css %}
+    {% block css -%}
+    {% endblock css -%}
 
-    {% endblock css %}
-
-    {% block title %}
+    {% block title -%}
       <title>{{ config.title  }}</title>
-    {% endblock title %}
-  {% endblock head %}
+    {% endblock title -%}
+  {% endblock head -%}
 </head>
 
 <body class="bg-white">
-
   <!-- Top nav bar -->
-  {% block nav %}
+  {% block nav -%}
     {{ macros_nav::nav(website_title=config.title, menu_items=config.extra.menu_items) }}
-  {% endblock nav %}
-
+  {% endblock nav -%}
   <!-- Container -->
-  {% block content %}
-  {% endblock content %}
-
+  {% block content -%}
+  {% endblock content -%}
   <!-- <div class="sticky bottom-0 px-3">
     <a href="#page-top">Back to top of page</a>
   </div> -->
-
-  {% block footer %}
+  {% block footer -%}
   <footer class="bg-white">
     <div class="bg-white text-gray-400 container max-w-4xl mx-auto my-8 px-4">
     © {{ config.title }}. Made with <a class="underline" target="_blank" href="https://getzola.org">zola</a>, inspired by <a class="underline" target="_blank" href="https://wowchemy.com/"> wowchemy</a> academic theme.
-      </div>
-  </div>
+    </div>
   </footer>
-  {% endblock footer %}
+  {% endblock footer -%}
 
 </body>
 
-</html
+</html>

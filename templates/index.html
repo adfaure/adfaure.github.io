@@ -67,13 +67,11 @@
     </div>
   </div>
 
-  {% if config.extra.contact_in_index and config.extra.contact_in_index == true %}
+  {% if config.extra.contact_in_index and config.extra.contact_in_index == true -%}
   <div class="bg-gray-50">
     <div class="container max-w-4xl mx-auto px-4">
      {{ macros::contact_from_config(section=section, config=config) }}
     </div>
   </div>
-  {% endif %}
-
-</div>
+  {% endif -%}
 {% endblock content %}

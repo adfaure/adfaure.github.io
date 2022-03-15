@@ -8,16 +8,16 @@
   </div>
   <div class="sm:basis-1/2 grow">
     <ul>
-      {% if email %}
+      {% if email -%}
       <li class="font-bold text-lg pb-4 text-blue-600 hover:text-blue-800 visited:text-purple-600">
       <i>{{ icons::factory(icon="mail",classes="inline h-6 w-6 flex-no-shrink") }}</i>
       <a href="mailto:{{ email }}"> {{ email }} </a></li>
-      {% endif %}
-      {% for link in links %}
+      {% endif -%}
+      {% for link in links -%}
       <li class="font-bold text-lg pb-4 text-blue-600 hover:text-blue-800 visited:text-purple-600">
-        {% if link.icon %}<i>{{ icons::factory(icon=link.icon,classes="inline h-6 w-6 flex-no-shrink") }}</i>{% endif %}
+        {% if link.icon -%}<i>{{ icons::factory(icon=link.icon,classes="inline h-6 w-6 flex-no-shrink") }}</i>{% endif -%}
         <a target="_blank" href="{{ link.link }}"> {{ link.name }} </a></li>
-      {% endfor %}
+      {% endfor -%}
     </ul>
   </div>
 </div>
