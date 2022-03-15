@@ -32,11 +32,13 @@
           name = "batsite-${version}";
           src = pkgs.lib.sourceByRegex ./. [
             "^content"
-            "^content/.*\.md"
+            "^content/.*"
             "^static"
             "^static/.*"
             "^templates"
             "^templates/.*"
+            "^templates/macros"
+            "^templates/macros.*"
             "^themes"
             "^themes/.*"
             "^styles"
@@ -47,6 +49,7 @@
           buildInputs = [
             pkgs.zola
             pkgs.nodePackages.npm
+            pkgs.tree
           ];
 
           checkPhase = ''
@@ -54,6 +57,8 @@
           '';
 
           buildPhase = ''
+            tree
+
             ln -s ${nodeDependencies}/lib/node_modules ./node_modules
             export PATH="${nodeDependencies}/bin:$PATH"
 
