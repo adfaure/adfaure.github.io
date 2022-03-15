@@ -10,10 +10,15 @@
 <html lang="en">
 
 <head>
+
+  {% set favicon = resize_image(path="static/img/kodama.png", format="png", width=32, height=32) %}
+  <link rel="shortcut icon" href="{{ favicon.url }}" type="image/png">
+  <link rel="icon" href="{{ favicon.url }}" type="image/png">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-  {% block head %}
+  {% block head -%}
     <meta charset="utf-8">
     {{ macros_head::stylesheet() }}
     {% block css -%}
