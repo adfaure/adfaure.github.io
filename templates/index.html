@@ -1,10 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-<div class="container max-w-4xl mx-auto">
-  <div class="flex py-10 md:flex-row flex-wrap sm:flex-nowrap px-8 justify-center">
-    <div class="basis-full sm:basis-2/5 sm:px-3">
+<div class="">
+  <div class="flex md:flex-row flex-wrap sm:flex-nowrap justify-center container mx-auto max-w-5xl py-10 px-3">
+    <div class="basis-full sm:basis-2/5 ">
       <div class="container mx-auto">
         <img class="object-center w-52 h-52 rounded-full mx-auto" src="{{ config.base_url }}/img/kodama.png" alt="Profile image"/>
         <h1 class="text-center font-bold break-normal text-gray-900 text-3xl py-1">{{ config.title }}</h1>
@@ -13,13 +12,48 @@
         {% endif %}
       </div>
     </div>
-    <div class="basis-full sm:basis-3/5 sm:px-1">
-      <h1 class="font-bold font-sans break-normal text-gray-900 text-3xl py-1">Biography</h1>
-      <article class="prose prose-indigo prose max-w-3xl">
+    <div class="basis-full sm:basis-3/5">
+      <h1 class="font-bold font-sans break-normal text-gray-900 text-3xl sm:text-5xl pb-4">Biography</h1>
+      <article class="prose prose-indigo prose">
       {{ section.content | safe }}
       </article>
+      <div class="flex md:flex-row flex-wrap sm:flex-nowrap justify-center container mx-auto max-w-4xl sm:py-10 py-4">
+        <div class="basis-full sm:basis-1/2 pb-4">
+          <h2 class="font-bold font-sans break-normal text-gray-900 text-2xl py-1">Interest</h2>
+          <ul class="list-disc pl-4">
+            {% for interest in section.extra.interests %}
+            <li class="py-1"> {{ interest }} </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="basis-full sm:basis-1/2">
+          <h2 class="font-bold font-sans break-normal text-gray-900 text-2xl py-1">Education</h2>
+          <ul class="">
+            {% for course in section.extra.education.courses %}
+            <li class="py-1">
+              <div class="flex flex-row flex-wrap">
+                <div class="basis-full">
+                  <i>{{ icons::academic(classes="inline h-6 w-6 flex-no-shrink") }}</i> {{ course.course }}, {{ course.year }}
+                </div>
+                <div class="basis-full text-gray-400">
+                {{ course.institution }}
+                </div>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 
+  {% if config.extra.contact_in_index and config.extra.contact_in_index == true %}
+  <div class="bg-gray-50">
+    <div class="container max-w-4xl mx-auto px-4">
+     {{ macros::contact_from_config(section=section, config=config) }}
+    </div>
+  </div>
+  {% endif %}
+
+</div>
 {% endblock content %}

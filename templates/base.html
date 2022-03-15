@@ -1,5 +1,8 @@
 {% import 'macros/head.html' as macros_head -%}
 {% import 'macros/nav.html' as macros_nav -%}
+{% import 'macros/macros.html' as macros -%}
+{% import 'macros/icons.html' as icons -%}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +23,7 @@
   {% endblock head %}
 </head>
 
-<body class="bg-white font-sans leading-normal tracking-normal">
+<body class="bg-white">
 
   <!-- Top nav bar -->
   {% block nav %}
@@ -36,8 +39,11 @@
   </div> -->
 
   {% block footer %}
-  <footer class="text-sm bg-white border-t border-gray-400 text-gray-400 container max-w-4xl mx-auto mt-8">
+  <footer class="bg-white">
+    <div class="bg-white text-gray-400 container max-w-4xl mx-auto my-8">
     © {{ config.title }}. Made with <a target="_blank" href="https://getzola.org">zola</a>.
+      </div>
+  </div>
   </footer>
   {% endblock footer %}
 
