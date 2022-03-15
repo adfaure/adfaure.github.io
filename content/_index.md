@@ -32,9 +32,21 @@ interests = [
   institution = "Université Lyon 1"
   year = 2014
 
+[[extra.avatar_icons]]
+  icon = "github"
+  link = "https://github.com/adfaure"
+[[extra.avatar_icons]]
+  icon = "gitlab"
+  link = "https://gitlab/adfaure"
+[[extra.avatar_icons]]
+  icon = "linkedin"
+  link = "https://www.linkedin.com/in/adrien-faure-9958978b/"
+[[extra.avatar_icons]]
+  icon = "goodreads"
+  link = "https://www.goodreads.com/user/show/82099752-adrien"
 +++
 
-Hello, my name is Adrien Faure, I recently finished a PhD in computer science and I am looking for a computer scientist position in Grenoble.
+Hello, my name is Adrien Faure, I recently finished a PhD in computer science.
 
 My PhD is about resources management for High Performance Computing platforms.
 Today, I am interested in distributed systems, such as cloud and edge systems.

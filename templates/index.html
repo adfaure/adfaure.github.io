@@ -10,6 +10,13 @@
         {% if section.extra.title %}
         <h2 class="text-center font-bold break-normal text-gray-400 text-lg py-1">{{ section.extra.title }}</h2>
         {% endif %}
+        <div class="flex flex-row flex-wrap container py-10 justify-center">
+          {% for icon in section.extra.avatar_icons %}
+            <div class="basis p-3 ">
+              <a href="{{icon.link}}" target="_blank"><i>{{ icons::factory(icon=icon.icon,classes="inline h-12 w-12 flex-no-shrink stroke-blue-600 hover:stroke-blue-800 visited:stroke-purple-600 fill-blue-600 visited:fill-purple-600 hover:fill-blue-800 ") }}</i></a>
+            </div>
+          {% endfor %}
+        </div>
       </div>
     </div>
     <div class="basis-full sm:basis-3/5">
@@ -33,7 +40,7 @@
             <li class="py-1">
               <div class="flex flex-row flex-wrap">
                 <div class="basis-full">
-                  <i>{{ icons::academic(classes="inline h-6 w-6 flex-no-shrink") }}</i> {{ course.course }}, {{ course.year }}
+                  <i>{{ icons::factory(icon="academic",classes="inline h-6 w-6 flex-no-shrink") }}</i> {{ course.course }}, {{ course.year }}
                 </div>
                 <div class="basis-full text-gray-400">
                 {{ course.institution }}
@@ -53,8 +60,14 @@
     </div>
   </div>
 
+  <div class="bg-white">
+    <div class="container max-w-4xl mx-auto px-4 py-8">
+     {{ macros::section_index_summary(section_path="publications/_index.md", title="Latest publications") }}
+    </div>
+  </div>
+
   {% if config.extra.contact_in_index and config.extra.contact_in_index == true %}
-  <div class="">
+  <div class="bg-gray-50">
     <div class="container max-w-4xl mx-auto px-4">
      {{ macros::contact_from_config(section=section, config=config) }}
     </div>
