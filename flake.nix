@@ -66,7 +66,7 @@
             npx tailwindcss -i styles/styles.css -o static/styles/styles.css
           '';
 
-          base-url = "https://batsim.org";
+          base-url = "https://adrien-faure.fr";
           installPhase = ''
             zola build -o $out --base-url ${base-url}
           '';
