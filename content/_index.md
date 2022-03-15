@@ -37,7 +37,7 @@ interests = [
   link = "https://github.com/adfaure"
 [[extra.avatar_icons]]
   icon = "gitlab"
-  link = "https://gitlab/adfaure"
+  link = "https://gitlab.com/adfaure"
 [[extra.avatar_icons]]
   icon = "linkedin"
   link = "https://www.linkedin.com/in/adrien-faure-9958978b/"
