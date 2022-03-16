@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  
+  <link rel="shortcut icon" href="https:&#x2F;&#x2F;adfaure.github.io&#x2F;kodam&#x2F;processed_images&#x2F;0ffc25decafb1c3b00.png" type="image/png">
+  <link rel="icon" href="https:&#x2F;&#x2F;adfaure.github.io&#x2F;kodam&#x2F;processed_images&#x2F;0ffc25decafb1c3b00.png" type="image/png">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+  <meta charset="utf-8">
+    
+<!-- CSS -->
+<link rel="stylesheet" href="https://adfaure.github.io/kodam/styles/styles.css" />
+
+    <title>Adrien Faure</title>
+    </head>
+
+<body class="bg-white">
+  <!-- Top nav bar -->
+  
+  
+  
+<nav id="header" class="w-full z-10 top-0 shadow-md mx-0">
+  <div id="progress" class="top-0"></div>
+  <!-- <div class="w-full max-w-5xl mx-auto flex flex-wrap items-center justify-between mt-0 py-2  sm:bg-green-900 md:bg-red-900 lg:bg-blue-900 bg-yellow-900"> -->
+  <div class="w-full max-w-4xl mx-auto flex sm:flex-nowrap flex-wrap items-center justify-between mt-0 py-2">
+    <div class="pl-4">
+      <a class="text-gray-900 text-base no-underline hover:no-underline font-extrabold" href="https:&#x2F;&#x2F;adfaure.github.io&#x2F;kodam&#x2F;">
+        Adrien Faure
+      </a>
+    </div>
+
+    <div class="w-full flex-grow sm:flex sm:items-center flex-wrap sm:flex-nowrap sm:w-auto sm:block mt-2 sm:mt-0 bg-transparent z-20" id="nav-content">
+      <ul class="list-reset flex flex-wrap sm:justify-end flex-1 items-center">
+          <li class="mr-3 text-sm">
+              <a href=https://adfaure.github.io/kodam/blog class="inline-block py-2 px-4 text-sky-600 font-bold no-underline" href="#">
+                Blog
+              </a>
+            </li>
+            <li class="mr-3 text-sm">
+              <a href=https://adfaure.github.io/kodam/projects class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4" href="#">
+                Projects
+              </a>
+            </li>
+            <li class="mr-3 text-sm">
+              <a href=https://adfaure.github.io/kodam/publications class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4" href="#">
+                Publications
+              </a>
+            </li>
+            <li class="mr-3 text-sm">
+            <a href=https://adfaure.github.io/kodam/#contacts class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4" href="#">
+              Contact
+            </a>
+          </li>
+          </ul>
+    </div>
+  </div>
+
+</nav>
+
+<!-- Container -->
+  
+<div class="container max-w-3xl mx-auto px-4">
+  <div class="pt-8 flex flex">
+    <h1 class="grow font-bold font-sans break-normal text-gray-900 text-3xl">Gantt charts</h1>
+    <p class="text-sm md:text-base font-normal text-gray-600 py-2">Published 2019-03-02</p>
+  </div>
+  <hr class="border-b-1 border-gray-400 mb-8">
+  
+  <p class="pb-4 text-gray-600"> <span class="font-bold">TLDR.</span> <a>lol</a> </p>
+  
+  <article class="prose prose-indigo prose max-w-3xl">
+    <h2 id="tl-dr">TL;DR<a class="zola-anchor" href="#tl-dr" aria-label="Anchor link for: tl-dr">🔗</a></h2>
+<ul>
+<li>You can use the library collection
+<a href="https://www.tidyverse.org/">Tidyverse</a>, to draw and customize Gantt
+charts from batsim simulations.</li>
+<li>For Batsim &gt; 3.0 you may need to change <code>allocated_resources</code> to
+<code>allocated_processors</code>.</li>
+<li><strong>You can use the function below to skip everything and start
+plotting</strong></li>
+</ul>
+<pre data-lang="r" style="background-color:#2b303b;color:#c0c5ce;" class="language-r "><code class="language-r" data-lang="r"><span style="color:#96b5b4;">library</span><span>(tidyverse)
+</span><span>
+</span><span style="color:#8fa1b3;">draw_gantt </span><span>&lt;- </span><span style="color:#b48ead;">function</span><span>(</span><span style="color:#bf616a;">workload_path</span><span>) {
+</span><span>
+</span><span>  workload &lt;- </span><span style="color:#bf616a;">read_csv</span><span>(workload_path)
+</span><span>  </span><span style="color:#65737e;"># Data processing to have a ggplot friendly formatting
+</span><span>  workload_sep &lt;- workload %&gt;%
+</span><span>    </span><span style="color:#65737e;"># We split the jobs into one row per allocation bloque
+</span><span>    </span><span style="color:#bf616a;">separate_rows</span><span>(allocated_processors, </span><span style="color:#bf616a;">sep</span><span>=&quot; &quot;) %&gt;%
+</span><span>    </span><span style="color:#65737e;"># We create two columns, one for the block (min resource and max)
+</span><span>    </span><span style="color:#bf616a;">separate</span><span>(allocated_processors, </span><span style="color:#bf616a;">into </span><span>= </span><span style="color:#96b5b4;">c</span><span>(&quot;</span><span style="color:#a3be8c;">psetmin</span><span>&quot;, &quot;</span><span style="color:#a3be8c;">psetmax</span><span>&quot;), </span><span style="color:#bf616a;">fill</span><span>=&quot;</span><span style="color:#a3be8c;">right</span><span>&quot;) %&gt;%
+</span><span>    </span><span style="color:#bf616a;">mutate</span><span>(</span><span style="color:#bf616a;">psetmax </span><span>= </span><span style="color:#96b5b4;">as.integer</span><span>(psetmax), </span><span style="color:#bf616a;">psetmin </span><span>= </span><span style="color:#96b5b4;">as.integer</span><span>(psetmin)) %&gt;%
+</span><span>    </span><span style="color:#bf616a;">mutate</span><span>(</span><span style="color:#bf616a;">psetmax </span><span>= </span><span style="color:#96b5b4;">ifelse</span><span>(</span><span style="color:#96b5b4;">is.na</span><span>(psetmax), psetmin, psetmax))
+</span><span>
+</span><span>  </span><span style="color:#65737e;"># Start ploting
+</span><span>  workload_sep  %&gt;% 
+</span><span>    </span><span style="color:#bf616a;">ggplot</span><span>(</span><span style="color:#bf616a;">aes</span><span>( </span><span style="color:#bf616a;">xmin</span><span>=starting_time,
+</span><span>                </span><span style="color:#bf616a;">ymin</span><span>=psetmin,
+</span><span>                </span><span style="color:#bf616a;">ymax</span><span>=psetmax + </span><span style="color:#d08770;">0.9</span><span>,
+</span><span>                </span><span style="color:#bf616a;">xmax</span><span>=finish_time,
+</span><span>                </span><span style="color:#bf616a;">fill</span><span>=workload_name)) +
+</span><span>    </span><span style="color:#65737e;"># We draw the rectangle
+</span><span>    </span><span style="color:#bf616a;">geom_rect</span><span>(</span><span style="color:#bf616a;">alpha</span><span>=</span><span style="color:#d08770;">0.6</span><span>,</span><span style="color:#bf616a;">color</span><span>=&quot;</span><span style="color:#a3be8c;">black</span><span>&quot;, </span><span style="color:#bf616a;">size</span><span>=</span><span style="color:#d08770;">0.1</span><span>) +
+</span><span>    </span><span style="color:#65737e;"># We add the label in the middle of the block
+</span><span>    </span><span style="color:#bf616a;">geom_text</span><span>(</span><span style="color:#bf616a;">aes</span><span>(</span><span style="color:#bf616a;">x</span><span>=starting_time +(finish_time-starting_time)/</span><span style="color:#d08770;">2</span><span>, </span><span style="color:#65737e;"># size=stretch,
+</span><span>                </span><span style="color:#bf616a;">y</span><span>=psetmin+((psetmax-psetmin)/</span><span style="color:#d08770;">2</span><span>)+</span><span style="color:#d08770;">0.5</span><span>,
+</span><span>                </span><span style="color:#bf616a;">label</span><span>=</span><span style="color:#96b5b4;">paste</span><span>(job_id, &quot;&quot;)), </span><span style="color:#bf616a;">alpha</span><span>=</span><span style="color:#d08770;">1</span><span>,</span><span style="color:#bf616a;">check_overlap </span><span>= </span><span style="color:#d08770;">TRUE</span><span>) +
+</span><span>    </span><span style="color:#65737e;"># We add the segment at the bottom of the gantt
+</span><span>    </span><span style="color:#bf616a;">geom_segment</span><span>(
+</span><span>      </span><span style="color:#bf616a;">aes</span><span>(</span><span style="color:#bf616a;">x</span><span>=submission_time,
+</span><span>          </span><span style="color:#bf616a;">y</span><span>=psetmin+</span><span style="color:#d08770;">0.1</span><span>,
+</span><span>          </span><span style="color:#bf616a;">xend</span><span>=starting_time,
+</span><span>          </span><span style="color:#bf616a;">yend</span><span>=psetmax
+</span><span>          ),
+</span><span>      </span><span style="color:#bf616a;">alpha</span><span>=</span><span style="color:#d08770;">1</span><span>,
+</span><span>      </span><span style="color:#bf616a;">size</span><span>=</span><span style="color:#d08770;">0.1</span><span>) +
+</span><span>    </span><span style="color:#65737e;"># On a white background
+</span><span>    </span><span style="color:#bf616a;">theme_bw</span><span>() +
+</span><span>    </span><span style="color:#bf616a;">ylab</span><span>(&quot;</span><span style="color:#a3be8c;">resources</span><span>&quot;) + </span><span style="color:#bf616a;">xlab</span><span>(&quot;</span><span style="color:#a3be8c;">time (in seconds)</span><span>&quot;) + </span><span style="color:#bf616a;">theme</span><span>(</span><span style="color:#bf616a;">legend.position </span><span>= &quot;</span><span style="color:#a3be8c;">none</span><span>&quot;) +
+</span><span>    </span><span style="color:#bf616a;">scale_color_viridis</span><span>(</span><span style="color:#bf616a;">discrete</span><span>=F) + </span><span style="color:#bf616a;">scale_fill_viridis</span><span>(</span><span style="color:#bf616a;">discrete</span><span>=T)
+</span><span>}
+</span></code></pre>
+<h3 id="the-files">The files<a class="zola-anchor" href="#the-files" aria-label="Anchor link for: the-files">🔗</a></h3>
+<ul>
+<li><a href="/files/GanttCharts.Rmd">The notebook</a></li>
+<li><a href="/files/jobs.csv">The jobs file used in this notebook</a></li>
+</ul>
+<h2 id="batsim">Batsim<a class="zola-anchor" href="#batsim" aria-label="Anchor link for: batsim">🔗</a></h2>
+<p><a href="https://gitlab.inria.fr/batsim/batsim">Batsim</a> is a simulator
+essentially developed into my team at the laboratory of Grenoble.</p>
+<p>To describe it simply, batsim is a simulator of batch scheduler designed
+for distributed platforms, such as an High Performance Computing
+cluster. Its strength lies in the ease to design scheduling algorithm in
+any languages, thanks to a network API.</p>
+<p>However, this post does not focus on how to use batsim but on how we can
+leverage the great ggplot2 API to draw a Gantt chart from output simulations. I
+will therefore assume that you already know batsim and how to use it.
+For more informations, you can always refer to the
+<a href="https://batsim.readthedocs.io/en/latest">documentation</a>, or send me an
+email :) .</p>
+<h2 id="visualisations">Visualisations<a class="zola-anchor" href="#visualisations" aria-label="Anchor link for: visualisations">🔗</a></h2>
+<h3 id="r-and-ggplot2">R and ggplot2<a class="zola-anchor" href="#r-and-ggplot2" aria-label="Anchor link for: r-and-ggplot2">🔗</a></h3>
+<p>Ggplot2, is a R library designed to plot data, it comes within a
+collection of R library called <a href="https://www.tidyverse.org/">Tidyverse</a>.
+Tidyverse is very handy when it comes to data manipulations. One can
+cite:</p>
+<ul>
+<li><a href="https://readr.tidyverse.org/">readr</a> that loads data and detect
+anomalies, formatting etc.</li>
+<li><a href="https://dplyr.tidyverse.org">dplyr</a> for data manipulations.</li>
+<li><a href="https://ggplot2.tidyverse.org/">ggplot2</a> for visualizations.</li>
+</ul>
+<p>I wont go in any details on the design and architecture of these
+libraries, however if you are interested to go further into it, the
+related book (<a href="https://r4ds.had.co.nz/">R for datascience</a>) can be a
+good point to start.</p>
+<pre data-lang="r" style="background-color:#2b303b;color:#c0c5ce;" class="language-r "><code class="language-r" data-lang="r"><span style="color:#96b5b4;">library</span><span>(tidyverse) </span><span style="color:#65737e;"># Tidyverse library collection
+</span><span style="color:#96b5b4;">library</span><span>(viridis) </span><span style="color:#65737e;"># Nice color palette
+</span></code></pre>
+<h3 id="gantt-charts">Gantt charts<a class="zola-anchor" href="#gantt-charts" aria-label="Anchor link for: gantt-charts">🔗</a></h3>
+<p>When doing experiments on complicated problems such as scheduling, we
+need to understand what is happening. You can use statistics, but in
+some cases it may give you intuitions on what is happening. However your
+answer may lie in the details. Thankfully, to study scheduling we can
+use Gantt charts which is a 2D representation of tasks, resources and
+time.</p>
+<p>The example below shows an example of a Gantt chart made with gglot2.
+Every chart created in this plot are reproducible, and the file that
+contains the job is available <a href="/files/job.csv">here</a>.</p>
+<p><img src="/img/unnamed-chunk-2-1.png" alt="" /><!-- --></p>
+<h2 id="evalys">Evalys<a class="zola-anchor" href="#evalys" aria-label="Anchor link for: evalys">🔗</a></h2>
+<p><a href="https://github.com/oar-team/evalys/">Evalys</a> is a python library to
+deal with batsim output, and workloads of HPC jobs. Evalys, has a real
+application structures, and proposes a lot of other visualisations, such
+as the load of the system, the size of the queue. If you are more a
+python person, I suggest to directly use evalys.</p>
+<p>In my case, many of my scripts and visualisations of my workflow are in
+R. So to limit the number of ecosystems I need to use, I choose to plot
+my gantt in R.</p>
+<h2 id="from-batsim-output-to-gantt">From batsim output to gantt<a class="zola-anchor" href="#from-batsim-output-to-gantt" aria-label="Anchor link for: from-batsim-output-to-gantt">🔗</a></h2>
+<p>The first thing to do is to set up your R environment, for that you can
+install R and the libraries I introduced earlier. The installation
+details are detailed here: <a href="https://www.tidyverse.org/packages/">https://www.tidyverse.org/packages/</a>.</p>
+<p>Once the installation is done, we can start to work with the data. The
+next thing you need is an output from batsim, in this blog I use an
+output from one of my simulations. You can download it
+<a href="files/jobs.csv">here</a> if you want to play with it.</p>
+<p>We can load the jobs with the following block code and explore the data.</p>
+<pre data-lang="r" style="background-color:#2b303b;color:#c0c5ce;" class="language-r "><code class="language-r" data-lang="r"><span>workload &lt;- </span><span style="color:#bf616a;">read_csv</span><span>(&quot;</span><span style="color:#a3be8c;">jobs.csv</span><span>&quot;)
+</span><span>
+</span><span style="color:#65737e;"># Print the colnames
+</span><span style="color:#96b5b4;">colnames</span><span>(workload)
+</span></code></pre>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>##  [1] &quot;job_id&quot;                         &quot;hacky_job_id&quot;                  
+</span><span>##  [3] &quot;workload_name&quot;                  &quot;submission_time&quot;               
+</span><span>##  [5] &quot;requested_number_of_processors&quot; &quot;requested_time&quot;                
+</span><span>##  [7] &quot;success&quot;                        &quot;starting_time&quot;                 
+</span><span>##  [9] &quot;execution_time&quot;                 &quot;finish_time&quot;                   
+</span><span>## [11] &quot;waiting_time&quot;                   &quot;turnaround_time&quot;               
+</span><span>## [13] &quot;stretch&quot;                        &quot;consumed_energy&quot;               
+</span><span>## [15] &quot;allocated_processors&quot;
+</span></code></pre>
+<pre data-lang="r" style="background-color:#2b303b;color:#c0c5ce;" class="language-r "><code class="language-r" data-lang="r"><span style="color:#65737e;"># Print a few lines
+</span><span style="color:#96b5b4;">head</span><span>(workload)
+</span></code></pre>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>## # A tibble: 6 x 15
+</span><span>##   job_id hacky_job_id workload_name submission_time requested_number_of_p…
+</span><span>##    &lt;int&gt;        &lt;int&gt; &lt;chr&gt;                   &lt;dbl&gt;                  &lt;int&gt;
+</span><span>## 1      0            0 0e8208                      0                     10
+</span><span>## 2      1           10 0e8208                    681                      4
+</span><span>## 3      2           20 0e8208                   3095                     16
+</span><span>## 4      3           30 0e8208                   3260                      1
+</span><span>## 5      4           40 0e8208                   3467                     16
+</span><span>## 6      5           50 0e8208                   8360                      4
+</span><span>## # ... with 10 more variables: requested_time &lt;dbl&gt;, success &lt;int&gt;,
+</span><span>## #   starting_time &lt;dbl&gt;, execution_time &lt;dbl&gt;, finish_time &lt;dbl&gt;,
+</span><span>## #   waiting_time &lt;dbl&gt;, turnaround_time &lt;dbl&gt;, stretch &lt;dbl&gt;,
+</span><span>## #   consumed_energy &lt;dbl&gt;, allocated_processors &lt;chr&gt;
+</span></code></pre>
+<p>In this CSV, each line is the record of a job. Each job has a submission
+time, a starting time, an execution time etc. One important column is
+the <code>allocated_processors</code> which correspond to the resources that have
+been allocated to the job. The format is the following: “0 3-5 10-15”,
+which means that the job was executed on the processors 0 3 4 5 10 11 12
+13 14 15. It is an important information as it the y axis of a Gantt.</p>
+<p>Now that we loaded the data, we want two print each jobs on a grid to
+create the gantt chart.</p>
+<p>However, the formatting of the allocated_processor does not directly
+give informations processable with ggplot2. Indeed, in order to be able
+to plot several squares by jobs, ggplot2 needs that we create as many
+rows as squares. Thus one row per job is not sufficient.</p>
+<p>For example the job 29 holds the resources from 0 to 11 and from 28 to
+43.</p>
+<pre data-lang="r" style="background-color:#2b303b;color:#c0c5ce;" class="language-r "><code class="language-r" data-lang="r"><span style="color:#65737e;"># I extract two jobs as an illustration
+</span><span style="color:#65737e;"># but the following will use these two jobs as an example.
+</span><span>three_jobs &lt;- workload %&gt;% </span><span style="color:#96b5b4;">filter</span><span>(job_id == </span><span style="color:#d08770;">29 </span><span>| job_id == </span><span style="color:#d08770;">27 </span><span>| job_id == </span><span style="color:#d08770;">33</span><span>)
+</span><span>three_jobs %&gt;% </span><span style="color:#bf616a;">select</span><span>(job_id, allocated_processors)
+</span></code></pre>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>## # A tibble: 3 x 2
+</span><span>##   job_id allocated_processors
+</span><span>##    &lt;int&gt; &lt;chr&gt;               
+</span><span>## 1     27 12-27               
+</span><span>## 2     29 0-11 28-43          
+</span><span>## 3     33 0-11 28-43
+</span></code></pre>
+<p>Basically, we need to draw a square by non-contiguous set of resources
+of a job. The solution is to split each jobs in rows (one row per
+square).</p>
+<p>Thankfully it is easy with tidyverse.</p>
+<p>I use the two following
+functions:</p>
+<ul>
+<li><a href="https://www.rdocumentation.org/packages/tidyr/versions/0.8.2/topics/separate_rows"><code>separate_rows</code></a>
+that split a rows in one or several rows according to a separator (a
+simple space in our case). We see that the jobs 29 and 33 now appear
+two times</li>
+</ul>
+<!-- end list -->
+<pre data-lang="r" style="background-color:#2b303b;color:#c0c5ce;" class="language-r "><code class="language-r" data-lang="r"><span>chunk &lt;- three_jobs %&gt;%
+</span><span>   </span><span style="color:#bf616a;">separate_rows</span><span>(allocated_processors, </span><span style="color:#bf616a;">sep</span><span>=&quot; &quot;)
+</span><span>
+</span><span style="color:#65737e;"># print the result
+</span><span>chunk %&gt;% </span><span style="color:#bf616a;">select</span><span>(job_id, allocated_processors)
+</span></code></pre>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>## # A tibble: 5 x 2
+</span><span>##   job_id allocated_processors
+</span><span>##    &lt;int&gt; &lt;chr&gt;               
+</span><span>## 1     27 12-27               
+</span><span>## 2     29 0-11                
+</span><span>## 3     29 28-43               
+</span><span>## 4     33 0-11                
+</span><span>## 5     33 28-43
+</span></code></pre>
+<ul>
+<li><code>separate</code> that split a column in one or several columns. We use
+this last transformation to create a column psetmax and psetmin that
+contains the resources min (the bottom of our square) and max (the
+top).</li>
+</ul>
+<!-- end list -->
+<pre data-lang="r" style="background-color:#2b303b;color:#c0c5ce;" class="language-r "><code class="language-r" data-lang="r"><span>chunk &lt;- chunk %&gt;%
+</span><span>   </span><span style="color:#bf616a;">separate</span><span>(allocated_processors, </span><span style="color:#bf616a;">sep</span><span>=&quot;</span><span style="color:#a3be8c;">-</span><span>&quot;, </span><span style="color:#bf616a;">into </span><span>= </span><span style="color:#96b5b4;">c</span><span>(&quot;</span><span style="color:#a3be8c;">psetmin</span><span>&quot;, &quot;</span><span style="color:#a3be8c;">psetmax</span><span>&quot;), </span><span style="color:#bf616a;">fill</span><span>=&quot;</span><span style="color:#a3be8c;">right</span><span>&quot;) %&gt;%
+</span><span>   </span><span style="color:#65737e;"># A last transformation in case of single resource, we set the max as the min.
+</span><span>   </span><span style="color:#bf616a;">mutate</span><span>(</span><span style="color:#bf616a;">psetmax </span><span>= </span><span style="color:#96b5b4;">as.integer</span><span>(psetmax), </span><span style="color:#bf616a;">psetmin </span><span>= </span><span style="color:#96b5b4;">as.integer</span><span>(psetmin)) %&gt;%
+</span><span>   </span><span style="color:#bf616a;">mutate</span><span>(</span><span style="color:#bf616a;">psetmax </span><span>= </span><span style="color:#96b5b4;">ifelse</span><span>(</span><span style="color:#96b5b4;">is.na</span><span>(psetmax), psetmin, psetmax))
+</span><span>
+</span><span style="color:#65737e;"># Display the result
+</span><span>chunk
+</span></code></pre>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>## # A tibble: 5 x 16
+</span><span>##   job_id hacky_job_id workload_name submission_time requested_number_of_p…
+</span><span>##    &lt;int&gt;        &lt;int&gt; &lt;chr&gt;                   &lt;dbl&gt;                  &lt;int&gt;
+</span><span>## 1     27          270 0e8208                 107474                     16
+</span><span>## 2     29          290 0e8208                 111742                     28
+</span><span>## 3     29          290 0e8208                 111742                     28
+</span><span>## 4     33          330 0e8208                 113219                     32
+</span><span>## 5     33          330 0e8208                 113219                     32
+</span><span>## # ... with 11 more variables: requested_time &lt;dbl&gt;, success &lt;int&gt;,
+</span><span>## #   starting_time &lt;dbl&gt;, execution_time &lt;dbl&gt;, finish_time &lt;dbl&gt;,
+</span><span>## #   waiting_time &lt;dbl&gt;, turnaround_time &lt;dbl&gt;, stretch &lt;dbl&gt;,
+</span><span>## #   consumed_energy &lt;dbl&gt;, psetmin &lt;int&gt;, psetmax &lt;int&gt;
+</span></code></pre>
+<p>Once we did that, we can start to plot our Gantt using the
+<a href="https://ggplot2.tidyverse.org/reference/geom_tile.html"><code>geom_rect</code></a>
+function.</p>
+<pre data-lang="r" style="background-color:#2b303b;color:#c0c5ce;" class="language-r "><code class="language-r" data-lang="r"><span>chunk  %&gt;%
+</span><span>  </span><span style="color:#65737e;"># We pipe chunk that contains our three jobs into ggplot
+</span><span>  </span><span style="color:#bf616a;">ggplot</span><span>(</span><span style="color:#bf616a;">aes</span><span>( </span><span style="color:#bf616a;">xmin</span><span>=starting_time,
+</span><span>                  </span><span style="color:#bf616a;">ymin</span><span>=psetmin,
+</span><span>                  </span><span style="color:#bf616a;">ymax</span><span>=psetmax + </span><span style="color:#d08770;">0.9</span><span>,
+</span><span>                  </span><span style="color:#bf616a;">xmax</span><span>=finish_time,
+</span><span>                  </span><span style="color:#bf616a;">fill</span><span>=workload_name)) +
+</span><span>  </span><span style="color:#65737e;"># We add the rectangles
+</span><span>  </span><span style="color:#bf616a;">geom_rect</span><span>(</span><span style="color:#bf616a;">color</span><span>=&quot;</span><span style="color:#a3be8c;">black</span><span>&quot;, </span><span style="color:#bf616a;">size</span><span>=</span><span style="color:#d08770;">0.5</span><span>, </span><span style="color:#bf616a;">alpha</span><span>=</span><span style="color:#d08770;">0.5</span><span>) +
+</span><span>  </span><span style="color:#65737e;"># We also add a label
+</span><span>  </span><span style="color:#bf616a;">geom_text</span><span>(</span><span style="color:#bf616a;">aes</span><span>(</span><span style="color:#bf616a;">x</span><span>=starting_time +(finish_time-starting_time)/</span><span style="color:#d08770;">2</span><span>,
+</span><span>                </span><span style="color:#bf616a;">y</span><span>=psetmin+((psetmax-psetmin)/</span><span style="color:#d08770;">2</span><span>)+</span><span style="color:#d08770;">0.5</span><span>,
+</span><span>                </span><span style="color:#bf616a;">label</span><span>=</span><span style="color:#96b5b4;">paste</span><span>(job_id, &quot;&quot;)), </span><span style="color:#bf616a;">alpha</span><span>=</span><span style="color:#d08770;">1</span><span>,</span><span style="color:#bf616a;">check_overlap </span><span>= </span><span style="color:#d08770;">TRUE</span><span>) +
+</span><span>  </span><span style="color:#bf616a;">scale_color_viridis</span><span>(</span><span style="color:#bf616a;">discrete</span><span>=F) + </span><span style="color:#bf616a;">scale_fill_viridis</span><span>(</span><span style="color:#bf616a;">discrete</span><span>=T) +
+</span><span>  </span><span style="color:#65737e;"># We rename our labels
+</span><span>  </span><span style="color:#bf616a;">ylab</span><span>(&quot;</span><span style="color:#a3be8c;">resources</span><span>&quot;) + </span><span style="color:#bf616a;">xlab</span><span>(&quot;</span><span style="color:#a3be8c;">time (in seconds)</span><span>&quot;) + </span><span style="color:#bf616a;">theme_bw</span><span>() + </span><span style="color:#bf616a;">theme</span><span>(</span><span style="color:#bf616a;">legend.position </span><span>= &quot;</span><span style="color:#a3be8c;">none</span><span>&quot;)
+</span></code></pre>
+<p><img src="/img/unnamed-chunk-8-1.png" alt="" /><!-- --></p>
+<p>And now we can plot the whole set of job.</p>
+<pre data-lang="r" style="background-color:#2b303b;color:#c0c5ce;" class="language-r "><code class="language-r" data-lang="r"><span>workload_sep &lt;- workload %&gt;%
+</span><span>  </span><span style="color:#bf616a;">separate_rows</span><span>(allocated_processors, </span><span style="color:#bf616a;">sep</span><span>=&quot; &quot;) %&gt;%
+</span><span>  </span><span style="color:#bf616a;">separate</span><span>(allocated_processors, </span><span style="color:#bf616a;">into </span><span>= </span><span style="color:#96b5b4;">c</span><span>(&quot;</span><span style="color:#a3be8c;">psetmin</span><span>&quot;, &quot;</span><span style="color:#a3be8c;">psetmax</span><span>&quot;), </span><span style="color:#bf616a;">fill</span><span>=&quot;</span><span style="color:#a3be8c;">right</span><span>&quot;) %&gt;%
+</span><span>  </span><span style="color:#bf616a;">mutate</span><span>(</span><span style="color:#bf616a;">psetmax </span><span>= </span><span style="color:#96b5b4;">as.integer</span><span>(psetmax), </span><span style="color:#bf616a;">psetmin </span><span>= </span><span style="color:#96b5b4;">as.integer</span><span>(psetmin)) %&gt;%
+</span><span>  </span><span style="color:#bf616a;">mutate</span><span>(</span><span style="color:#bf616a;">psetmax </span><span>= </span><span style="color:#96b5b4;">ifelse</span><span>(</span><span style="color:#96b5b4;">is.na</span><span>(psetmax), psetmin, psetmax))
+</span><span>
+</span><span>workload_sep %&gt;%
+</span><span>  </span><span style="color:#bf616a;">ggplot</span><span>(</span><span style="color:#bf616a;">aes</span><span>(</span><span style="color:#bf616a;">xmin</span><span>=starting_time,
+</span><span>                  </span><span style="color:#bf616a;">ymin</span><span>=psetmin,
+</span><span>                  </span><span style="color:#bf616a;">ymax</span><span>=psetmax + </span><span style="color:#d08770;">0.9</span><span>,
+</span><span>                  </span><span style="color:#bf616a;">xmax</span><span>=finish_time,
+</span><span>                  </span><span style="color:#bf616a;">fill</span><span>=workload_name)) +
+</span><span>  </span><span style="color:#bf616a;">scale_color_viridis</span><span>(</span><span style="color:#bf616a;">discrete</span><span>=F) + </span><span style="color:#bf616a;">scale_fill_viridis</span><span>(</span><span style="color:#bf616a;">discrete</span><span>=T) +
+</span><span>  </span><span style="color:#bf616a;">geom_rect</span><span>(</span><span style="color:#bf616a;">color</span><span>=&quot;</span><span style="color:#a3be8c;">black</span><span>&quot;, </span><span style="color:#bf616a;">size</span><span>=</span><span style="color:#d08770;">0.1</span><span>, </span><span style="color:#bf616a;">alpha</span><span>=</span><span style="color:#d08770;">0.5</span><span>) +
+</span><span>  </span><span style="color:#bf616a;">geom_text</span><span>(</span><span style="color:#bf616a;">aes</span><span>(</span><span style="color:#bf616a;">x</span><span>=starting_time +(finish_time-starting_time)/</span><span style="color:#d08770;">2</span><span>,
+</span><span>                </span><span style="color:#bf616a;">y</span><span>=psetmin+((psetmax-psetmin)/</span><span style="color:#d08770;">2</span><span>)+</span><span style="color:#d08770;">0.5</span><span>,
+</span><span>                </span><span style="color:#bf616a;">label</span><span>=</span><span style="color:#96b5b4;">paste</span><span>(job_id, &quot;&quot;)),
+</span><span>            </span><span style="color:#bf616a;">alpha</span><span>=</span><span style="color:#d08770;">1</span><span>, </span><span style="color:#bf616a;">check_overlap </span><span>= </span><span style="color:#d08770;">TRUE</span><span>) +
+</span><span>  </span><span style="color:#65737e;"># add some theming options
+</span><span>  </span><span style="color:#bf616a;">theme_bw</span><span>() + </span><span style="color:#bf616a;">theme</span><span>(</span><span style="color:#bf616a;">legend.position </span><span>=  &quot;</span><span style="color:#a3be8c;">none</span><span>&quot;) +
+</span><span>  </span><span style="color:#bf616a;">ylab</span><span>(&quot;</span><span style="color:#a3be8c;">resources</span><span>&quot;) + </span><span style="color:#bf616a;">xlab</span><span>(&quot;</span><span style="color:#a3be8c;">time (in seconds)</span><span>&quot;)
+</span></code></pre>
+<p><img src="/img/unnamed-chunk-9-1.png" alt="" /><!-- --></p>
+<h2 id="adapt-to-your-case">Adapt to your case<a class="zola-anchor" href="#adapt-to-your-case" aria-label="Anchor link for: adapt-to-your-case">🔗</a></h2>
+<p>At this point, we know how to plot a set of job as a gantt chart,
+great! From this point, we have all the cards to create a plot adapted
+to your need. And this in where I think that we best take advantage of
+ggplot2.</p>
+<p><strong>Disclaimer</strong>:</p>
+<p>This section is not meant to be exhaustive, but rather a set of ideas
+and transformation I performed on the gantt thanks to ggplot to suit to
+my case. Many idea are extracted from the library evalys, which I
+introduced at the beginning of this post.</p>
+<h3 id="shows-workload-activity">Shows workload activity<a class="zola-anchor" href="#shows-workload-activity" aria-label="Anchor link for: shows-workload-activity">🔗</a></h3>
+<p>This visualisation is directly taken from evalys :) We add, under the
+gantt, a line for each jobs of the workload.</p>
+<p>Lets try this on a few jobs.</p>
+<p>Each job has a segment, and each segment has two point, starting from
+the bottom, it is the submit time of a job to the top of the segment its
+running time. Thus, the inclination of a segment gives an indication of
+the waiting time of a job. If the segment is vertical, it means that the
+job has been directly launched.</p>
+<p>With the gantt below, we see that the job 33 waited before being
+launched.</p>
+<pre data-lang="r" style="background-color:#2b303b;color:#c0c5ce;" class="language-r "><code class="language-r" data-lang="r"><span>chunk  %&gt;%
+</span><span>  </span><span style="color:#bf616a;">ggplot</span><span>(</span><span style="color:#bf616a;">aes</span><span>( </span><span style="color:#bf616a;">xmin</span><span>=starting_time,
+</span><span>              </span><span style="color:#bf616a;">ymin</span><span>=psetmin,
+</span><span>              </span><span style="color:#bf616a;">ymax</span><span>=psetmax + </span><span style="color:#d08770;">0.9</span><span>,
+</span><span>              </span><span style="color:#bf616a;">xmax</span><span>=finish_time,
+</span><span>              </span><span style="color:#bf616a;">fill</span><span>=workload_name)) +
+</span><span>  </span><span style="color:#bf616a;">scale_color_viridis</span><span>(</span><span style="color:#bf616a;">discrete</span><span>=F) + </span><span style="color:#bf616a;">scale_fill_viridis</span><span>(</span><span style="color:#bf616a;">discrete</span><span>=T) +
+</span><span>  </span><span style="color:#65737e;"># The main rectangle
+</span><span>  </span><span style="color:#bf616a;">geom_rect</span><span>(</span><span style="color:#bf616a;">alpha</span><span>=</span><span style="color:#d08770;">0.4</span><span>, </span><span style="color:#bf616a;">color</span><span>=&quot;</span><span style="color:#a3be8c;">black</span><span>&quot;, </span><span style="color:#bf616a;">size</span><span>=</span><span style="color:#d08770;">0.7</span><span>) +
+</span><span>  </span><span style="color:#65737e;"># The label
+</span><span>  </span><span style="color:#bf616a;">geom_text</span><span>(</span><span style="color:#bf616a;">aes</span><span>(</span><span style="color:#bf616a;">x</span><span>=starting_time +(finish_time-starting_time)/</span><span style="color:#d08770;">2</span><span>,
+</span><span>                </span><span style="color:#bf616a;">y</span><span>=psetmin+((psetmax-psetmin)/</span><span style="color:#d08770;">2</span><span>)+</span><span style="color:#d08770;">0.5</span><span>,
+</span><span>                </span><span style="color:#bf616a;">label</span><span>=</span><span style="color:#96b5b4;">paste</span><span>(job_id, &quot;&quot;)), </span><span style="color:#bf616a;">alpha</span><span>=</span><span style="color:#d08770;">1</span><span>,</span><span style="color:#bf616a;">check_overlap </span><span>= </span><span style="color:#d08770;">TRUE</span><span>) +
+</span><span>  </span><span style="color:#65737e;"># The segment under the gantt
+</span><span>  </span><span style="color:#bf616a;">geom_segment</span><span>(</span><span style="color:#bf616a;">aes</span><span>(</span><span style="color:#bf616a;">x</span><span>=submission_time,
+</span><span>                   </span><span style="color:#bf616a;">y</span><span>=-</span><span style="color:#d08770;">17</span><span>,
+</span><span>                   </span><span style="color:#bf616a;">xend</span><span>=starting_time,
+</span><span>                   </span><span style="color:#bf616a;">yend</span><span>=-</span><span style="color:#d08770;">3</span><span>), </span><span style="color:#bf616a;">size</span><span>=</span><span style="color:#d08770;">0.1</span><span>) +
+</span><span>  </span><span style="color:#bf616a;">geom_point</span><span>(</span><span style="color:#bf616a;">aes</span><span>(</span><span style="color:#bf616a;">y</span><span>=-</span><span style="color:#d08770;">17</span><span>, </span><span style="color:#bf616a;">x</span><span>=submission_time), </span><span style="color:#bf616a;">size</span><span>=</span><span style="color:#d08770;">0.1</span><span>) +
+</span><span>  </span><span style="color:#bf616a;">geom_point</span><span>(</span><span style="color:#bf616a;">aes</span><span>(</span><span style="color:#bf616a;">y</span><span>=-</span><span style="color:#d08770;">3</span><span>, </span><span style="color:#bf616a;">x</span><span>=starting_time)) +
+</span><span>  </span><span style="color:#bf616a;">theme_bw</span><span>() + </span><span style="color:#bf616a;">theme</span><span>(</span><span style="color:#bf616a;">legend.position </span><span>= &quot;</span><span style="color:#a3be8c;">none</span><span>&quot;) +
+</span><span>  </span><span style="color:#bf616a;">ylab</span><span>(&quot;</span><span style="color:#a3be8c;">resources</span><span>&quot;) + </span><span style="color:#bf616a;">xlab</span><span>(&quot;</span><span style="color:#a3be8c;">time (in seconds)</span><span>&quot;)
+</span></code></pre>
+<p><img src="/img/unnamed-chunk-10-1.png" alt="" /><!-- --></p>
+<p>If in this case it remains simple to associate the last segment with the
+job 33, it becomes more difficult with more jobs. However, it gives a
+good idea of the intensity of the workload.</p>
+<pre data-lang="r" style="background-color:#2b303b;color:#c0c5ce;" class="language-r "><code class="language-r" data-lang="r"><span>workload_sep  %&gt;%
+</span><span>  </span><span style="color:#bf616a;">ggplot</span><span>(</span><span style="color:#bf616a;">aes</span><span>( </span><span style="color:#bf616a;">xmin</span><span>=starting_time,
+</span><span>              </span><span style="color:#bf616a;">ymin</span><span>=psetmin,
+</span><span>              </span><span style="color:#bf616a;">ymax</span><span>=psetmax + </span><span style="color:#d08770;">0.9</span><span>,
+</span><span>              </span><span style="color:#bf616a;">xmax</span><span>=finish_time,
+</span><span>              </span><span style="color:#bf616a;">fill</span><span>=workload_name)) +
+</span><span>        </span><span style="color:#bf616a;">scale_color_viridis</span><span>(</span><span style="color:#bf616a;">discrete</span><span>=F) + </span><span style="color:#bf616a;">scale_fill_viridis</span><span>(</span><span style="color:#bf616a;">discrete</span><span>=T) +
+</span><span>  </span><span style="color:#65737e;"># The main rectangle
+</span><span>  </span><span style="color:#bf616a;">geom_rect</span><span>(</span><span style="color:#bf616a;">alpha</span><span>=</span><span style="color:#d08770;">0.4</span><span>, </span><span style="color:#bf616a;">color</span><span>=&quot;</span><span style="color:#a3be8c;">black</span><span>&quot;, </span><span style="color:#bf616a;">size</span><span>=</span><span style="color:#d08770;">0.7</span><span>) +
+</span><span>  </span><span style="color:#65737e;"># The label
+</span><span>  </span><span style="color:#bf616a;">geom_text</span><span>(</span><span style="color:#bf616a;">aes</span><span>(</span><span style="color:#bf616a;">x</span><span>=starting_time +(finish_time-starting_time)/</span><span style="color:#d08770;">2</span><span>,
+</span><span>              </span><span style="color:#bf616a;">y</span><span>=psetmin+((psetmax-psetmin)/</span><span style="color:#d08770;">2</span><span>)+</span><span style="color:#d08770;">0.5</span><span>,
+</span><span>              </span><span style="color:#bf616a;">label</span><span>=</span><span style="color:#96b5b4;">paste</span><span>(job_id, &quot;&quot;)), </span><span style="color:#bf616a;">alpha</span><span>=</span><span style="color:#d08770;">1</span><span>,</span><span style="color:#bf616a;">check_overlap </span><span>= </span><span style="color:#d08770;">TRUE</span><span>) +
+</span><span>  </span><span style="color:#65737e;"># The segment under the gantt
+</span><span>  </span><span style="color:#bf616a;">geom_segment</span><span>(</span><span style="color:#bf616a;">aes</span><span>(</span><span style="color:#bf616a;">x</span><span>=submission_time,
+</span><span>        </span><span style="color:#bf616a;">y</span><span>=-</span><span style="color:#d08770;">40</span><span>,
+</span><span>        </span><span style="color:#bf616a;">xend</span><span>=starting_time,
+</span><span>        </span><span style="color:#bf616a;">yend</span><span>=-</span><span style="color:#d08770;">3</span><span>), </span><span style="color:#bf616a;">size</span><span>=</span><span style="color:#d08770;">0.1</span><span>) +
+</span><span>  </span><span style="color:#bf616a;">geom_point</span><span>(</span><span style="color:#bf616a;">aes</span><span>(</span><span style="color:#bf616a;">y</span><span>=-</span><span style="color:#d08770;">40</span><span>, </span><span style="color:#bf616a;">x</span><span>=submission_time), </span><span style="color:#bf616a;">size</span><span>=</span><span style="color:#d08770;">0.1</span><span>) +
+</span><span>  </span><span style="color:#bf616a;">geom_point</span><span>(</span><span style="color:#bf616a;">aes</span><span>(</span><span style="color:#bf616a;">y</span><span>=-</span><span style="color:#d08770;">3</span><span>, </span><span style="color:#bf616a;">x</span><span>=starting_time)) +
+</span><span>  </span><span style="color:#bf616a;">theme_bw</span><span>() + </span><span style="color:#bf616a;">theme</span><span>(</span><span style="color:#bf616a;">legend.position </span><span>= &quot;</span><span style="color:#a3be8c;">none</span><span>&quot;) +
+</span><span>  </span><span style="color:#bf616a;">ylab</span><span>(&quot;</span><span style="color:#a3be8c;">resources</span><span>&quot;) + </span><span style="color:#bf616a;">xlab</span><span>(&quot;</span><span style="color:#a3be8c;">time (in seconds)</span><span>&quot;)
+</span></code></pre>
+<p><img src="/img/unnamed-chunk-11-1.png" alt="" /><!-- --></p>
+<p>We could go even further, and adapt the size and the intensity of the
+color of jobs that has a high waiting_time.</p>
+<pre data-lang="r" style="background-color:#2b303b;color:#c0c5ce;" class="language-r "><code class="language-r" data-lang="r"><span>workload_sep  %&gt;%
+</span><span>  </span><span style="color:#bf616a;">ggplot</span><span>(</span><span style="color:#bf616a;">aes</span><span>( </span><span style="color:#bf616a;">xmin</span><span>=starting_time,
+</span><span>              </span><span style="color:#bf616a;">ymin</span><span>=psetmin,
+</span><span>              </span><span style="color:#bf616a;">ymax</span><span>=psetmax + </span><span style="color:#d08770;">0.9</span><span>,
+</span><span>              </span><span style="color:#bf616a;">xmax</span><span>=finish_time,
+</span><span>              </span><span style="color:#65737e;"># here it will set the alpha globaly
+</span><span>              </span><span style="color:#bf616a;">alpha</span><span>=waiting_time,
+</span><span>              </span><span style="color:#bf616a;">fill</span><span>=workload_name)) +
+</span><span>        </span><span style="color:#bf616a;">scale_color_viridis</span><span>(</span><span style="color:#bf616a;">discrete</span><span>=F) + </span><span style="color:#bf616a;">scale_fill_viridis</span><span>(</span><span style="color:#bf616a;">discrete</span><span>=T) +
+</span><span>  </span><span style="color:#65737e;"># This draw the rectangles
+</span><span>  </span><span style="color:#bf616a;">geom_rect</span><span>(</span><span style="color:#bf616a;">color</span><span>=&quot;</span><span style="color:#a3be8c;">black</span><span>&quot;, </span><span style="color:#bf616a;">size</span><span>=</span><span style="color:#d08770;">0.1</span><span>) +
+</span><span>  </span><span style="color:#65737e;"># And we add the labels of the job id
+</span><span>  </span><span style="color:#bf616a;">geom_text</span><span>(</span><span style="color:#bf616a;">aes</span><span>(</span><span style="color:#bf616a;">x</span><span>=starting_time +(finish_time-starting_time)/</span><span style="color:#d08770;">2</span><span>, </span><span style="color:#65737e;"># size=stretch,
+</span><span>              </span><span style="color:#bf616a;">y</span><span>=psetmin+((psetmax-psetmin)/</span><span style="color:#d08770;">2</span><span>)+</span><span style="color:#d08770;">0.5</span><span>,
+</span><span>              </span><span style="color:#bf616a;">label</span><span>=</span><span style="color:#96b5b4;">paste</span><span>(job_id, &quot;&quot;)), </span><span style="color:#bf616a;">alpha</span><span>=</span><span style="color:#d08770;">1</span><span>,</span><span style="color:#bf616a;">check_overlap </span><span>= </span><span style="color:#d08770;">TRUE</span><span>) +
+</span><span>
+</span><span>  </span><span style="color:#bf616a;">geom_point</span><span>(</span><span style="color:#bf616a;">aes</span><span>(</span><span style="color:#bf616a;">y</span><span>=psetmin+</span><span style="color:#d08770;">0.5</span><span>, </span><span style="color:#bf616a;">x</span><span>=submission_time), </span><span style="color:#bf616a;">size</span><span>=</span><span style="color:#d08770;">0.0001</span><span>) +
+</span><span>  </span><span style="color:#bf616a;">geom_segment</span><span>(</span><span style="color:#bf616a;">aes</span><span>(</span><span style="color:#bf616a;">x</span><span>=submission_time,
+</span><span>        </span><span style="color:#bf616a;">y</span><span>=-</span><span style="color:#d08770;">50</span><span>,
+</span><span>        </span><span style="color:#bf616a;">xend</span><span>=starting_time,
+</span><span>        </span><span style="color:#bf616a;">yend</span><span>=-</span><span style="color:#d08770;">3</span><span>), </span><span style="color:#bf616a;">size</span><span>=</span><span style="color:#d08770;">0.1</span><span>) +
+</span><span>  </span><span style="color:#bf616a;">geom_point</span><span>(</span><span style="color:#bf616a;">aes</span><span>(</span><span style="color:#bf616a;">y</span><span>=-</span><span style="color:#d08770;">50</span><span>, </span><span style="color:#bf616a;">x</span><span>=submission_time), </span><span style="color:#bf616a;">size</span><span>=</span><span style="color:#d08770;">0.1</span><span>) +
+</span><span>  </span><span style="color:#bf616a;">geom_point</span><span>(</span><span style="color:#bf616a;">aes</span><span>(</span><span style="color:#bf616a;">y</span><span>=-</span><span style="color:#d08770;">3</span><span>, </span><span style="color:#bf616a;">x</span><span>=starting_time), </span><span style="color:#bf616a;">size</span><span>=</span><span style="color:#d08770;">0.1</span><span>) +
+</span><span>  </span><span style="color:#bf616a;">theme_bw</span><span>() +
+</span><span>  </span><span style="color:#bf616a;">ylab</span><span>(&quot;</span><span style="color:#a3be8c;">resources</span><span>&quot;) + </span><span style="color:#bf616a;">xlab</span><span>(&quot;</span><span style="color:#a3be8c;">time (in seconds)</span><span>&quot;)
+</span></code></pre>
+<p><img src="/img/unnamed-chunk-12-1.png" alt="" /><!-- --></p>
+<p>One last thing we can do, in replacement of the segment below the gantt,
+is to add the segment directly to the gantt chart, such as:</p>
+<p>With this visualisation, it becomes easier to identify jobs and see when
+see have been submitted (But we loose the vision on the overall
+workload).</p>
+<pre data-lang="r" style="background-color:#2b303b;color:#c0c5ce;" class="language-r "><code class="language-r" data-lang="r"><span>workload_sep  %&gt;%
+</span><span>  </span><span style="color:#bf616a;">ggplot</span><span>(</span><span style="color:#bf616a;">aes</span><span>( </span><span style="color:#bf616a;">xmin</span><span>=starting_time,
+</span><span>              </span><span style="color:#bf616a;">ymin</span><span>=psetmin,
+</span><span>              </span><span style="color:#bf616a;">ymax</span><span>=psetmmax + </span><span style="color:#d08770;">0.9</span><span>,
+</span><span>              </span><span style="color:#bf616a;">xmax</span><span>=finish_time,
+</span><span>              </span><span style="color:#bf616a;">fill</span><span>=workload_name)) +
+</span><span>        </span><span style="color:#bf616a;">scale_color_viridis</span><span>(</span><span style="color:#bf616a;">discrete</span><span>=F) + </span><span style="color:#bf616a;">scale_fill_viridis</span><span>(</span><span style="color:#bf616a;">discrete</span><span>=T) +
+</span><span>  </span><span style="color:#bf616a;">geom_rect</span><span>(</span><span style="color:#bf616a;">aes</span><span>(</span><span style="color:#bf616a;">alpha</span><span>=waiting_time),</span><span style="color:#bf616a;">color</span><span>=&quot;</span><span style="color:#a3be8c;">black</span><span>&quot;, </span><span style="color:#bf616a;">size</span><span>=</span><span style="color:#d08770;">0.1</span><span>) +
+</span><span>  </span><span style="color:#bf616a;">geom_text</span><span>(</span><span style="color:#bf616a;">aes</span><span>(</span><span style="color:#bf616a;">x</span><span>=starting_time +(finish_time-starting_time)/</span><span style="color:#d08770;">2</span><span>, </span><span style="color:#65737e;"># size=stretch,
+</span><span>              </span><span style="color:#bf616a;">y</span><span>=psetmin+((psetmax-psetmin)/</span><span style="color:#d08770;">2</span><span>)+</span><span style="color:#d08770;">0.5</span><span>,
+</span><span>              </span><span style="color:#bf616a;">label</span><span>=</span><span style="color:#96b5b4;">paste</span><span>(job_id, &quot;&quot;)), </span><span style="color:#bf616a;">alpha</span><span>=</span><span style="color:#d08770;">1</span><span>,</span><span style="color:#bf616a;">check_overlap </span><span>= </span><span style="color:#d08770;">TRUE</span><span>) +
+</span><span>  </span><span style="color:#bf616a;">geom_segment</span><span>(
+</span><span>    </span><span style="color:#bf616a;">aes</span><span>(</span><span style="color:#bf616a;">x</span><span>=submission_time,
+</span><span>        </span><span style="color:#bf616a;">y</span><span>=psetmin+</span><span style="color:#d08770;">0.1</span><span>,
+</span><span>        </span><span style="color:#bf616a;">xend</span><span>=starting_time,
+</span><span>        </span><span style="color:#bf616a;">yend</span><span>=psetmax
+</span><span>        ),
+</span><span>    </span><span style="color:#bf616a;">alpha</span><span>=</span><span style="color:#d08770;">1</span><span>,
+</span><span>    </span><span style="color:#bf616a;">size</span><span>=</span><span style="color:#d08770;">0.1</span><span>) +
+</span><span>  </span><span style="color:#bf616a;">theme_bw</span><span>() +
+</span><span>  </span><span style="color:#bf616a;">ylab</span><span>(&quot;</span><span style="color:#a3be8c;">resources</span><span>&quot;) + </span><span style="color:#bf616a;">xlab</span><span>(&quot;</span><span style="color:#a3be8c;">time (in seconds)</span><span>&quot;)
+</span></code></pre>
+<p><img src="/img/unnamed-chunk-13-1.png" alt="" /><!-- --></p>
+<h3 id="zooming">Zooming<a class="zola-anchor" href="#zooming" aria-label="Anchor link for: zooming">🔗</a></h3>
+<p>When a plot is too loaded, we can consider zooming on a particular slice
+of the gantt.</p>
+<pre data-lang="r" style="background-color:#2b303b;color:#c0c5ce;" class="language-r "><code class="language-r" data-lang="r"><span style="color:#65737e;"># From sec
+</span><span>from = </span><span style="color:#d08770;">500000
+</span><span style="color:#65737e;"># to the terminason of the last job
+</span><span>to = </span><span style="color:#96b5b4;">max</span><span>(workload</span><span style="color:#b48ead;">$</span><span>finish_time)
+</span><span>
+</span><span>workload_sep  %&gt;% </span><span style="color:#65737e;"># filter(submission_time &gt;  time | execution_time &gt; time | finish_time &gt; time) %&gt;%
+</span><span>  </span><span style="color:#bf616a;">ggplot</span><span>(</span><span style="color:#bf616a;">aes</span><span>( </span><span style="color:#bf616a;">xmin</span><span>=starting_time,
+</span><span>              </span><span style="color:#bf616a;">ymin</span><span>=psetmin,
+</span><span>              </span><span style="color:#bf616a;">ymax</span><span>=psetmax + </span><span style="color:#d08770;">0.9</span><span>,
+</span><span>              </span><span style="color:#bf616a;">xmax</span><span>=finish_time,
+</span><span>              </span><span style="color:#bf616a;">fill</span><span>=workload_name)) + </span><span style="color:#bf616a;">coord_cartesian</span><span>(</span><span style="color:#bf616a;">xlim</span><span>=</span><span style="color:#96b5b4;">c</span><span>(from, to)) +
+</span><span>        </span><span style="color:#bf616a;">scale_color_viridis</span><span>(</span><span style="color:#bf616a;">discrete</span><span>=F) + </span><span style="color:#bf616a;">scale_fill_viridis</span><span>(</span><span style="color:#bf616a;">discrete</span><span>=T) +
+</span><span>  </span><span style="color:#bf616a;">geom_rect</span><span>(</span><span style="color:#bf616a;">aes</span><span>(</span><span style="color:#bf616a;">alpha</span><span>=waiting_time),</span><span style="color:#bf616a;">color</span><span>=&quot;</span><span style="color:#a3be8c;">black</span><span>&quot;, </span><span style="color:#bf616a;">size</span><span>=</span><span style="color:#d08770;">0.1</span><span>) +
+</span><span>  </span><span style="color:#bf616a;">geom_text</span><span>(</span><span style="color:#bf616a;">aes</span><span>(</span><span style="color:#bf616a;">x</span><span>=starting_time +(finish_time-starting_time)/</span><span style="color:#d08770;">2</span><span>, </span><span style="color:#65737e;"># size=stretch,
+</span><span>              </span><span style="color:#bf616a;">y</span><span>=psetmin+((psetmax-psetmin)/</span><span style="color:#d08770;">2</span><span>)+</span><span style="color:#d08770;">0.5</span><span>,
+</span><span>              </span><span style="color:#bf616a;">label</span><span>=</span><span style="color:#96b5b4;">paste</span><span>(job_id, &quot;&quot;)), </span><span style="color:#bf616a;">alpha</span><span>=</span><span style="color:#d08770;">1</span><span>,</span><span style="color:#bf616a;">check_overlap </span><span>= </span><span style="color:#d08770;">TRUE</span><span>) +
+</span><span>  </span><span style="color:#bf616a;">geom_segment</span><span>(
+</span><span>    </span><span style="color:#bf616a;">aes</span><span>(</span><span style="color:#bf616a;">x</span><span>=submission_time,
+</span><span>        </span><span style="color:#bf616a;">y</span><span>=psetmin+</span><span style="color:#d08770;">0.1</span><span>,
+</span><span>        </span><span style="color:#bf616a;">xend</span><span>=starting_time,
+</span><span>        </span><span style="color:#bf616a;">yend</span><span>=psetmax
+</span><span>        ),
+</span><span>    </span><span style="color:#bf616a;">alpha</span><span>=</span><span style="color:#d08770;">1</span><span>,
+</span><span>    </span><span style="color:#bf616a;">size</span><span>=</span><span style="color:#d08770;">0.1</span><span>) +
+</span><span>    </span><span style="color:#bf616a;">geom_point</span><span>(</span><span style="color:#bf616a;">aes</span><span>(</span><span style="color:#bf616a;">y</span><span>=psetmin+</span><span style="color:#d08770;">0.5</span><span>, </span><span style="color:#bf616a;">x</span><span>=submission_time), </span><span style="color:#bf616a;">size</span><span>=</span><span style="color:#d08770;">0.0001</span><span>) +
+</span><span>  </span><span style="color:#bf616a;">geom_segment</span><span>(</span><span style="color:#bf616a;">aes</span><span>(</span><span style="color:#bf616a;">x</span><span>=submission_time,
+</span><span>        </span><span style="color:#bf616a;">y</span><span>=-</span><span style="color:#d08770;">50</span><span>,
+</span><span>        </span><span style="color:#bf616a;">xend</span><span>=starting_time,
+</span><span>        </span><span style="color:#bf616a;">yend</span><span>=-</span><span style="color:#d08770;">3</span><span>), </span><span style="color:#bf616a;">size</span><span>=</span><span style="color:#d08770;">0.1</span><span>) +
+</span><span>  </span><span style="color:#bf616a;">geom_point</span><span>(</span><span style="color:#bf616a;">aes</span><span>(</span><span style="color:#bf616a;">y</span><span>=-</span><span style="color:#d08770;">50</span><span>, </span><span style="color:#bf616a;">x</span><span>=submission_time), </span><span style="color:#bf616a;">size</span><span>=</span><span style="color:#d08770;">0.1</span><span>) +
+</span><span>  </span><span style="color:#bf616a;">geom_point</span><span>(</span><span style="color:#bf616a;">aes</span><span>(</span><span style="color:#bf616a;">y</span><span>=-</span><span style="color:#d08770;">3</span><span>, </span><span style="color:#bf616a;">x</span><span>=starting_time), </span><span style="color:#bf616a;">size</span><span>=</span><span style="color:#d08770;">0.1</span><span>) +
+</span><span>  </span><span style="color:#bf616a;">theme_bw</span><span>() +
+</span><span>  </span><span style="color:#bf616a;">ylab</span><span>(&quot;</span><span style="color:#a3be8c;">resources</span><span>&quot;) + </span><span style="color:#bf616a;">xlab</span><span>(&quot;</span><span style="color:#a3be8c;">time (in seconds)</span><span>&quot;)
+</span></code></pre>
+<p><img src="/img/unnamed-chunk-14-1.png" alt="" /><!-- --></p>
+<h2 id="conclusion">Conclusion<a class="zola-anchor" href="#conclusion" aria-label="Anchor link for: conclusion">🔗</a></h2>
+<p>In this post, I showed how we can use ggplot2 to draw gantt from a
+batsim output. It becomes clear that it is a powerful tool to allow us
+what happens is our simulations.</p>
+<p>As I said in the previous section, it is not exhaustive list of we can
+do with ggplot2 to draw gantt, so I am open to new ideas :)</p>
+<p>You can download this <a href="files/GanttCharts.Rmd">file</a> as a notebook to
+replay it.
+ax + 0.9,
+xmax=finish_time,
+fill=workload_name)) +
+scale_color_viridis(discrete=F) + scale_fill_viridis(discrete=T) +
+geom_rect(aes(alpha=waiting_time),color=&quot;black&quot;, size=0.1) +
+geom_text(aes(x=starting_time +(finish_time-starting_time)/2, # size=stretch,
+y=psetmin+((psetmax-psetmin)/2)+0.5,
+label=paste(job_id, &quot;&quot;)), alpha=1,check_overlap = TRUE) +
+geom_segment(
+aes(x=submission_time,
+y=psetmin+0.1,
+xend=starting_time,
+yend=psetmax
+),
+alpha=1,
+size=0.1) +
+theme_bw() +
+ylab(&quot;resources&quot;) + xlab(&quot;time (in seconds)&quot;)</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>
+</span><span>![](/img/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+</span><span>
+</span><span>## Zooming
+</span><span>
+</span><span>When a plot is too loaded, we can consider zooming on a particular slice
+</span><span>of the gantt.
+</span><span>
+</span><span>``` r
+</span><span># From sec
+</span><span>from = 500000
+</span><span># to the terminason of the last job
+</span><span>to = max(workload$finish_time)
+</span><span>
+</span><span>workload_sep  %&gt;% # filter(submission_time &gt;  time | execution_time &gt; time | finish_time &gt; time) %&gt;%
+</span><span>  ggplot(aes( xmin=starting_time,
+</span><span>              ymin=psetmin,
+</span><span>              ymax=psetmax + 0.9,
+</span><span>              xmax=finish_time,
+</span><span>              fill=workload_name)) + coord_cartesian(xlim=c(from, to)) +
+</span><span>        scale_color_viridis(discrete=F) + scale_fill_viridis(discrete=T) +
+</span><span>  geom_rect(aes(alpha=waiting_time),color=&quot;black&quot;, size=0.1) +
+</span><span>  geom_text(aes(x=starting_time +(finish_time-starting_time)/2, # size=stretch,
+</span><span>              y=psetmin+((psetmax-psetmin)/2)+0.5,
+</span><span>              label=paste(job_id, &quot;&quot;)), alpha=1,check_overlap = TRUE) +
+</span><span>  geom_segment(
+</span><span>    aes(x=submission_time,
+</span><span>        y=psetmin+0.1,
+</span><span>        xend=starting_time,
+</span><span>        yend=psetmax
+</span><span>        ),
+</span><span>    alpha=1,
+</span><span>    size=0.1) +
+</span><span>    geom_point(aes(y=psetmin+0.5, x=submission_time), size=0.0001) +
+</span><span>  geom_segment(aes(x=submission_time,
+</span><span>        y=-50,
+</span><span>        xend=starting_time,
+</span><span>        yend=-3), size=0.1) +
+</span><span>  geom_point(aes(y=-50, x=submission_time), size=0.1) +
+</span><span>  geom_point(aes(y=-3, x=starting_time), size=0.1) +
+</span><span>  theme_bw() +
+</span><span>  ylab(&quot;resources&quot;) + xlab(&quot;time (in seconds)&quot;)
+</span></code></pre>
+<p><img src="/img/unnamed-chunk-14-1.png" alt="" /><!-- --></p>
+<p>In this post, I showed how we can use ggplot2 to draw gantt from a
+batsim output. It becomes clear that it is a powerful tool to allow us
+what happens is our simulations.</p>
+<p>As I said in the previous section, it is not exhaustive list of we can
+do with ggplot2 to draw gantt, so I am open to new ideas :)</p>
+<p>You can download this <a href="files/GanttCharts.Rmd">file</a> as a notebook to
+replay it.</p>
+
+  </article>
+</div>
+<!-- <div class="sticky bottom-0 px-3">
+    <a href="#page-top">Back to top of page</a>
+  </div> -->
+  <footer class="bg-white">
+    <div class="bg-white text-gray-400 container max-w-4xl mx-auto my-8 px-4">
+    © Adrien Faure. Template <a class="underline" target="_blank" href="https://github.com/adfaure/kodama-theme">Kodama</a> made with <a class="underline" target="_blank" href="https://getzola.org">zola</a>, inspired by <a class="underline" target="_blank" href="https://wowchemy.com/"> wowchemy</a> academic theme.
+    </div>
+  </footer>
+  </body>
+
+</html>

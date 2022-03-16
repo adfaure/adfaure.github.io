@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  
+  <link rel="shortcut icon" href="https:&#x2F;&#x2F;adfaure.github.io&#x2F;kodam&#x2F;processed_images&#x2F;0ffc25decafb1c3b00.png" type="image/png">
+  <link rel="icon" href="https:&#x2F;&#x2F;adfaure.github.io&#x2F;kodam&#x2F;processed_images&#x2F;0ffc25decafb1c3b00.png" type="image/png">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+  <meta charset="utf-8">
+    
+<!-- CSS -->
+<link rel="stylesheet" href="https://adfaure.github.io/kodam/styles/styles.css" />
+
+    <title>Adrien Faure</title>
+    </head>
+
+<body class="bg-white">
+  <!-- Top nav bar -->
+  
+  
+  
+<nav id="header" class="w-full z-10 top-0 shadow-md mx-0">
+  <div id="progress" class="top-0"></div>
+  <!-- <div class="w-full max-w-5xl mx-auto flex flex-wrap items-center justify-between mt-0 py-2  sm:bg-green-900 md:bg-red-900 lg:bg-blue-900 bg-yellow-900"> -->
+  <div class="w-full max-w-4xl mx-auto flex sm:flex-nowrap flex-wrap items-center justify-between mt-0 py-2">
+    <div class="pl-4">
+      <a class="text-gray-900 text-base no-underline hover:no-underline font-extrabold" href="https:&#x2F;&#x2F;adfaure.github.io&#x2F;kodam&#x2F;">
+        Adrien Faure
+      </a>
+    </div>
+
+    <div class="w-full flex-grow sm:flex sm:items-center flex-wrap sm:flex-nowrap sm:w-auto sm:block mt-2 sm:mt-0 bg-transparent z-20" id="nav-content">
+      <ul class="list-reset flex flex-wrap sm:justify-end flex-1 items-center">
+          <li class="mr-3 text-sm">
+              <a href=https://adfaure.github.io/kodam/blog class="inline-block py-2 px-4 text-sky-600 font-bold no-underline" href="#">
+                Blog
+              </a>
+            </li>
+            <li class="mr-3 text-sm">
+              <a href=https://adfaure.github.io/kodam/projects class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4" href="#">
+                Projects
+              </a>
+            </li>
+            <li class="mr-3 text-sm">
+              <a href=https://adfaure.github.io/kodam/publications class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4" href="#">
+                Publications
+              </a>
+            </li>
+            <li class="mr-3 text-sm">
+            <a href=https://adfaure.github.io/kodam/#contacts class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4" href="#">
+              Contact
+            </a>
+          </li>
+          </ul>
+    </div>
+  </div>
+
+</nav>
+
+<!-- Container -->
+  
+<div class="container max-w-3xl mx-auto px-4">
+  <div class="pt-8 flex flex">
+    <h1 class="grow font-bold font-sans break-normal text-gray-900 text-3xl">Nixops on Vultr</h1>
+    <p class="text-sm md:text-base font-normal text-gray-600 py-2">Published 2018-10-23</p>
+  </div>
+  <hr class="border-b-1 border-gray-400 mb-8">
+  
+  <article class="prose prose-indigo prose max-w-3xl">
+    <h2 id="summary">Summary<a class="zola-anchor" href="#summary" aria-label="Anchor link for: summary">🔗</a></h2>
+<p><strong>Requirements:</strong></p>
+<ul>
+<li>A machine Linux with root access.</li>
+<li>A vultr account (with money to spend <i class="fas fa-credit-card" aria-hidden="true"></i>)</li>
+<li>Basic knowledge with linux administration tools (ssh, bash)</li>
+</ul>
+<h2 id="introduction">Introduction<a class="zola-anchor" href="#introduction" aria-label="Anchor link for: introduction">🔗</a></h2>
+<p><a href="https://nixOS.org"><strong>NixOS</strong></a> is a Linux distribution based on the functional
+package manager Nix. It benefits from the full  potential of
+<a href="https://nixOS.org/nix/"><strong>Nix</strong></a> and allows to statically describe your OS and
+its packages, configuring services and rolling back to previous configurations.
+<strong>Nixops</strong> is a tool that allows to describe, configure and manage a set of
+NixOS machines using the nix language. Nixops benefits from nix and NixOS
+properties and extends it to a network management.</p>
+<p>This post describe how to start using nixops on a virtual machine. I choose
+vultr as cloud provider because it proposes to boot a VM with an ISO. And NixOS
+is one of the ISO available, which facilitate the installation.  Most of this
+post should, however, be compatible with other cloud provider.</p>
+<p>At the end of this article, one have a running virtual machine with NixOS
+installed and configured by nixops. The virtual machine can be deployed and
+configured with nixops. The final installation is the article is directly taken
+from the official <a href="https://nixOS.org/nixops/manual/">documentation</a>. At the end
+you should have unleashed the power of <strong>nix{,os,ops}</strong>, and be able to
+configure and deploy your own nixops instance to fit your needs</p>
+<h2 id="deploy-a-virtual-machine-and-install-nixos">Deploy a Virtual Machine and Install NixOS<a class="zola-anchor" href="#deploy-a-virtual-machine-and-install-nixos" aria-label="Anchor link for: deploy-a-virtual-machine-and-install-nixos">🔗</a></h2>
+<p>The first step, straightforward, is to create an account on Vultr, and to run
+your first VM instance.  Note that the this post uses a VM of a minimum of 1GB
+of memory, and I had issues to do the installation with less than 1GB of ram.</p>
+<p>Once the VM is running, we can just access to the running instance in order to
+install NixOS.  Vultr proposes from its dashboard to access to the instance with
+a web console.  For my part I found it more convenient to change ---
+<strong>temporarily</strong> --- the root password and access to the machine with ssh.  you
+may also need to run the ssh server on the VM: <code>systemctl start sshd</code>.</p>
+<p>In this post, I will not describe how to install NixOS.  The official
+<a href="https://nixOS.org/nixOS/manual/">manual</a> of NixOS is complete and I could not
+add any additional useful information. In addition the
+<a href="https://www.vultr.com/docs/install-nixOS-on-vultr">documentation</a> of Vultr also
+describes the full procedure.</p>
+<p>When the installation is finished, I <strong>recommend</strong> to create a snapshot of your
+installation.  It will allow to restore NixOS and prevent from reiterate the
+whole installation in case of failure.</p>
+<h2 id="nix-os-ops">Nix{os,ops}<a class="zola-anchor" href="#nix-os-ops" aria-label="Anchor link for: nix-os-ops">🔗</a></h2>
+<p>Now that we a running virtual machine with a NixOS installation, we can start
+working with nix.  Nix is very easy to install, to install it on your local
+computer: <code>curl https://nixOS.org/nix/install | sh</code>.  Don't forget to read the
+end of the installation, you may have to source a file ;)</p>
+<p>Then using the fresh installation, we can directly install Nixops: <code>nix-env -iA nixpkgs.nixops</code></p>
+<p>Nixops is a tool that allows you to statically describe the services running on a
+machine, or a set of machine, and connect them together.
+The strong point of using Nixops is that we can benefits from all the good
+properties of the Nix package manager and NixOS.</p>
+<p>Using Nixops is simple, start by creating a file called
+<code>configuration-vultr.nix</code>, and add the following content.</p>
+<pre data-lang="nix" style="background-color:#2b303b;color:#c0c5ce;" class="language-nix "><code class="language-nix" data-lang="nix"><span>
+</span><span style="color:#bf616a;">int main</span><span>() {}
+</span><span>
+</span><span>{
+</span><span>  </span><span style="color:#d08770;">network</span><span>.</span><span style="color:#d08770;">description </span><span>= &quot;</span><span style="color:#a3be8c;">Web server</span><span>&quot;;
+</span><span>
+</span><span>  </span><span style="color:#d08770;">webserver </span><span>=
+</span><span>    </span><span style="color:#8fa1b3;">{ </span><span>config, pkgs, ... </span><span style="color:#8fa1b3;">}</span><span>:
+</span><span>    {
+</span><span>      </span><span style="color:#d08770;">imports </span><span>= [ </span><span style="color:#65737e;"># Include the results of the hardware scan.
+</span><span>        </span><span style="color:#a3be8c;">./hardware-configuration.nix
+</span><span>      ];
+</span><span>
+</span><span>      </span><span style="color:#d08770;">services</span><span>.</span><span style="color:#d08770;">httpd</span><span>.</span><span style="color:#d08770;">enable </span><span>= </span><span style="color:#d08770;">true</span><span>;
+</span><span>      </span><span style="color:#d08770;">services</span><span>.</span><span style="color:#d08770;">httpd</span><span>.</span><span style="color:#d08770;">adminAddr </span><span>= &quot;</span><span style="color:#a3be8c;">alice@example.org</span><span>&quot;;
+</span><span>      </span><span style="color:#d08770;">services</span><span>.</span><span style="color:#d08770;">httpd</span><span>.</span><span style="color:#d08770;">documentRoot </span><span>= &quot;</span><span style="font-style:italic;color:#ab7967;">${</span><span style="font-style:italic;color:#bf616a;">pkgs</span><span style="font-style:italic;color:#c0c5ce;">.</span><span style="font-style:italic;color:#bf616a;">valgrind</span><span style="font-style:italic;color:#c0c5ce;">.</span><span style="font-style:italic;color:#bf616a;">doc</span><span style="font-style:italic;color:#ab7967;">}</span><span style="color:#a3be8c;">/share/doc/valgrind/html</span><span>&quot;;
+</span><span>      </span><span style="color:#d08770;">networking</span><span>.</span><span style="color:#d08770;">firewall</span><span>.</span><span style="color:#d08770;">allowedTCPPorts </span><span>= [ </span><span style="color:#d08770;">80 </span><span>];
+</span><span>    };
+</span><span>}
+</span></code></pre>
+<p>This is example is directly taken from the official Nixops documentation. It
+defines a machines that enable the httpd service to serve the content of the
+valgrind documentation.  If you are familiar with nix, you can notice that
+<code>documentRoot</code> is pointing on a derivation.  The derivation will be built and
+translated to the path of the output <code>doc</code> of the derivation on the store.  This
+example remains simple as it only deploy a service. However we can already see
+that we can reference nix packages in the source code of the network, which is a
+powerful feature.</p>
+<p>The next file nixops will require to deploy your virtual machine is the hardware
+definition of the VM. The easiest way to obtain this file is to take it directly
+from the VM. Normally, if you already installed nixOS, you had to use the
+command <code>nixOS-generate-config --root /mnt</code>, which generate two files. The first
+one is the <code>/etc/nixOS/configuration.nix</code>, which is not required because nixops
+will overwrite it with our previous file. The second file, however is the file
+<code>/etc/nixOS/hardware-configuration.nix</code>, which describe the device that contains
+your installation. We can download it, and put it next to the previous one.
+Now, your folder should have the following files:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span>$</span><span style="color:#bf616a;">cd</span><span> nixops-kodama/
+</span><span style="color:#bf616a;">ls -l
+</span><span>
+</span><span style="color:#bf616a;">configuration.nix
+</span><span style="color:#bf616a;">hardware-configuration.nix
+</span></code></pre>
+<p>At this point, the machine is configured to run a http service, however we need
+to tell to NixOS where to find our virtual machine. We just need to add the
+following line to the file <code>configuration.nix</code>.</p>
+<pre data-lang="nix" style="background-color:#2b303b;color:#c0c5ce;" class="language-nix "><code class="language-nix" data-lang="nix"><span style="color:#bf616a;">deployement</span><span>.</span><span style="color:#bf616a;">targetHost </span><span style="background-color:#bf616a;color:#2b303b;">=</span><span> &quot;</span><span style="color:#a3be8c;">1.2.3.4</span><span>&quot;</span><span style="background-color:#bf616a;color:#2b303b;">;</span><span>
+</span></code></pre>
+<p>The next modification we need to apply, is to enable the ssh server on our
+configuration. Otherwise, the virtual machine will be inaccessible after the
+first deployment. Luckily, we are using Nix, nothing is more simple than adding
+a new service. Adding the following line will do the trick:</p>
+<pre data-lang="nix" style="background-color:#2b303b;color:#c0c5ce;" class="language-nix "><code class="language-nix" data-lang="nix"><span style="color:#bf616a;">services</span><span>.</span><span style="color:#bf616a;">openssh</span><span>.</span><span style="color:#bf616a;">enable </span><span style="background-color:#bf616a;color:#2b303b;">=</span><span> &quot;</span><span style="color:#a3be8c;">yes</span><span>&quot;</span><span style="background-color:#bf616a;color:#2b303b;">;</span><span>
+</span></code></pre>
+<p>At this point, the configuration file should look like:</p>
+<pre data-lang="nix" style="background-color:#2b303b;color:#c0c5ce;" class="language-nix "><code class="language-nix" data-lang="nix"><span>{
+</span><span>  </span><span style="color:#d08770;">network</span><span>.</span><span style="color:#d08770;">description </span><span>= &quot;</span><span style="color:#a3be8c;">Web server</span><span>&quot;;
+</span><span>
+</span><span>  </span><span style="color:#d08770;">webserver </span><span>=
+</span><span>    </span><span style="color:#8fa1b3;">{ </span><span>config, pkgs, ... </span><span style="color:#8fa1b3;">}</span><span>:
+</span><span>    {
+</span><span>      </span><span style="color:#d08770;">imports </span><span>= [ </span><span style="color:#65737e;"># Include the results of the hardware scan.
+</span><span>        </span><span style="color:#a3be8c;">./hardware-configuration.nix
+</span><span>      ];
+</span><span>
+</span><span>      </span><span style="color:#d08770;">deployement</span><span>.</span><span style="color:#d08770;">targetHost </span><span>= &quot;</span><span style="color:#a3be8c;">1.2.3.4</span><span>&quot;;
+</span><span>      </span><span style="color:#d08770;">services</span><span>.</span><span style="color:#d08770;">openssh</span><span>.</span><span style="color:#d08770;">enable </span><span>= &quot;</span><span style="color:#a3be8c;">yes</span><span>&quot;;
+</span><span>
+</span><span>      </span><span style="color:#d08770;">services</span><span>.</span><span style="color:#d08770;">httpd</span><span>.</span><span style="color:#d08770;">enable </span><span>= </span><span style="color:#d08770;">true</span><span>;
+</span><span>      </span><span style="color:#d08770;">services</span><span>.</span><span style="color:#d08770;">httpd</span><span>.</span><span style="color:#d08770;">adminAddr </span><span>= &quot;</span><span style="color:#a3be8c;">alice@example.org</span><span>&quot;;
+</span><span>      </span><span style="color:#d08770;">services</span><span>.</span><span style="color:#d08770;">httpd</span><span>.</span><span style="color:#d08770;">documentRoot </span><span>= &quot;</span><span style="font-style:italic;color:#ab7967;">${</span><span style="font-style:italic;color:#bf616a;">pkgs</span><span style="font-style:italic;color:#c0c5ce;">.</span><span style="font-style:italic;color:#bf616a;">valgrind</span><span style="font-style:italic;color:#c0c5ce;">.</span><span style="font-style:italic;color:#bf616a;">doc</span><span style="font-style:italic;color:#ab7967;">}</span><span style="color:#a3be8c;">/share/doc/valgrind/html</span><span>&quot;;
+</span><span>      </span><span style="color:#d08770;">networking</span><span>.</span><span style="color:#d08770;">firewall</span><span>.</span><span style="color:#d08770;">allowedTCPPorts </span><span>= [ </span><span style="color:#d08770;">80 </span><span>];
+</span><span>    };
+</span><span>}
+</span></code></pre>
+<p>Now, that we configured our server, we can start to create a Nixops state.
+We need to run the command:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>nixops create /path/to/configuration.nix -d vmv
+</span></code></pre>
+<p>This command will create the new state for our vm, but it will not trigger the
+installation yet.  Note that the argument <code>-d vmv</code> creates an alias for your
+state.</p>
+<p>We can directly check if Nixops created our instance state.</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$nixops list
+</span><span>+-------------+--------+-----------------+------------+------------+
+</span><span>| UUID        | Name   | Description     | # Machines |    Type    |
+</span><span>+-------------+--------+-----------------+------------+------------+
+</span><span>| 7d7f8859-d8 | vmv    | Web server      |          1 |    none    |
+</span><span>+-------------+--------+-----------------+------------+------------+
+</span></code></pre>
+<p>Finally, to deploy the instance we need to run the command:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>nixops deploy -d vmv
+</span></code></pre>
+<h3 id="running-out-of-space">Running Out of Space<a class="zola-anchor" href="#running-out-of-space" aria-label="Anchor link for: running-out-of-space">🔗</a></h3>
+<p>It seems that the version of nixops delivered by the channel 18.09, has memory
+management issues with machines with a small amount of memory.  In my case, for
+a VM with 1024M of memory I had trouble deploying the virtual machine with
+nixops.  The error was:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>vps.......&gt; error: out of memory
+</span><span>vps.......&gt; error: unexpected end-of-file
+</span></code></pre>
+<p>A simple workaround is to create a swapfile for your virtual machine.  The
+following article describe this procedures:
+<a href="https://www.cyberciti.biz/faq/linux-add-a-swap-file-howto/">linux-add-a-swap-file-howto</a>.
+One can access to the virtaul machine for creating and activating the swap
+file..</p>
+<p>And you are ready to go: <code>nixops deploy -d vmv</code>.</p>
+<p>However note that if you restart the machine, the swap file will not be
+activated. To make it activated, one can add the following lines to your <code>hardware-configuration.nix</code>.</p>
+<pre data-lang="nix" style="background-color:#2b303b;color:#c0c5ce;" class="language-nix "><code class="language-nix" data-lang="nix"><span style="color:#bf616a;">swapDevices </span><span style="background-color:#bf616a;color:#2b303b;">=</span><span>
+</span><span>  [ { </span><span style="color:#d08770;">device </span><span>= &quot;</span><span style="color:#a3be8c;">/swapfile1</span><span>&quot;; </span><span style="color:#d08770;">size </span><span>= </span><span style="color:#d08770;">1024</span><span>; }
+</span><span>]</span><span style="background-color:#bf616a;color:#2b303b;">;</span><span>
+</span></code></pre>
+<p>Tada, you should be able to access to the valgrind documentation,
+at the address http://1.2.3.4/.</p>
+<h2 id="refs">Refs<a class="zola-anchor" href="#refs" aria-label="Anchor link for: refs">🔗</a></h2>
+<ul>
+<li>How to install nixOS on a vultr vm instance: https://www.vultr.com/docs/install-nixOS-on-vultr</li>
+<li>Create a swapfile: https://www.cyberciti.biz/faq/linux-add-a-swap-file-howto/</li>
+<li>The official nixOS documentation: https://nixOS.org/nixOS/manual/</li>
+<li>The official nixops documentation: https://nixOS.org/nixops/manual/</li>
+</ul>
+
+  </article>
+</div>
+<!-- <div class="sticky bottom-0 px-3">
+    <a href="#page-top">Back to top of page</a>
+  </div> -->
+  <footer class="bg-white">
+    <div class="bg-white text-gray-400 container max-w-4xl mx-auto my-8 px-4">
+    © Adrien Faure. Template <a class="underline" target="_blank" href="https://github.com/adfaure/kodama-theme">Kodama</a> made with <a class="underline" target="_blank" href="https://getzola.org">zola</a>, inspired by <a class="underline" target="_blank" href="https://wowchemy.com/"> wowchemy</a> academic theme.
+    </div>
+  </footer>
+  </body>
+
+</html>
