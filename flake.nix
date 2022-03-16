@@ -45,7 +45,7 @@
 
           buildPhase = ''
             export theme_folder="themes/kodama-theme"
-            cp -rL --no-preserve=all ${kodama-theme} $theme_folder
+            cp -rL --no-preserve=mode ${kodama-theme} $theme_folder
 
             ln -s ${nodeDependencies}/lib/node_modules ./node_modules
             export PATH="${nodeDependencies}/bin:$PATH"
