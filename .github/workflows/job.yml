@@ -12,7 +12,7 @@ jobs:
         install_options: '--tarball-url-prefix https://nixos-nix-install-tests.cachix.org/serve'
         extra_nix_config: |
           experimental-features = nix-command flakes
-    - run: nix build '.?submodules=1#packages.x86_64-linux.website'
+    - run: nix build .#packages.x86_64-linux.ghp
     - run: cp -rL result ./site
     - run: chmod +xwr site &&  find site -type d -exec chmod +xwr {} + && find site -type f -exec chmod 644 {} +
     - name: Deploy 🚀

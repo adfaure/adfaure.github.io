@@ -36,9 +36,7 @@
           buildInputs = [
             pkgs.zola
             pkgs.nodePackages.npm
-            pkgs.tree
             kodama-theme
-            pkgs.file
           ];
 
           checkPhase = ''
@@ -47,9 +45,7 @@
 
           buildPhase = ''
             export theme_folder="themes/kodama-theme"
-
-            # cp -rL ${kodama-theme} $theme_folder
-            # find $theme_folder -type d -exec chmod +xwr {} + && find $theme_folder -type f -exec chmod 644 {} +
+            cp -rL --no-preserve=all ${kodama-theme} $theme_folder
 
             ln -s ${nodeDependencies}/lib/node_modules ./node_modules
             export PATH="${nodeDependencies}/bin:$PATH"
@@ -58,11 +54,18 @@
           '';
 
           base-url = "https://adrien-faure.fr";
+
           installPhase = ''
-            ls -l  /build/source/static/styles/
             zola build -o $out --base-url ${base-url}
           '';
         };
+
+        # Package for github-page
+        ghp = self.packages.x86_64-linux.website.overrideAttrs (old: rec {
+          base-url = "https://adfaure.github.io/kodam/";
+          installPhase = "zola build -o $out --base-url ${base-url}";
+        });
+
       };
       # Use `nix develop` to activate the shell
       devShell.x86_64-linux = pkgs.mkShell {
