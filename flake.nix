@@ -62,7 +62,7 @@
 
         # Package for github-page
         ghp = self.packages.x86_64-linux.website.overrideAttrs (old: rec {
-          base-url = "https://adfaure.github.io/kodam/";
+          base-url = "https://adfaure.github.io/kodama/";
           installPhase = "zola build -o $out --base-url ${base-url}";
         });
 
