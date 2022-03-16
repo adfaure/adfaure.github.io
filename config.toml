@@ -6,6 +6,8 @@ compile_sass = false
 
 title = "Adrien Faure"
 
+theme = "kodama-theme"
+
 # Whether to build a search index to be used later on by a JavaScript library
 build_search_index = false
 
@@ -23,11 +25,13 @@ highlight_code = true
 highlight_theme = "base16-ocean-dark"
 
 [extra]
+
+avatar = "static/img/avatar.jpg"
+favicon = "static/img/avatar.jpg"
+
 email = "adrien.faure[at]protonmail.com"
+
 contact_in_index = true
 menu_items = [
-  { path = "blog", name = "Blog" },
-  { path = "projects", name = "Projects" },
-  { path = "publications", name = "Research"},
   { path = "#contacts", name = "Contact" },
 ]
