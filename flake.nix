@@ -2,9 +2,10 @@
   inputs = {
     oxalica.url = "github:oxalica/rust-overlay";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    kodama-theme.url = "github:adfaure/kodama-theme";
   };
 
-  outputs = { self, nixpkgs, oxalica }:
+  outputs = { self, nixpkgs, oxalica, kodama-theme }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -29,27 +30,15 @@
       packages.x86_64-linux = {
         website = pkgs.stdenv.mkDerivation rec {
           version = "0.0.1";
-          name = "batsite-${version}";
-          src = pkgs.lib.sourceByRegex ./. [
-            "^content"
-            "^content/.*"
-            "^static"
-            "^static/.*"
-            "^templates"
-            "^templates/.*"
-            "^templates/macros"
-            "^templates/macros.*"
-            "^themes"
-            "^themes/.*"
-            "^styles"
-            "^styles/.*\.css"
-            "tailwind.config.js"
-            "config.toml"
-          ];
+          name = "website-${version}";
+          src = self;
+
           buildInputs = [
             pkgs.zola
             pkgs.nodePackages.npm
             pkgs.tree
+            kodama-theme
+            pkgs.file
           ];
 
           checkPhase = ''
@@ -57,17 +46,20 @@
           '';
 
           buildPhase = ''
-            tree
+            export theme_folder="themes/kodama-theme"
+
+            # cp -rL ${kodama-theme} $theme_folder
+            # find $theme_folder -type d -exec chmod +xwr {} + && find $theme_folder -type f -exec chmod 644 {} +
 
             ln -s ${nodeDependencies}/lib/node_modules ./node_modules
             export PATH="${nodeDependencies}/bin:$PATH"
 
-            ls -l
             npx tailwindcss -i styles/styles.css -o static/styles/styles.css
           '';
 
           base-url = "https://adrien-faure.fr";
           installPhase = ''
+            ls -l  /build/source/static/styles/
             zola build -o $out --base-url ${base-url}
           '';
         };
