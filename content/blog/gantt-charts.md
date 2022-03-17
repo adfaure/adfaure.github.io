@@ -5,7 +5,8 @@ description = """
 This post shows how to use Tidyverse (in R) to generate customizable gantt chart.
 """
 date = "2019-03-02"
-extra.tldr = "<a>lol</a>"
+
+# extra.tldr = "<a>lol</a>"
 +++
 
 ## TL;DR
