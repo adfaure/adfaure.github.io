@@ -120,7 +120,7 @@ time.
 
 The example below shows an example of a Gantt chart made with gglot2.
 Every chart created in this plot are reproducible, and the file that
-contains the job is available [here](/files/job.csv).
+contains the job is available [here](/files/jobs.csv).
 
 ![](/img/unnamed-chunk-2-1.png)<!-- -->
 
@@ -145,7 +145,7 @@ details are detailed here: <https://www.tidyverse.org/packages/>.
 Once the installation is done, we can start to work with the data. The
 next thing you need is an output from batsim, in this blog I use an
 output from one of my simulations. You can download it
-[here](files/jobs.csv) if you want to play with it.
+[here](/files/jobs.csv) if you want to play with it.
 
 We can load the jobs with the following block code and explore the data.
 
