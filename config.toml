@@ -1,10 +1,10 @@
 # The URL the site will be built for
-base_url = "https://adrien-faure.fr"
+base_url = "https://a-t-richard.github.io"
 
 # Whether to automatically compile all Sass files in the sass directory
 compile_sass = false
 
-title = "Adrien Faure"
+title = "Antoine T. Richard"
 
 theme = "kodama-theme"
 
@@ -29,7 +29,7 @@ highlight_theme = "base16-ocean-dark"
 avatar = "static/img/avatar.jpg"
 favicon = "static/img/avatar.jpg"
 
-email = "adrien.faure[at]protonmail.com"
+email = "antoine.richard[at]chu-lyon.fr"
 
 contact_in_index = true
 menu_items = [
