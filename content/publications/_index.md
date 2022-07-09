@@ -13,10 +13,10 @@ extra.index_show = true
 
 ## Topic of interest
 
-My current research activities focus on job management on scheduling for HPC
-systems.
+My current research activities focus on Artificial Intelligence
+in Healhcare Context and on Ethics of Algorithms
 
-- Resources and Job Management System
-- Parallel Job Scheduling
-- Simulation and Modelisation
-- Reproducibility
+- Machine Learning
+- Health Information System
+- Responsible AI
+- Transparent Algorithms

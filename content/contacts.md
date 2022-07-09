@@ -1,16 +1,13 @@
 +++
 title = "Contact"
-date = 2020-07-09
+date = 2022-07-09
 template = "contact-page.html"
 path = "contacts"
 
 [extra]
 links = [
-  {icon = "github", name = "My projects on Github", link = "https://github.com/adfaure"},
-  {icon = "gitlab", name = "My projects on Gitlab", link = "https://gitlab.com/adfaure/"},
-  {icon = "linkedin", name = "Chat on Linkedin", link = "https://www.linkedin.com/in/adrien-faure-9958978b/"},
-  {icon = "keybase", name = "Chat on Keybase", link = "https://keybase.io/adfaure"},
-  # {icon = "goodreads", icon_pack = "fab", name = "Discuss on", link = "https://www.goodreads.com/user/show/82099752-adrien"}
-  # {icon = "telegram", icon_pack = "fab", name = "Telegram Me", link = "https://telegram.me/@Telegram"},
+  {icon = "github", name = "My projects on Github", link = "https://github.com/a-t-richard"},
+  {icon = "academic", name = "My publications on OrcID", link = "https://orcid.org/0000-0001-8677-8910"},
+  {icon = "mail", name = "Send me an e-mail", link = "mailto:antoine.richard@chu-lyon.fr"}
   ]
 +++
