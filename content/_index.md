@@ -7,9 +7,9 @@ page_template="simple-page.html"
 title = "Project Manager at the HCL"
 
 interests = [
-  "Health Information Systems",
   "Artificial Intelligence",
-  "Ethics of the Algorithms"
+  "Ethics of the Algorithms",
+  "Health Information Systems"
 ]
 
 [[extra.education.courses]]
@@ -48,6 +48,6 @@ Today, I am still working with the HCL as Project Manager,
 on projects including Artificial Intelligence.
  
 I’m currently interested in Machine Learning in sensible contexts,
-such as the Healthcare context, and in Ethics of Algorithms. 
+such as the Healthcare context, and in Ethics of Algorithms 
 (even if Multi-agent systems keep a special place in my heart and
 if the Ant Colony Optimization algorithm stays my favorite algorithm).

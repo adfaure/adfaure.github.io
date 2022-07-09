@@ -4,7 +4,7 @@ base_url = "https://a-t-richard.github.io"
 # Whether to automatically compile all Sass files in the sass directory
 compile_sass = false
 
-title = "Antoine T. Richard"
+title = "Antoine Richard"
 
 theme = "kodama-theme"
 
