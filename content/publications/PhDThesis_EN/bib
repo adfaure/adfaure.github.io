@@ -1,0 +1,11 @@
+@phdthesis{richard:tel-03662496,
+  TITLE = {A decision support system adapted to the constraints and the challenges of decision support in customary medical consultations},
+  AUTHOR = {Richard, Antoine},
+  NUMBER = {2021UPSLD031},
+  SCHOOL = {{Universit{\'e} Paris sciences et lettres}},
+  YEAR = {2021},
+  MONTH = Apr,
+  KEYWORDS = {Decision Support ; Health Information Systems ; Decision Analysis ; Multi-Label Classification System ; Algorithmic Transparency ; Aide {\`a} la d{\'e}cision ; Syst{\`e}mes d'information hospitaliers ; Analyse du processus de d{\'e}cision ; Syst{\`e}mes de classification multi-Labels ; Transparence des algorithmes},
+  TYPE = {Theses},
+  abstract = {Conducted in partnership with the GIE Hopsis and the employees of the Hospitals of Lyon (HCL), this thesis proposes a reflection about the constraints and the challenges linked to the introduction of decision support systems in the workflow of physicians during medical consultations. Our work is organized into three main axes. Firstly, the study of current decision support systems used in healthcare contexts to support clinicians during their decision processes, which allowed us to highlight the limits of current approaches used to support decisions in customary clinical situations. Secondly, the analysis of HCL’s physicians’ decision process, which allowed us to highlight the physicians’ need for patients’ information to be able to take relevant decisions. And lastly, the proposal of a decision support system, which aims to learn and to anticipate the patients’ information needed by physicians during their customary medical consultations.}
+}

@@ -1,0 +1,15 @@
+@phdthesis{richard:tel-03662496,
+  TITLE = {{Proposition d'un outil d'aide {\`a} la d{\'e}cision adapt{\'e} aux contraintes et aux enjeux d'un soutien informatique aux consultations m{\'e}dicales coutumi{\`e}res}},
+  AUTHOR = {Richard, Antoine},
+  URL = {https://tel.archives-ouvertes.fr/tel-03662496},
+  NUMBER = {2021UPSLD031},
+  SCHOOL = {{Universit{\'e} Paris sciences et lettres}},
+  YEAR = {2021},
+  MONTH = Apr,
+  KEYWORDS = {Decision Support ; Health Information Systems ; Decision Analysis ; Multi-Label Classification System ; Algorithmic Transparency ; Aide {\`a} la d{\'e}cision ; Syst{\`e}mes d'information hospitaliers ; Analyse du processus de d{\'e}cision ; Syst{\`e}mes de classification multi-Labels ; Transparence des algorithmes},
+  TYPE = {Theses},
+  PDF = {https://tel.archives-ouvertes.fr/tel-03662496/file/2021UPSLD031.pdf},
+  HAL_ID = {tel-03662496},
+  HAL_VERSION = {v1},
+  abstract = {Réalisée en collaboration avec le GIE Hopsis et les employés des Hospices Civils de Lyon (HCL), cette thèse a pour objectif de proposer une réflexion sur les contraintes et les enjeux liés à l’introduction d’outils d’aide à la décision dans le processus de travail de médecins lors de consultations médicales. Nos travaux se sont organisés autour de trois axes principaux. Une étude des outils actuellement employés pour soutenir le personnel soignant dans leurs processus de décision, qui nous a permis de mettre en évidence les limites des approches actuelles pour l’aide aux décisions médicales. En second lieu, une analyse du processus de décision de médecins travaillant aux HCL, qui nous a permis de mettre en évidence le besoin en informations des médecins afin de prendre des décisions concernant leurs patients. Et enfin, la proposition d’un outil d’aide à la décision, qui vise à l’apprentissage et à l’anticipation des besoins en informations des médecins durant leurs consultations médicales coutumières.}
+}
