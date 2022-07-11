@@ -1,0 +1,15 @@
+@article{richard:hal-02916089,
+  TITLE = {What does it mean to provide decision support to a responsible and competent expert?},
+  AUTHOR = {Richard, Antoine and Mayag, Brice and Talbot, Fran{\c c}ois and Tsouki{\`a}s, Alexis and Meinard, yves},
+  URL = {https://hal.archives-ouvertes.fr/hal-02916089},
+  JOURNAL = {EURO journal on decision processes},
+  PUBLISHER = {Springer},
+  YEAR = {2020},
+  MONTH = {Aug},
+  DOI = {10.1007/s40070-020-00116-7},
+  KEYWORDS = {Decision Analysis ; Decision Support Systems ; Diagnostic Decision Support Systems},
+  PDF = {https://hal.archives-ouvertes.fr/hal-02916089/file/2020_Richard-et-al_What_does_it_mean_to_provide_decision_support_to_a_responsible_and_competent_expert.pdf},
+  HAL_ID = {hal-02916089},
+  HAL_VERSION = {v1},
+  abstract = {Decision support consists in helping a decision-maker to improve his/her decisions. However, clients requesting decision support are often themselves experts and are often taken by third parties and/or the general public to be responsible for the decisions they make. This predicament raises complex challenges for decision analysts, who have to avoid infringing upon the expertise and responsibility of the decision-maker. The case of diagnosis decision support in healthcare contexts is particularly illustrative. To support clinicians in their work and minimize the risk of medical error, various decision support systems have been developed, as part of information systems that are now ubiquitous in healthcare contexts. To develop, in collaboration with the hospitals of Lyon, a diagnostic decision support system for day-to-day customary consultations, we propose in this paper a critical analysis of current approaches to diagnostic decision support, which mainly consist in providing them with guidelines or even full-fledged diagnosis recommendations. We highlight that the use of such decision support systems by physicians raises responsibility issues, but also that it is at odds with the needs and constraints of customary consultations. We argue that the historical choice to favor guidelines or recommendations to physicians implies a very specific vision of what it means to support physicians, and we argue that the flaws of this vision partially explain why current diagnostic decision support systems are not accepted by physicians in their application to customary situations. Based on this analysis, we propose that decision support to physicians for customary cases should be deployed in an “adjustive” approach, which consists in providing physicians with the data on patients they need, when they need them, during consultations. The rationale articulated in this article has a more general bearing than clinical decision support and bears lessons for decision support activities in other contexts where decision-makers are competent and responsible experts.}
+}

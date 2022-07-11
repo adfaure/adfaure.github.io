@@ -1,0 +1,14 @@
+@inproceedings{richard:hal-02011716,
+  TITLE = {{How AI could help physicians during their medical consultations: An analysis of physicians' decision process to develop efficient decision support systems for medical consultations}},
+  AUTHOR = {Richard, Antoine and Mayag, Brice and Meinard, yves and Talbot, Fran{\c c}ois and Tsouki{\`a}s, Alexis},
+  URL = {https://hal.archives-ouvertes.fr/hal-02011716},
+  BOOKTITLE = {PFIA 2018},
+  ADDRESS = {Nancy, France},
+  YEAR = {2018},
+  MONTH = {Jul},
+  KEYWORDS = {Clinical Decsion Support Systems ; Health Information System ; Decision Process Analysis},
+  PDF = {https://hal.archives-ouvertes.fr/hal-02011716/file/IAS2018_Richard_How_AI_could_help_physicians_during_their_medical_consultations.pdf},
+  HAL_ID = {hal-02011716},
+  HAL_VERSION = {v1},
+  abstract = {Physicians of the Hospitals of Lyon (HCL) use a Health Information System (HIS) during their medical consultations that gives them access to several functionalities. With the aim to develop Clinical Decision Support Systems (CDSSs) as new functionalities of the HIS, we analyse what kind of tools could be the most useful to help physicians during their day-today medical consultations. This paper presents the methods we used to collect data to analyse physicians' decision process during medical consultations. We also present two models of these decision processes and a discussion about the nature of tools that physicians really need during a medical consultation.}
+}

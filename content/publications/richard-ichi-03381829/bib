@@ -1,0 +1,17 @@
+@inproceedings{richard:hal-03381829,
+  TITLE = {A virtual assistant dedicated to supporting day-to-day medical consultations},
+  AUTHOR = {Richard, Antoine and Mayag, Brice and Talbot, Fran{\c c}ois and Tsoukias, Alexis and Meinard, yves},
+  URL = {https://hal.archives-ouvertes.fr/hal-03381829},
+  BOOKTITLE = {2021 IEEE 9th International Conference on Healthcare Informatics (ICHI)},
+  ADDRESS = {Victoria, Canada},
+  PUBLISHER = {IEEE},
+  PAGES = {330-338},
+  YEAR = {2021},
+  MONTH = {Aug},
+  DOI = {10.1109/ICHI52183.2021.00057},
+  KEYWORDS = {Clinical Decision Support System ; Virtual Assistant ; Health Informatics},
+  PDF = {https://hal.archives-ouvertes.fr/hal-03381829/file/manuscript.pdf},
+  HAL_ID = {hal-03381829},
+  HAL_VERSION = {v1},
+  abstract = {In this paper, we present a virtual assistant developed in collaboration with the civil hospitals of Lyon ('Hospices Civils de Lyon' or HCL in french), a group of hospitals in the area of Lyon (France). This virtual assistant is dedicated to supporting physicians during day-today medical consultations. It aims to anticipate which pieces of information physicians will need, given the information already known on patients, and provide them with these needed pieces of information. According to clinical trials made at the HCL, physicians appreciate the help that the proposed system provides for day-today practices.}
+}

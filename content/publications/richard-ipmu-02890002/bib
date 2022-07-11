@@ -1,0 +1,15 @@
+@incollection{richard:hal-02890002,
+  title = {Transparency of Classification Systems for Clinical Decision Support},
+  author = {Richard, Antoine and Mayag, Brice and Talbot, Fran{\c c}ois and Tsouki{\`a}s, Alexis and Meinard, Yves},
+  url = {https://hal.archives-ouvertes.fr/hal-02890002},
+  booktitle = {Information Processing and Management of Uncertainty in Knowledge-Based Systems - 18th International Conference, IPMU 2020, Lisbon, Portugal, June 15--19, 2020, Proceedings, Part III},
+  series = {Communications in Computer and Information Science},
+  pages = {99-113},
+  year = {2020},
+  month = {June},
+  doi = {10.1007/978-3-030-50153-2\_8},
+  pdf = {https://hal.archives-ouvertes.fr/hal-02890002/file/manuscript.pdf},
+  hal_id = {hal-02890002},
+  hal_version = {v1},
+  abstract = {In collaboration with the Civil Hospitals of Lyon, we aim to develop a 'transparent' classification system for medical purposes. To do so, we need clear definitions and operational criteria to determine what is a 'transparent' classification system in our context. However, the term 'transparency' is often left undefined in the literature, and there is a lack of operational criteria allowing to check whether a given algorithm deserves to be called 'transparent' or not. Therefore, in this paper, we propose a definition of 'transparency' for classification systems in medical contexts. We also propose several operational criteria to evaluate whether a classification system can be considered 'transparent'. We apply these operational criteria to evaluate the 'transparency' of several well-known classification systems.}
+}
