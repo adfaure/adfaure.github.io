@@ -7,6 +7,6 @@ type = "These"
 authors = ["Antoine Richard"]
 publication_types = "Thesis"
 tags = ["Decision support", "Health Information Systems", "Decision Analysis", "Multi-label Classification Systems", "Algorithmic Transparency"]
-url_pdf = "publications/phdthesis-fr/thesis_arichard.pdf"
-url_slides = "publications/phdthesis-fr/thesis_slides_arichard.pdf"
+pdf = "thesis_arichard.pdf"
+slides = "thesis_slides_arichard.pdf"
 +++
