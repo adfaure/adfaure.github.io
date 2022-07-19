@@ -34,13 +34,13 @@
           buildPhase = ''
             export theme_folder="themes/kodama-theme"
             cp -rL --no-preserve=mode ${kodama-theme} $theme_folder
+            cp $theme_folder/styles/styles.css styles/styles.css
           '';
 
           base-url = "https://adrien-faure.fr";
 
           installPhase = ''
             zola build -o $out --base-url ${base-url}
-            cp $theme_folder/styles/styles.css $out/styles/styles.css
           '';
         };
 

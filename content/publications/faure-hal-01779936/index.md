@@ -9,6 +9,6 @@ publication = "Compass"
 publication_types = "Preprint"
 
 url_pdf = "https://hal.inria.fr/hal-01779936/file/paper.pdf"
-slides = "files/slides_compas18.pdf"
+slides = "slides_compas18.pdf"
 +++
 
