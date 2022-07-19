@@ -5,6 +5,6 @@ date = 2020-12-02
 [extra]
 type = "These"
 publication_types = "Thesis"
-url_pdf = "publications/these/thesis_afaure.pdf"
-url_slides = "publications/these/thesis_slides_afaure.pdf"
+pdf = "publications/these/thesis_afaure.pdf"
+slides = "publications/these/thesis_slides_afaure.pdf"
 +++
