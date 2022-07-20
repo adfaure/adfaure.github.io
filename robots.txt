@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://adfaure.github.io/kodama/sitemap.xml
+Sitemap: https://adrien-faure.fr/sitemap.xml

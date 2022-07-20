@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>https://adfaure.github.io/kodama/</loc>
+        <loc>https://adrien-faure.fr/</loc>
     </url>
     <url>
-        <loc>https://adfaure.github.io/kodama/blog/</loc>
+        <loc>https://adrien-faure.fr/blog/</loc>
     </url>
     <url>
-        <loc>https://adfaure.github.io/kodama/blog/gantt-charts/</loc>
+        <loc>https://adrien-faure.fr/blog/gantt-charts/</loc>
         <lastmod>2019-03-02</lastmod>
     </url>
     <url>
-        <loc>https://adfaure.github.io/kodama/blog/nixops-on-vultr/</loc>
+        <loc>https://adrien-faure.fr/blog/nixops-on-vultr/</loc>
         <lastmod>2018-10-23</lastmod>
     </url>
     <url>
-        <loc>https://adfaure.github.io/kodama/contacts/</loc>
+        <loc>https://adrien-faure.fr/contacts/</loc>
         <lastmod>2020-07-09</lastmod>
     </url>
     <url>
-        <loc>https://adfaure.github.io/kodama/projects/</loc>
+        <loc>https://adrien-faure.fr/projects/</loc>
     </url>
     <url>
-        <loc>https://adfaure.github.io/kodama/projects/food-assistant/</loc>
+        <loc>https://adrien-faure.fr/projects/food-assistant/</loc>
         <lastmod>2020-07-09</lastmod>
     </url>
     <url>
-        <loc>https://adfaure.github.io/kodama/projects/melo-melon/</loc>
+        <loc>https://adrien-faure.fr/projects/melo-melon/</loc>
         <lastmod>2022-04-04</lastmod>
     </url>
     <url>
-        <loc>https://adfaure.github.io/kodama/publications/</loc>
+        <loc>https://adrien-faure.fr/publications/</loc>
     </url>
     <url>
-        <loc>https://adfaure.github.io/kodama/publications/faure-hal-01779936/</loc>
+        <loc>https://adrien-faure.fr/publications/faure-hal-01779936/</loc>
         <lastmod>2018-04-01</lastmod>
     </url>
     <url>
-        <loc>https://adfaure.github.io/kodama/publications/mercier-hal-01891084/</loc>
+        <loc>https://adrien-faure.fr/publications/mercier-hal-01891084/</loc>
         <lastmod>2018-11-01</lastmod>
     </url>
     <url>
-        <loc>https://adfaure.github.io/kodama/publications/redirection/</loc>
+        <loc>https://adrien-faure.fr/publications/redirection/</loc>
         <lastmod>2020-05-18</lastmod>
     </url>
     <url>
-        <loc>https://adfaure.github.io/kodama/publications/these/</loc>
+        <loc>https://adrien-faure.fr/publications/these/</loc>
         <lastmod>2020-12-02</lastmod>
     </url>
 </urlset>
