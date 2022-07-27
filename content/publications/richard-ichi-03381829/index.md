@@ -3,7 +3,7 @@ title = "A virtual assistant dedicated to supporting day-to-day medical consulta
 date = 2021-08-11
 
 [extra]
-type = "Conference"
+type = "conferences"
 authors = ["Antoine Richard", "Brice Mayag", "François Talbot", "Alexis Tsoukiàs", "Yves Meinard"]
 publication_types = "Conference paper"
 featured = true

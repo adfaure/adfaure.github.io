@@ -3,7 +3,7 @@ title = "How AI could help physicians during their medical consultations: An ana
 date = 2018-07-03
 
 [extra]
-type = "Conference"
+type = "conferences"
 authors = ["Antoine Richard", "Brice Mayag", "Yves Meinard", "François Talbot", "Alexis Tsoukiàs"]
 publication_types = "Conference paper"
 featured = true
