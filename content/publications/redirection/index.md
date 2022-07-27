@@ -4,7 +4,7 @@ date = 2020-05-18
 
 
 [extra]
-type = "Conference"
+type = "conferences"
 authors = [ "Adrien Faure", "Giorgio Lucarelli", "Olivier Richard", "Denis Trystram" ]
 publication_types = "Conference paper"
 featured = true

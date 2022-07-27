@@ -9,6 +9,13 @@ insert_anchor_links = "right"
 extra.index_title = "Recent publications"
 extra.name = "Research"
 extra.index_show = true
+
+extra.publications_types = [
+  { title = "Journal articles", type = "journals" },
+  { title = "Thesis", type = "thesis" },
+  { title = "Conferences and workshops ", type = "conferences" },
+  { title = "Preprints", type = "preprint" }
+]
 +++
 
 ## Topic of interest
