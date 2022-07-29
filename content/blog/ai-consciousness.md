@@ -4,9 +4,13 @@ date = 2022-07-26
 description = """This post is reflexion on the possibility
 for an AI to be sentient (or conscious) and our capacity
 to detect it (and accept it)"""
+
 tags = ["AI", "philosophy", "LaMDA"]
 categories = ["Essay"]
 featured = false
+
+[extra]
+katex = true
 +++
 
 ## Introduction

@@ -1,0 +1,10 @@
+{% extends "kodama-theme/templates/base.html" %}
+
+{% import 'macros/katex.html' as macros_katex -%}
+
+{% block user_head %}
+{% if page.extra.katex %}
+{{ macros_katex::import_katex() }}
+{% endif %}
+{% endblock user_head %}
+

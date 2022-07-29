@@ -36,11 +36,11 @@
         "oxalica": "oxalica"
       },
       "locked": {
-        "lastModified": 1658904993,
-        "narHash": "sha256-1YH1+gvSTYndiI3q3D/crPNLMdel5GJiIeHU51x8KTM=",
+        "lastModified": 1659081290,
+        "narHash": "sha256-4HWq+yELwVBPed4Ky3zY7EqRimp8j7TYPZBkT3E2498=",
         "owner": "adfaure",
         "repo": "kodama-theme",
-        "rev": "acddaabf74f2ad02df0a054dd770e863cc5f0cd0",
+        "rev": "1169229d7b57b980bbd14ff54f09f87bf1d197ef",
         "type": "github"
       },
       "original": {
@@ -125,11 +125,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1658890458,
-        "narHash": "sha256-czG3asDAqn2PG8HdjOG+6AEqJazkT/tLuuuScYVYYaA=",
+        "lastModified": 1659063345,
+        "narHash": "sha256-BCMsSZIXJumY3RROgrIIu/fw3pNISCTqcmb7/UxGx88=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "c6264ea118f0f9f206329cf7ca4848f4162090b5",
+        "rev": "c82cd893b40dc858f91bce11a9e19ee11db86721",
         "type": "github"
       },
       "original": {
