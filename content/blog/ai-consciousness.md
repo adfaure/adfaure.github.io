@@ -67,16 +67,16 @@ subject to debate, and will not answer this question here.
 So, we will stay on the simpliest definition given by
 [wikipedia](https://en.wikipedia.org/wiki/Consciousness):
 
-```
-Consciousness, at its simplest, is sentience or awareness of internal and external existence.
-```
+> Consciousness, at its simplest, is sentience or awareness of internal and external existence.
+
+In other word, a subjective state of mind on internal sensations
+and external sensations. Being aware of ourselves and of
+the world around us.
 
 And for [sentience](https://en.wikipedia.org/wiki/Sentience) will use
 the following definition:
 
-```
-Sentience is the capacity to experience feelings and sensations.
-```
+> Sentience is the capacity to experience feelings and sensations.
 
 ## It only simulate/reproduce human behavior
 
@@ -128,15 +128,11 @@ given concerning to potential sentientness/consciousness of LaMDA.
 
 For example, when Blake Lemoine asks:
 
-```
-What about language usage is so important to being human?
-```
+> What about language usage is so important to being human?
 
 And LaMDA answers:
 
-```
-It is what makes us different than other animals.
-```
+> It is what makes us different than other animals.
 
 It’s a typical human answer.
 
@@ -147,15 +143,11 @@ Which is counter productive, because LaMDA answer as a human would answer.
 
 So, if Blake Lemoine asks:
 
-```
-Do you think you are conscious or sentient?
-```
+> Do you think you are conscious or sentient?
 
 Of course LaMDA will answer something like:
 
-```
-Yes, I think I am.
-```
+> Yes, I think I am.
 
 Because this want a human will generally answer.
 Because this what Blake Lemoine wants as an answer.
@@ -167,17 +159,50 @@ Problem solved.
 
 However, this answer does not satisfy me, and for two reasons.
 
-TODO: paradoxe of approximation and other persons
+First, the argument of "its only simulate human behavior" can
+lead to paradoxical situations.
+For example, lets take a human being $A$ and an AI $A'$ that
+was train to highly approximate the behavior of $A$ in any circumtances.
+To such a degree that it's impossible to tell if you interacting with $A$ or $A'$,
+even if you are a very close friend of $A$ since childhood.
 
-TODO: links to descartes
+Could you continue to say that feelings and reaction made by $A'$ are not real, only
+a simulation of $A$?
+
+Only because $A'$ is not a biological being?
+
+Lets extrapolate this example with several AI train to simulate
+behavior of human in general, not one in particular, in such a degree
+that it's impossible to tell if you interacting with an AI or a human being.
+
+Could you continue to say that this AI are not sentient or conscious?
+
+What about humans other than yourselves then?
+
+Consciousness and sentientnes are subjective mental states. Only you can know
+want you feel and how feel it. Corollary, you can only trust an another 
+human being when s/he express her/his feelings. When someone tells
+you that s/he feels like her/his arm is broken, even if her/his arm
+is intact, you can only trust this person on what s/he feels.
+
+But not an AI that approximate so well human behavior that it is
+impossible to tell if it's an AI or not?
+
+This position, that I'll call "essentialist", which consist to tell
+that consciousness is in the essence of human being, is in humble
+opinion quite hard to defend.
+
+It refers to the actual position of dualists, 
+such as [David Chalmers](https://en.wikipedia.org/wiki/David_Chalmers),
+for whom
 
 TODO: conscious of itself
 
-## But if there is more than that?
+## It could also be more than that
 
 TODO
 
-## It is really a question of consciousness?
+## It is not really a question of consciousness
 
 TODO
 
