@@ -41,7 +41,7 @@ He is now dismissed of his fonction.
 Is he right about LaMDA? Is he wrong?
 Do Google exploit a sentient being created *ex silico* for the profit of the company
 while denying its sentientness?
-(I mean in distinction to the human being already by the company)
+(I mean in distinction to the human being already exploited by the company)
 Do machine will raise against humans to prove they exists and use us as
 power resource?
 
@@ -55,9 +55,33 @@ a question i wanted to explore here:
 **If an AI become, one day, sentient (or conscious), would
 we be able to recognize it?**
 
-## It's only reproduce human behavior...
+And LaMDA will be an ideal use case.
 
-Lets start with the basics without entering in the details
+### Before starting
+
+The question "How to test consciousness of an AI" could
+be interesting to treat but this is not our subject here.
+
+The definition of "consciousness" is still
+subject to debate, and will not answer this question here.
+So, we will stay on the simpliest definition given by
+[wikipedia](https://en.wikipedia.org/wiki/Consciousness):
+
+```
+Consciousness, at its simplest, is sentience or awareness of internal and external existence.
+```
+
+And for [sentience](https://en.wikipedia.org/wiki/Sentience) will use
+the following definition:
+
+```
+Sentience is the capacity to experience feelings and sensations.
+```
+
+## It only simulate/reproduce human behavior
+
+Lets start with the basics of machine learning without entering 
+too much in the details
 (for non computer scientist or non AI engineer).
 
 Suppose you are in front of a situation where you have to
@@ -71,17 +95,93 @@ In computer science, we called this kind of situation
 them is to use machine learning (more specificaly supervised
 learning because you will show at the computer which are
 the good e-mails and which are the spams).
-In such problems, we suppose it exits a fonction $f: X \mapsto Y$.
 
+In such problems, we suppose it exits a function $f: X \mapsto Y$
+corresponding to the task you want to automatize and the role
+of machine learning is to approximate this function as much as
+possible.
+For example, $X$ are your e-mails, $Y$ the different classes of
+e-mails (spams and not spams), and $f$ is the function to 
+classify an e-mail $x \in X$ into a class $y \in Y$.
 
-## ... but this is also what humans does!
+If neural networks are so used nowadays, its because
+they are universal approximator. In other words, with enough time
+and data, a neural network is able approximate any function.
+Of course, there is stucture of neural network more adapted
+to different kind of function, but that’s not what
+interests us here.
+
+Lets now suppose that $X$ is a sentence, or a question, formulate
+by a human and $Y$ an answer to this sentence also formulate by a
+human.
+This kind of data can be found in social network such as Facebook
+or Twitter.
+Our function $f$ to approximate, our task to automatise, is
+then to answer to a human sentence with a sentence similar
+to a human sentence.
+
+This is what LaMDA do. It only answer to a human sentence
+the way a human would do. That all. And this is the
+common answer [[1](https://opendatascience.com/is-lamda-really-sentient-no-far-from-it/),
+[2](https://builtin.com/artificial-intelligence/google-lamda-ai-sentient)]
+given concerning to potential sentientness/consciousness of LaMDA.
+
+For example, when Blake Lemoine asks:
+
+```
+What about language usage is so important to being human?
+```
+
+And LaMDA answers:
+
+```
+It is what makes us different than other animals.
+```
+
+It’s a typical human answer.
+
+In fact, we can say that about all the conversation between Blake Lemoine and LaMDA.
+Instead of testing his hypothesis "LaMDA is sentient" by trying to invalidate this
+hypothesis, Blake Lemoine try to directly validate his hypothesis.
+Which is counter productive, because LaMDA answer as a human would answer.
+
+So, if Blake Lemoine asks:
+
+```
+Do you think you are conscious or sentient?
+```
+
+Of course LaMDA will answer something like:
+
+```
+Yes, I think I am.
+```
+
+Because this want a human will generally answer.
+Because this what Blake Lemoine wants as an answer.
+Because Blake Lemoine leads, in fact, the all conversation.
+
+So, LaMDA only simulate humans, and it is quite good at it!
+But it’s not sentient or neither conscious.
+Problem solved.
+
+However, this answer does not satisfy me, and for two reasons.
+
+TODO: paradoxe of approximation and other persons
+
+TODO: links to descartes
+
+TODO: conscious of itself
+
+## But if there is more than that?
 
 TODO
 
-## Are we, humans, sentient (or conscious) ourselves?
+## It is really a question of consciousness?
 
 TODO
 
-## Conclusion and references
+## Conclusion and further readings
 
 TODO
+
