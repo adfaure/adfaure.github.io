@@ -1,7 +1,7 @@
 +++
 title = "Can AI be sentient (or conscious)?"
 date = 2022-07-26
-description = """This post is reflexion on the possibility
+description = """This post is a reflexion on the possibility
 for an AI to be sentient (or conscious) and our capacity
 to detect it (and accept it)"""
 
@@ -25,7 +25,7 @@ To summary, Blake Lemoine is an engineer at Google and works as AI ethicist
 on the project LaMDA.
 LaMDA being trained on public dialog data and public web document (such as facebook and twitter posts
 and comments), the role of Blake Lemoine is to avoid the risk to reproduce the disaster
-of [Ask Delphi](https://www.ladbible.com/news/latest-ai-bot-becomes-racist-and-homophobic-after-learning-from-humans-20211104)
+of [Ask Delphi](https://www.ladbible.com/news/latest-ai-bot-becomes-racist-and-homophobic-after-learning-from-humans-20211104),
 which "became" racist and homophobic after several hours on twitter.
 To do so, Blake Lemoine discuss regularly with LaMDA to test if it starts
 to have unethical statements.
@@ -39,9 +39,12 @@ he leaks some of his [conversations with LaMDA](https://cajundiscordian.medium.c
 He is now dismissed of his fonction.
 
 Is he right about LaMDA? Is he wrong?
+
 Do Google exploit a sentient being created *ex silico* for the profit of the company
 while denying its sentientness?
+
 (I mean in distinction to the human being already exploited by the company)
+
 Do machine will raise against humans to prove they exists and use us as
 power resource?
 
@@ -55,13 +58,13 @@ a question i wanted to explore here:
 **If an AI become, one day, sentient (or conscious), would
 we be able to recognize it?**
 
-And LaMDA will be an ideal use case.
+And LaMDA will be an ideal use case treat this question.
 
 ### Before starting
 
 The question "How to test consciousness of an AI" could
-be interesting to treat but this is not our subject here.
-But you are interested on this subject, Reed Berkowitz
+be interesting but this is not our subject here.
+If you are interested on this subject, Reed Berkowitz
 proposed this interesting
 [article](https://medium.com/curiouserinstitute/guide-to-is-lamda-sentient-a8eb32568531)
 on medium.
@@ -73,7 +76,7 @@ So, we will stay on the simpliest definition given by
 
 > Consciousness, at its simplest, is sentience or awareness of internal and external existence.
 
-In other word, a subjective state of mind on internal sensations
+In other words, a subjective state of mind on internal sensations
 and external sensations. Being aware of ourselves and of
 the world around us.
 
@@ -94,9 +97,9 @@ In your mail box you have mails you could care about
 and mails you don't care about (generally spams).
 So, you sort them by hand and its very exhausting.
 
-In computer science, we called this kind of situation
-"classification problems" and a solution to solve
-them is to use machine learning (more specificaly supervised
+In computer science, we called this kind of situation a
+"classification problem" and a solution to solve
+it is to use machine learning (more specificaly supervised
 learning because you will show at the computer which are
 the good e-mails and which are the spams).
 
@@ -108,15 +111,14 @@ For example, $X$ are your e-mails, $Y$ the different classes of
 e-mails (spams and not spams), and $f$ is the function to 
 classify an e-mail $x \in X$ into a class $y \in Y$.
 
-If neural networks are so used nowadays, its because
+If neural networks are so used nowadays, it’s because
 they are universal approximator. In other words, with enough time
 and data, a neural network is able approximate any function.
-Of course, there is stucture of neural network more adapted
-to different kind of function, but that’s not what
-interests us here.
+Of course, there are stuctures of neural networks more adapted
+to different kind of functions.
 
-Lets now suppose that $X$ is a sentence, or a question, formulate
-by a human and $Y$ an answer to this sentence also formulate by a
+Lets now suppose that $X$ is a sentence, or a question, formulated
+by a human and $Y$ an answer to this sentence also formulated by a
 human.
 This kind of data can be found in social network such as Facebook
 or Twitter.
@@ -124,7 +126,7 @@ Our function $f$ to approximate, our task to automatise, is
 then to answer to a human sentence with a sentence similar
 to a human sentence.
 
-This is what LaMDA do. It only answer to a human sentence
+This is what LaMDA do. It only answers to a human sentence
 the way a human would do. That all. And this is the
 common answer [[1](https://opendatascience.com/is-lamda-really-sentient-no-far-from-it/),
 [2](https://digitalagesage.medium.com/googles-lamda-is-not-a-person-nor-a-sentient-being-it-s-a-computer-program-that-can-t-meditate-e8de5808eeb0),
@@ -155,11 +157,11 @@ Of course LaMDA will answer something like:
 
 > Yes, I think I am.
 
-Because this want a human will generally answer.
-Because this what Blake Lemoine wants as an answer.
+Because this is what a human will generally answer.
+Because this is what Blake Lemoine wants as an answer.
 Because Blake Lemoine leads, in fact, the all conversation.
 
-So, LaMDA only simulate humans, and it is quite good at it!
+So, LaMDA only simulates humans, and it is quite good at it!
 But it’s not sentient or neither conscious.
 Problem solved.
 
@@ -218,6 +220,13 @@ However, this position is based on the strong predicate that consciousness, more
 is a part of human "essence": $A$ have P-consciousness because s/he is human, $A’$ doesn’t have P-consciousness
 because it is not human (even if it is impossible to tell who is who).
 Human being have consciousness and consciousness is a human thing.
+
+With this position, we go againts the idea of the subjectiveness
+of conscious, we take the right to tell whether $A’$ is conscious or not
+even if we define earlier that only $A’$ can experiment its consciousness.
+Is like someone tells you that you’re not sentient or conscious
+because you don’t think exactly the way s/he think.
+
 With this point of view, in my humble opinion, it is hard to study and search for consciousness different
 than what human beings experiment, and to recognize that something else than humans are sentient or conscious
 (AI, aliens, or not humans animals).
