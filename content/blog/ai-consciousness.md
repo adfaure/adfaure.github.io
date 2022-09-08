@@ -319,7 +319,23 @@ but still be considered as not sentient or conscious?**
 
 ## It could be more than that
 
-TODO
+To explore how LaMDA build its internal representations of
+concepts, I’ll need to be a little more technical.
+
+LaMDA, for what I know, is based on a specific structure of
+neural networks called Transformer.
+Transformer models have shown excellent results in Natural Language
+Processing (NLP) tasks such as Text Generation or Question Answering.
+However, the structure used by LaMDA doesn’t change a lot
+what I want to explain.
+
+Here, I’ll try to stay as simple as possible. So, their will be approximations.
+If you want more explanation on how transformers models works, you can check
+the excellent [blog of Jay Alammar](https://jalammar.github.io/illustrated-transformer/).
+
+First of all, to treat a sentence as input, a NLP neural network
+need to tokenize this sentence.
+In other words, before giving the sentence to the neural
 
 ## It is not really a question of consciousness
 
