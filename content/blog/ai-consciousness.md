@@ -226,6 +226,8 @@ of conscious, we take the right to tell whether $A’$ is conscious or not
 even if we define earlier that only $A’$ can experiment its consciousness.
 Is like someone tells you that you’re not sentient or conscious
 because you don’t think exactly the way s/he think.
+Or, may be, the statement that consciousness is only subjective
+is wrong at the beginning.
 
 With this point of view, in my humble opinion, it is hard to study and search for consciousness different
 than what human beings experiment, and to recognize that something else than humans are sentient or conscious
@@ -321,21 +323,73 @@ but still be considered as not sentient or conscious?**
 
 To explore how LaMDA build its internal representations of
 concepts, I’ll need to be a little more technical.
+But, I'll try to stay as simple as possible.
+So, there will be approximations.
 
-LaMDA, for what I know, is based on a specific structure of
-neural networks called Transformer.
-Transformer models have shown excellent results in Natural Language
-Processing (NLP) tasks such as Text Generation or Question Answering.
-However, the structure used by LaMDA doesn’t change a lot
-what I want to explain.
-
-Here, I’ll try to stay as simple as possible. So, their will be approximations.
-If you want more explanation on how transformers models works, you can check
-the excellent [blog of Jay Alammar](https://jalammar.github.io/illustrated-transformer/).
+LaMDA is a neural networks dedicated to solve
+Natural Language Processing (NLP) tasks, such as
+Text Generation or Question Answering.
+More especially, for what I know, LaMDA is 
+based on a specific structure called Transformer.
+However, we'll not enter as much in details, so
+if you want more explainations on how transformers
+models works, you can check the excellent  
+[blog of Jay Alammar](https://jalammar.github.io/illustrated-transformer/).
 
 First of all, to treat a sentence as input, a NLP neural network
 need to tokenize this sentence.
-In other words, before giving the sentence to the neural
+In other words, before giving a sentence to the neural network,
+this sentence will be splited into subwords, then
+transcripted to numbers corresponding to these subwords.
+
+TODO: Illustration
+
+This phase is generally independent to the process of the neural
+network. It allows to transform a sentence into a set of numbers
+easier to be interpreted by the neural network.
+
+Then, for each number, the neural network transform them into 
+vectors and matrixes, several times, on multiple parallel
+layers.
+For example, the model [GPT-2](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf),
+a model similar to LaMDA, has thousands of artificial neurons split
+in 48 layers (for the biggest version).
+Unfortunately, we don't have these information for LaMDA.
+
+This process can be called "*abstraction*". Each neuron will be more
+sensible to a certain abstract concept of the problem to solve.
+Each group of neurons will be more specialized to treat a certain
+aspect of the function to approximate.
+For example, as certain group of neurons will be activated when
+the sentence to treat includes the word "me" or "you", but will
+stay deactivated in front of the word "cat".
+
+TODO: Illustration ?
+
+In other words, when a neural network is train to approximate
+the function "answer like a humans", it also approximate
+unknown sub-functions allowing to optimize its results.
+So, if something like "conscious" can appears in a neural
+network, it could come from the approximation of one 
+of these unknown sub-functions.
+
+Concerning LaMDA, we cannot say. Once again, the protocol
+followed by Blake Lemoine is full of issues.
+In addition, a human brain is composed by billions of
+neurons, where our biggest artificial neural networks
+are composed by thousands of neurons.
+However, with this point of view and with bigger neural networks,
+it seems  not impossible that something similar to what we call "conscious"
+appears in the future in our neural networks.
+Depending of the problems they have to solve.
+
+In the philosphy of mind, the positionning to tell that "consciousness"
+is just a sub-fonction of our mind is called
+[functionnalism](https://plato.stanford.edu/entries/functionalism/).
+
+TODO: explain functionnalism and limits
+
+TODO: transit to synthesis section
 
 ## It is not really a question of consciousness
 
@@ -344,4 +398,5 @@ TODO
 ## Conclusion and further readings
 
 TODO
+
 
