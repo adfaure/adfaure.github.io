@@ -1,5 +1,8 @@
 name: Build and publish theme
-on: [push]
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   Nix-Flake-Build:
