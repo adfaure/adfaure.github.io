@@ -383,13 +383,61 @@ it seems  not impossible that something similar to what we call "conscious"
 appears in the future in our neural networks.
 Depending of the problems they have to solve.
 
-In the philosphy of mind, the positionning to tell that "consciousness"
-is just a sub-fonction of our mind is called
+In the philosphy of mind, this positionning is called
 [functionnalism](https://plato.stanford.edu/entries/functionalism/).
+It inherits from [materialism (or physicalism)](https://plato.stanford.edu/entries/physicalism/),
+a position in philosophy claiming that everything belong
+the material world and that nothing is mental.
+In functionnalism, consciousness is a sub-function
+of our mind/brain that reacts to internal and
+external stimuli.
+A sub-function selected, ajusted, refined, generation after
+generation, allowing human beings (and maybe other beings)
+to reach a certain degree of consciousness to be able to
+survive in earth.
 
-TODO: explain functionnalism and limits
+With this position, in my humble opinion, it is
+easier to consider that beings other than humans
+can be conscious.
+However, it could lead to some strange (mental)
+situations.
+For example, as proposed by [Ned Block (1980)](https://conservancy.umn.edu/bitstream/handle/11299/185298/9_12Block.pdf?sequence=1),
+lets regroup as many human beings than neurons in a human brain,
+and make these humans interacts with each other like neurons.
+With a functionalist position, we should claim that this among
+of human beings simulates a human brain, so all the sub-functions
+of a human brain, including consciousness. 
+Therefore, we should claim that this among of human beings is also
+conscious.
+Furthermore, we should claim the same thing for water
+network with pipes interacting with each other like
+neurons of a human brain interacts.
 
-TODO: transit to synthesis section
+In addition, with such phylosophical positionning,
+we should be careful about our tendency to
+anthropomorphized everything. 
+Unlike Blake Lemoine, who wanted too much
+to see human-like consciousness in LaMDA,
+we should remember that an AI conscious
+will probably be totally different to our
+vision of consciousness.
+In the same way it is impossible for 
+a human being to know exactly [what is
+like to be a bat](http://www.esalq.usp.br/lepse/imgs/conteudo_thumb/What-Is-It-Like-to-Be-a-Bat-1.pdf),
+to experiment the world like a whale, to
+be conscious of itself and others like an ant,
+we potentially never be able to experiment
+consciousness as an AI could, someday, do.
+
+Despite these limitations of functionalism,
+it seems to be a better starting point to
+explore the question of consciousness in AI.
+
+Now, the question is: 
+
+**Are we able to recognize consciousness other than human-like consciousness?**
+
+**Are we ready to accept consciousness in beings other than humans?**
 
 ## It is not really a question of consciousness
 
