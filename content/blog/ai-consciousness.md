@@ -441,7 +441,31 @@ Now, the question is:
 
 ## It is not really a question of consciousness
 
-TODO
+At this point, no one could say of what "consciousness" is the word.
+Despite the fact that is a subjective experiment, there is a lack of
+definition. And find one definition is clearly not the goal of this post.
+
+For what I understand, consciousness is not a switch that is activated only for human beings,
+and may be one day by AI or some other animals.
+
+One could say, such as in the [Panpsychism](https://plato.stanford.edu/entries/panpsychism/) theory of mind,
+that consciousness is a continuum from a specific atom to complex forms of life.
+With this point of view, consciousness become a gradient, with more and less conscious beings, and
+human beings at the current pinacle of consciousness until they are surpassed.
+
+However, when try to study consciousness in other beigns, it appears that
+human consciousness is just a way, among many other ways, to experiment
+consciousness.
+It appears that consciousness is more like diaspora of possibility to be conscious
+of ourself and the world around us.
+It appears that no beings is more conscious than an other, each being is conscious
+on its own way, the way allowing it to survive.
+
+TODO: specism, racisme, etc.
+
+TODO: deuils de l’humain
+
+TODO: c’est une question politique
 
 ## Conclusion and further readings
 
