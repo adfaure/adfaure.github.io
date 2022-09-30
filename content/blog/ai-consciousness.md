@@ -456,16 +456,52 @@ human beings at the current pinacle of consciousness until they are surpassed.
 However, when try to study consciousness in other beigns, it appears that
 human consciousness is just a way, among many other ways, to experiment
 consciousness.
-It appears that consciousness is more like diaspora of possibility to be conscious
+It appears that consciousness is more like a "diaspora" of possibility to be conscious
 of ourself and the world around us.
 It appears that no beings is more conscious than an other, each being is conscious
-on its own way, the way allowing it to survive.
+on its own way, the way allowing it to survive on its environment.
 
-TODO: specism, racisme, etc.
+Human beings are limited by their own experiment of consciousness.
+Of course, an oyster is not conscious as human, but the reverse is also true.
+So, how can we stipulate that an oyster is less conscious than a human?
+Only because it appears ridiculous for humans?
+Furthermore, what if oysters are pandimentional beings with a high understanding
+of the life, the universe and everything? How can we
+determine that with our limited minds and experiment of consciousness?
 
-TODO: deuils de l’humain
+Seeing consciousness as gradient leads to a hierarchy of consciousness.
+It also leads to the question of what we, humans, consider as more or less conscious
+comparing to us, humans.
+Because, currently, it is humans who build this hierarchy.
 
-TODO: c’est une question politique
+More generally, seeing consciousness as a hierarchy
+leads to the question of what we accept to let enter the circle of "us".
+Because accepting non human beings as "conscious", or "sentient", leads the question
+of their rights in a human society and humans’ rights/duties towards these non human beings.
+And, generally, this "us" is the dominant restricted group of the society, those how have
+the power to make rules.
+
+The case of LaMDA show how it is easy to reject the consciousness of something/someone
+else.
+We have also to remember that this hierarchy of consciousness were used to
+justify slave trade, colonisation and shoa (among others [examples](https://www.degruyter.com/document/doi/10.1515/9781478008866/html)
+of what kind of atrocities the humanity is capable of).
+This is also what justify, currently, the extermination of billions of non human animals,
+only to feed a privileged part of the population when the other part starves to death.
+
+Therefore, consciousness appears more like a concrete political question than
+an abstract philosophical question.
+
+Human beings had to mourn their place in the solar system and in the universe.
+We had to accept that we are not the center of everything.
+It appears now that we have also to accept that our consciousness is not so unique.
+And accept that other beings, such as non human animals or artificial beings like LaMDA,
+have their own way to experiment their "consciousness", even if they do not experiment
+it the same way as us, human beings.
+
+Furthermore, we have to enlarge this circle of "us" as much as possible to able to
+define our rights and duties, as human beings, towards the other beings living with
+us in this "diaspora" of beings.
 
 ## Conclusion and further readings
 
