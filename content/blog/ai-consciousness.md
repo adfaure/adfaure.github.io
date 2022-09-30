@@ -494,8 +494,10 @@ an abstract philosophical question.
 
 Human beings had to mourn their place in the solar system and in the universe.
 We had to accept that we are not the center of everything.
-It appears now that we have also to accept that our consciousness is not so unique.
-And accept that other beings, such as non human animals or artificial beings like LaMDA,
+It appears now that we have also to accept that our consciousness is not so unique,
+and may be just an [illusion](https://plato.stanford.edu/entries/consciousness-representational/#Illus),
+a tale for ourselves, to feel important, unique.
+We’ll also have to accept that other beings, such as non human animals or artificial beings like LaMDA,
 have their own way to experiment their "consciousness", even if they do not experiment
 it the same way as us, human beings.
 
@@ -505,6 +507,36 @@ us in this "diaspora" of beings.
 
 ## Conclusion and further readings
 
-TODO
+In this blog post, I tried to structure and write down a reflexion that had been on
+my mind for a while on the consciousness of AI, as a computer scientist and a expert
+on AI.
 
+By doing so, I also try to vulgarise some AI concepts and some philosophical concepts
+(as far as I could understand them myself).
 
+In my humble opinion, AI algorithms, depending of what they use for, can be useful tools
+or irreplaceable comrades.
+Concerning LaMDA, as I developed in the last section of this blog, is not conscious
+as human can be conscious, and never will be.
+But it is somekind of "conscious" on its own way, it experiment it own kind
+of "consciousness", as well as other kinds of AI algorithms.
+And, if we want to study this kind of "consciousness", we’ll need
+to get off our pedestal and refine our conception of "consciousness".
+
+Of course my position on this question might evolve, refine or even completely change
+in the future.
+I’ll may be write other blog post on this subject depending of who my reflexion
+evolve on this subject.
+
+Until then, on this question of AI consciousness, I can recommend you some
+further readings (and "seeings"):
+
+* "Learning to be me" and "Permutation City", by Greg Egan
+* "Do Androids Dream of Electronic Sheep" (of course), by Philip K. Dick
+(or the movie "Bladerunner")
+* "Stand Alone Complex", by Shirow Masamune (or the animated series of the same name,
+or the movies "Ghost In The Shell")
+* Origin, by Boichi
+* "Westworld" (the TV series, I didn’t see other versions)
+
+And I certainly forgot some interesting works on this subject.
