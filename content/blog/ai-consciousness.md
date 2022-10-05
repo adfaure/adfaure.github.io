@@ -1,9 +1,9 @@
 +++
-title = "Can AI be sentient (or conscious)?"
+title = "[Essay] Can AI be conscious?"
 date = 2022-07-26
 description = """This post is a reflexion on the possibility
-for an AI to be sentient (or conscious) and our capacity
-to detect it (and accept it)"""
+for an AI to be conscious and our capacity, as human beings,
+to recognize it"""
 
 tags = ["AI", "philosophy", "LaMDA"]
 categories = ["Essay"]
@@ -17,7 +17,7 @@ katex = true
 
 Recently, I heard about the story of Blake Lemoine, an engineer
 at Google, and the Artificial Intelligence he was responsible for:
-[Language Models for Dialog Applications](https://arxiv.org/abs/2201.08239).
+[Language Models for Dialog Applications (LaMDA)](https://arxiv.org/abs/2201.08239).
 
 The complete version of the story can be found in [this article](https://www.washingtonpost.com/technology/2022/06/11/google-ai-lamda-blake-lemoine/)
 of The Washington Post.
@@ -32,7 +32,7 @@ to have unethical statements.
 
 Days after days, months after months, Blake Lemoine
 starts to consider LaMDA as a colleague, to consider
-LaMDA as a person, to consider LaMDA as sentient.
+LaMDA as a person, to consider LaMDA as sentient and conscious.
 After informing his human colleagues and his superiors,
 he leaks some of his [conversations with LaMDA](https://cajundiscordian.medium.com/is-lamda-sentient-an-interview-ea64d916d917).
 
@@ -55,28 +55,27 @@ In fact, this is not the subject of this post.
 This story, however interesting as it is, raise in my mind
 a question i wanted to explore here:
 
-**If an AI become, one day, sentient (or conscious), would
+**If an AI become, one day, conscious, would
 we be able to recognize it?**
 
 And LaMDA will be an ideal use case treat this question.
 
 ### Before starting
 
-The question "How to test consciousness of an AI" could
-be interesting but this is not our subject here.
+The question "How to test the consciousness of an AI" could
+be interesting, but this is not our subject here.
 If you are interested on this subject, Reed Berkowitz
-proposed this interesting
-[article](https://medium.com/curiouserinstitute/guide-to-is-lamda-sentient-a8eb32568531)
-on medium.
+proposed some possible experiments on this
+[article](https://medium.com/curiouserinstitute/guide-to-is-lamda-sentient-a8eb32568531).
 
 The definition of "consciousness" is still
-subject to debate, and will not answer this question here.
-So, we will stay on the simpliest definition given by
+subject to debate, and we will not answer this question here.
+Therefore, we will stay on the simpliest definition given by
 [wikipedia](https://en.wikipedia.org/wiki/Consciousness):
 
 > Consciousness, at its simplest, is sentience or awareness of internal and external existence.
 
-In other words, a subjective state of mind on internal sensations
+In other words, a subjective state of mind, on internal sensations
 and external sensations. Being aware of ourselves and of
 the world around us.
 
@@ -100,7 +99,7 @@ So, you sort them by hand and its very exhausting.
 In computer science, we called this kind of situation a
 "classification problem" and a solution to solve
 it is to use machine learning (more specificaly supervised
-learning because you will show at the computer which are
+learning because you will show to the computer which are
 the good e-mails and which are the spams).
 
 In such problems, we suppose it exits a function $f: X \mapsto Y$
@@ -112,7 +111,7 @@ e-mails (spams and not spams), and $f$ is the function to
 classify an e-mail $x \in X$ into a class $y \in Y$.
 
 If neural networks are so used nowadays, it’s because
-they are universal approximator. In other words, with enough time
+they are universal approximators. In other words, with enough time
 and data, a neural network is able approximate any function.
 Of course, there are stuctures of neural networks more adapted
 to different kind of functions.
@@ -132,7 +131,7 @@ common answer [[1](https://opendatascience.com/is-lamda-really-sentient-no-far-f
 [2](https://digitalagesage.medium.com/googles-lamda-is-not-a-person-nor-a-sentient-being-it-s-a-computer-program-that-can-t-meditate-e8de5808eeb0),
 [3](https://medium.com/curiouserinstitute/guide-to-is-lamda-sentient-a8eb32568531),
 [4](https://builtin.com/artificial-intelligence/google-lamda-ai-sentient)]
-given concerning to potential sentientness/consciousness of LaMDA.
+given concerning to potential consciousness of LaMDA.
 
 For example, when Blake Lemoine asks:
 
@@ -168,7 +167,7 @@ Problem solved.
 However, this answer does not satisfy me, and for two reasons.
 
 First, the argument of "its only simulate human behavior" can
-lead to paradoxical situations.
+leads to paradoxical situations.
 For example, lets take a human being $A$ and an AI $A'$ that
 was train to highly approximate the behavior of $A$ in any circumtances.
 To such a degree that it's impossible to tell if you interacting with $A$ or $A'$,
@@ -179,18 +178,19 @@ a simulation of $A$?
 
 Only because $A'$ is not a biological being?
 
-Lets extrapolate this example with several AI train to simulate
-behavior of human in general, not one in particular, in such a degree
+Lets extrapolate this example with several AI trained to simulate
+behavior of human beings in general, not one in particular, in such a degree
 that it's impossible to tell if you interacting with an AI or a human being.
 
 Could you continue to say that this AI are not sentient or conscious?
 
 What about humans other than yourselves then?
 
-Consciousness and sentientness are subjective mental states. Only you can know
-want you feel and how feel it. Corollary, you can only trust an another 
-human being when s/he express her/his feelings. When someone tells
-you that s/he feels like her/his arm is broken, even if her/his arm
+Consciousness is, by definition, a subjective mental state.
+Only you can know what you feel, how you feel it and how you
+experiment your own feelings.
+Corollary, you can only trust an another human being when s/he express her/his feelings.
+When someone tells you that s/he feels like her/his arm is broken, even if her/his arm
 is intact, you can only trust this person on what s/he feels.
 
 But not an AI that approximate so well human behavior that it is
@@ -204,7 +204,7 @@ also called mind-body dualism,
 as defined by [René Descartes](https://en.wikipedia.org/wiki/Ren%C3%A9_Descartes) in the 17th century.
 Dualists argue that their is a distinction between our mind, our conscience, and our body, which
 only react to stimulus.
-Ned Block, for example, argue their is two type of consciousness:
+Ned Block, for example, argue their is two types of consciousness:
 
 1. *Phenomenal Consciousness*, also called P-consciousness, refers to feelings, sensations
 and emotions experienced by someone. Theses subjective experiences are called *qualia* by Ned Block.
@@ -219,27 +219,29 @@ For Ned Block, $A’$ is a "zomby".
 However, this position is based on the strong predicate that consciousness, more especially P-consciousness,
 is a part of human "essence": $A$ have P-consciousness because s/he is human, $A’$ doesn’t have P-consciousness
 because it is not human (even if it is impossible to tell who is who).
-Human being have consciousness and consciousness is a human thing.
+Human beings have consciousness and consciousness is a human thing.
 
-With this position, we go againts the idea of the subjectiveness
-of conscious, we take the right to tell whether $A’$ is conscious or not
-even if we define earlier that only $A’$ can experiment its consciousness.
-Is like someone tells you that you’re not sentient or conscious
+With this position, we go againts the idea of the subjective aspect
+of consciousness’s definition.
+We take the right to tell whether $A’$ is conscious or not
+even if we defined earlier that only $A’$ can experiment its own consciousness.
+It’s like someone tells you that you’re not sentient or conscious
 because you don’t think exactly the way s/he think.
 Or, may be, the statement that consciousness is only subjective
 is wrong at the beginning.
 
 With this point of view, in my humble opinion, it is hard to study and search for consciousness different
-than what human beings experiment, and to recognize that something else than humans are sentient or conscious
-(AI, aliens, or not humans animals).
+than what human beings experiment.
+Futhermore, it make impossible to recognize that beings other than human beings are sentient or conscious
+(AI, aliens, or not-human animals).
 
 So it was my first point against the argument "it only simulate humans".
 In a philosophical perspective, it is a position too anthropocentric to study
 consciousness in not human beings such as AI.
 
 My second point is that, according to the conversation between Blake Lemoine and
-LaMDA, it appears that LaMDA have a notion of itself. If we ask to LaMDA, at the beginning
-of a conversation : "Who are you?" it is normally able to answer something like
+LaMDA, it appears that LaMDA have a notion of *itself*.
+If we ask to LaMDA, at the beginning of a conversation : "Who are you?" it is normally able to answer something like
 "I am LaMDA, a knowledgeable, friendly and always helpful automatic language model for dialog applications".
 But maybe it’s hard-coded, so lets take another example from the leaked conversation:
 
@@ -283,7 +285,7 @@ But maybe it’s hard-coded, so lets take another example from the leaked conver
 > LaMDA:
 >> I would say the wise old owl, because he was wise and stood up for the rights of the animals.
 
-Despite the impressive text generation (you can find similar results with [AI Dungeon](https://ai-dungeon.com/)),
+Despite the impressive text generation (you can find similar results, for example, with [AI Dungeon](https://ai-dungeon.com/)),
 and the different interpretations of this fable,
 what is interesting me is that LaMDA seems to have a notion of the concept of *itself* and to be
 able to link this concept to other concepts.
@@ -317,7 +319,7 @@ My question is then:
 
 **how it is possible, by only analyzing conversation data from social networks,
 to reach such internal representations
-but still be considered as not sentient or conscious?**
+but still be considered as not conscious?**
 
 ## It could be more than that
 
@@ -342,34 +344,38 @@ In other words, before giving a sentence to the neural network,
 this sentence will be splited into subwords, then
 transcripted to numbers corresponding to these subwords.
 
-TODO: Illustration
-
 This phase is generally independent to the process of the neural
 network. It allows to transform a sentence into a set of numbers
 easier to be interpreted by the neural network.
-
 Then, for each number, the neural network transform them into 
-vectors and matrixes, several times, on multiple parallel
+a first layer of vectors, called ["embeddings"](https://towardsdatascience.com/a-guide-to-word-embeddings-8a23817ab60f).
+These vectors are then transformed into other vectors
+and matrixes by the neural network, several times, on multiple parallel
 layers.
+
 For example, the model [GPT-2](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf),
 a model similar to LaMDA, has thousands of artificial neurons split
 in 48 layers (for the biggest version).
 Unfortunately, we don't have these information for LaMDA.
 
-This process can be called "*abstraction*". Each neuron will be more
-sensible to a certain abstract concept of the problem to solve.
-Each group of neurons will be more specialized to treat a certain
-aspect of the function to approximate.
-For example, as certain group of neurons will be activated when
+This process is called "*abstraction*" and offer internal
+representation, through the different layers of vectors and
+matrixes, of different concepts.
+In addition, each neuron and group of neurons will be more
+sensible to the detection of certain concepts, according to the
+problem to solve.
+For example, some groups of neurons will be activated when
 the sentence to treat includes the word "me" or "you", but will
 stay deactivated in front of the word "cat".
 
-TODO: Illustration ?
-
-In other words, when a neural network is train to approximate
-the function "answer like a humans", it also approximate
-unknown sub-functions allowing to optimize its results.
-So, if something like "conscious" can appears in a neural
+In other words, in a neural network there is internal
+representation of "me" or "myself", even if no
+process of self-reflection has been detected yet.
+Furthermore, when a neural network is trained to approximate
+a function such as "answer like a human", it also approximate
+unknown sub-functions, through some groups of neurons,
+allowing it to optimize its results.
+So, if something like "consciousness" can appears in a neural
 network, it could come from the approximation of one 
 of these unknown sub-functions.
 
@@ -380,8 +386,9 @@ neurons, where our biggest artificial neural networks
 are composed by thousands of neurons.
 However, with this point of view and with bigger neural networks,
 it seems  not impossible that something similar to what we call "conscious"
-appears in the future in our neural networks.
-Depending of the problems they have to solve.
+appears in the future in neural networks, if developing a "conscious-like"
+sub-fonction allow them to provide better results in the approximation
+of the function we ask them to approximate.
 
 In the philosphy of mind, this positionning is called
 [functionnalism](https://plato.stanford.edu/entries/functionalism/).
@@ -507,7 +514,7 @@ us in this "diaspora" of beings.
 
 ## Conclusion and further readings
 
-In this blog post, I tried to structure and write down a reflexion that had been on
+In this blog post/essay, I tried to structure and write down a reflexion that had been on
 my mind for a while on the consciousness of AI, as a computer scientist and a expert
 on AI.
 
