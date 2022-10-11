@@ -552,7 +552,8 @@ further readings (and "seeing"):
 (or the movie "Bladerunner")
 * "Stand Alone Complex", by Shirow Masamune (or the animated series of the same name,
 or "Ghost In The Shell" movies)
-* Origin, by Boichi
+* "The Bicentennial Man", by Isaac Asimov (or the adapted movie "Bicentennial Man")
+* "Origin", by Boichi
 * "Westworld" (the TV series, I didn’t see other versions)
 * "The Matrix" movies (all of them, and The Animatrix too), by Lana and Lilly Watchowski
 (even if consciousness is not the central theme of these movies,
