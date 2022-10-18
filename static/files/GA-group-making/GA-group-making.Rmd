@@ -36,7 +36,7 @@ According to [](https://www.frontiersin.org/articles/10.3389/fnagi.2020.607107/f
 the mean RMET's score for this age range is 26 (with a standard deviation of 3.2).
 
 ```{r students}
-nb_students <- 20
+nb_students <- 5
 seed <- 42
 
 set.seed(seed)
@@ -80,43 +80,39 @@ can be solved by using genetic algorithm.
 ```{r test}
 library(GA)
 
-min <- 3
-max <- 6
+min <- 2
+max <- 3
 
 max_groups <- nb_students %/% min
 
 fitness=function(x)
 {
   # transform chromosome into matrix 20x6
-  m <- matrix(x, ncol=nb_students)
+  m <- matrix(x, ncol=nb_students, byrow=TRUE)
 
   # check veto conditions
   groupByStudent <- colSums(m)
-  if(any(groupByStudent != 1))
+  studentsByGroup <- rowSums(m)
+  if(any(groupByStudent != 1) || any(studentsByGroup < min) || any(studentsByGroup > max))
     return(0)
-  else
-    return(100)
-  #studentsByGroup <- rowSums(m)
-  #if(any(groupByStudent != 1) || any(studentsByGroup < min) || any(studentsByGroup > max))
-  #  return(0)
 
   # compute mean RMET by group
-  #total <- 0.0
-  #nbGroups <- 0
-  #for(i in 1:max_groups){
-  #  studentsInGroup <- m[i, ]
-  #  if(any(studentsInGroup == 1)){
-  #  	rmets <- students[studentsInGroup==1,]
-  #  	total = total + mean(rmets)
-#	nbGroups = nbGroups + 1
- #   }
- # }
+  total <- 0.0
+  nbGroups <- 0
+  for(i in 1:max_groups){
+    studentsInGroup <- m[i, ]
+    if(any(studentsInGroup == 1)){
+    	rmets <- students[studentsInGroup==1,]
+    	total = total + mean(rmets)
+	    nbGroups = nbGroups + 1
+    }
+  }
 
-  #return(if(nbGroups>0) total / nbGroups else 0)
+  return(if(nbGroups>0) total / nbGroups else 0)
 }
 
 
-GA=ga(type='binary',fitness=fitness,nBits=nb_students*max_groups,maxiter=1000,popSize=100, pcrossover=0.1, pmutation=0.8, seed=seed, keepBest=TRUE)
+GA=ga(type='binary',fitness=fitness,nBits=nb_students*max_groups,maxiter=30,popSize=20, pmutation = 0.8, seed=seed, keepBest=TRUE)
 summary(GA)
 plot(GA)
 ```
