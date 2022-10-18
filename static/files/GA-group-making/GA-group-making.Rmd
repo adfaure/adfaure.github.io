@@ -1,0 +1,123 @@
+---
+title: "Group making using genetic algorithm"
+date: "2022-10-14"
+output:
+  html_document:
+    preserve_yaml: true
+    variant: gfm
+---
+
+## Introduction
+
+Making relevant groups of students, for example to do some practical exercises or in
+[problem-based learning](https://teaching.cornell.edu/teaching-resources/engaging-students/problem-based-learning), 
+is one common problem of teachers.
+Groups must not be too small, or too large, and the mean "level" of each group should be as
+homogeneous as possible.
+We don't want one group with only students in difficulty and one group with only "good-grades" students.
+In addition, students in each group should get along with each others, and all participate to solve the
+exercice.
+
+Generally, we just let the students make their own groups with a size limitation, or we just do
+random groups. Obviously, it's quite sub-optimal.
+
+A possible way should be to use a metric (grades, IQ, et.) to evaluate students and make groups
+according to this metric.
+To illustrate this post, I decided to use the
+["Reading the Mind in the Eyes" Test (RMET)](https://link.springer.com/referenceworkentry/10.1007/978-3-319-28099-8_549-1).
+This test aims evaluate the "emotional"/"social" intelligence of the subject.
+According to [Riedl *et al.* (2021)](https://www.pnas.org/doi/full/10.1073/pnas.2005737118),
+an high social perceptiveness of group members is quite corelated to high collective intelligence.
+So, why not using RMET as a base to construct groups of students?
+
+Let's first generate some random RMET scores to represent our students.
+In my case, I'm teaching to 18-25 years old students at university.
+According to [](https://www.frontiersin.org/articles/10.3389/fnagi.2020.607107/full),
+the mean RMET's score for this age range is 26 (with a standard deviation of 3.2).
+
+```{r students}
+nb_students <- 20
+seed <- 42
+
+set.seed(seed)
+rmet <- round(rnorm(nb_students, mean=26, sd=3.2))
+students <- data.frame(rmet)
+students
+```
+
+Now, what we want to make groups with:
+
+* between 3 and 6 students per group
+  (even if groups of 4 and 5 students are prefered)
+* a RMET mean score by group the highest possible
+* a global RMET standard deviation between groups the
+  lowest possible (we don't one group with a poor RMET mean score
+  and one other group with a high RMET mean score)
+
+This problem can be seen as a variation of the
+[knapsack problem](https://en.wikipedia.org/wiki/Knapsack_problem).
+However, instead of choosing wich item to put in a unique bag,
+we want to take all the items and distribute them as homogeneously
+as possible into several bags.
+Knapsack problem is a
+[NP-hard problem](https://en.wikipedia.org/wiki/NP-hardness).
+We can then suppose that our variation of this problem is also
+NP-hard.
+
+Testing all the possible solutions is then not a option, and
+we have to use a 
+[metaheuristic algorithm](https://www.sciencedirect.com/science/article/pii/B9780128133149000104).
+
+A genetic algorithm, in our case, could be quite adapted
+to explore possible solutions and find the best ones.
+It is also the occasion to test, and explain step by step, 
+genetic algorithms with a pratical use case.
+Beside, [classic knapsack problem](https://towardsdatascience.com/genetic-algorithm-in-r-the-knapsack-problem-3edc5b07d4a7) 
+can be solved by using genetic algorithm.
+
+## TEST
+
+```{r test}
+library(GA)
+
+min <- 3
+max <- 6
+
+max_groups <- nb_students %/% min
+
+fitness=function(x)
+{
+  # transform chromosome into matrix 20x6
+  m <- matrix(x, ncol=nb_students)
+
+  # check veto conditions
+  groupByStudent <- colSums(m)
+  if(any(groupByStudent != 1))
+    return(0)
+  else
+    return(100)
+  #studentsByGroup <- rowSums(m)
+  #if(any(groupByStudent != 1) || any(studentsByGroup < min) || any(studentsByGroup > max))
+  #  return(0)
+
+  # compute mean RMET by group
+  #total <- 0.0
+  #nbGroups <- 0
+  #for(i in 1:max_groups){
+  #  studentsInGroup <- m[i, ]
+  #  if(any(studentsInGroup == 1)){
+  #  	rmets <- students[studentsInGroup==1,]
+  #  	total = total + mean(rmets)
+#	nbGroups = nbGroups + 1
+ #   }
+ # }
+
+  #return(if(nbGroups>0) total / nbGroups else 0)
+}
+
+
+GA=ga(type='binary',fitness=fitness,nBits=nb_students*max_groups,maxiter=1000,popSize=100, pcrossover=0.1, pmutation=0.8, seed=seed, keepBest=TRUE)
+summary(GA)
+plot(GA)
+```
+
