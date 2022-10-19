@@ -36,7 +36,7 @@ According to [](https://www.frontiersin.org/articles/10.3389/fnagi.2020.607107/f
 the mean RMET's score for this age range is 26 (with a standard deviation of 3.2).
 
 ```{r students}
-nb_students <- 5
+nb_students <- 10
 seed <- 42
 
 set.seed(seed)
@@ -80,8 +80,8 @@ can be solved by using genetic algorithm.
 ```{r test}
 library(GA)
 
-min <- 2
-max <- 3
+min <- 3
+max <- 5
 
 max_groups <- nb_students %/% min
 
@@ -117,3 +117,35 @@ summary(GA)
 plot(GA)
 ```
 
+```{r nbComb}
+library(gtools)
+
+nbBase <- 20
+min <- 3
+max <- 5
+nbGroupMax <- nbBase %/% min
+nbGroupMin <- nbBase %/% max
+diffGroupSize <- c(min:max)
+
+nbcombinations <- 0
+for(i in nbGroupMin:nbGroupMax){
+  c <- combinations(n=length(diffGroupSize), r=i, v = diffGroupSize, repeats.allowed = TRUE)
+  
+  for(j in 1:nrow(c)){
+    rj <- c[j, ]
+    if(sum(rj) == nbBase){
+      print(rj)
+      nc <- 1.0
+      n <- nbBase
+      for(r in rj){
+        nc = nc * nrow(combinations(n=n, r=r))
+        n = n - r
+      }
+      print(nc)
+      nbcombinations = nbcombinations + nc
+    }
+  }
+}
+
+nbcombinations
+```
