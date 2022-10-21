@@ -36,7 +36,7 @@ According to [](https://www.frontiersin.org/articles/10.3389/fnagi.2020.607107/f
 the mean RMET's score for this age range is 26 (with a standard deviation of 3.2).
 
 ```{r students}
-nb_students <- 10
+nb_students <- 5
 seed <- 42
 
 set.seed(seed)
@@ -80,8 +80,8 @@ can be solved by using genetic algorithm.
 ```{r test}
 library(GA)
 
-min <- 3
-max <- 5
+min <- 2
+max <- 3
 
 max_groups <- nb_students %/% min
 
@@ -112,7 +112,7 @@ fitness=function(x)
 }
 
 
-GA=ga(type='binary',fitness=fitness,nBits=nb_students*max_groups,maxiter=30,popSize=20, pmutation = 0.8, seed=seed, keepBest=TRUE)
+GA=ga(type='binary',fitness=fitness,nBits=nb_students*max_groups,maxiter=30,popSize=100, pcrossover=0.1, pmutation = 0.8, seed=seed, keepBest=TRUE)
 summary(GA)
 plot(GA)
 ```
@@ -120,9 +120,9 @@ plot(GA)
 ```{r nbComb}
 library(gtools)
 
-nbBase <- 20
+nbBase <- 10
 min <- 3
-max <- 5
+max <- 4
 nbGroupMax <- nbBase %/% min
 nbGroupMin <- nbBase %/% max
 diffGroupSize <- c(min:max)
@@ -148,4 +148,43 @@ for(i in nbGroupMin:nbGroupMax){
 }
 
 nbcombinations
+```
+
+```{r testpermutation}
+library("rgenoud")
+
+func <- function(sol){
+  
+  print(sol)
+  counts <- c()
+  for(i in 1:6){
+    if(length(test[test == i]) > 0)
+      counts[as.character(i)] <- length(test[test == i])
+  }
+  print(counts)
+    
+  
+  if(any(counts < 3) || any(counts > 5))
+    return(0)
+  
+  return(100)
+  
+}
+
+mat <- matrix(rep(c(1,6),20),20,2,byrow = TRUE)
+
+GA <- genoud(
+    func,
+    nvars = 20,
+    max = FALSE,
+    pop.size = 10,
+    max.generations = 1,
+    Domains = mat,
+    boundary.enforcement = 2,
+    data.type.int = TRUE
+  )
+
+GA$value
+
+GA$par
 ```
