@@ -36,11 +36,11 @@ According to [](https://www.frontiersin.org/articles/10.3389/fnagi.2020.607107/f
 the mean RMET's score for this age range is 26 (with a standard deviation of 3.2).
 
 ```{r students}
-nb_students <- 5
+nbStudents <- 20
 seed <- 42
 
 set.seed(seed)
-rmet <- round(rnorm(nb_students, mean=26, sd=3.2))
+rmet <- round(rnorm(nbStudents, mean=26, sd=3.2))
 students <- data.frame(rmet)
 students
 ```
@@ -75,58 +75,66 @@ genetic algorithms with a pratical use case.
 Beside, [classic knapsack problem](https://towardsdatascience.com/genetic-algorithm-in-r-the-knapsack-problem-3edc5b07d4a7) 
 can be solved by using genetic algorithm.
 
-## TEST
+## Naively apply basic genetic algorithm
 
 ```{r test}
 library(GA)
 
-min <- 2
-max <- 3
+minStudentsByGroup <- 3
+maxStudentsByGroup <- 5
 
-max_groups <- nb_students %/% min
+maxGroups <- nbStudents %/% min
 
 fitness=function(x)
 {
-  # transform chromosome into matrix 20x6
-  m <- matrix(x, ncol=nb_students, byrow=TRUE)
+  # each row correspond to a group, each column to a student
+  m <- matrix(x, ncol=nbStudents, byrow=TRUE)
 
   # check veto conditions
   groupByStudent <- colSums(m)
   studentsByGroup <- rowSums(m)
+  studentsByGroup <- studentsByGroup[studentsByGroup != 0] # dont care about empty groups
   if(any(groupByStudent != 1) || any(studentsByGroup < min) || any(studentsByGroup > max))
     return(0)
 
   # compute mean RMET by group
   total <- 0.0
-  nbGroups <- 0
-  for(i in 1:max_groups){
+  means <- c()
+  for(i in 1:maxGroups){
     studentsInGroup <- m[i, ]
     if(any(studentsInGroup == 1)){
     	rmets <- students[studentsInGroup==1,]
-    	total = total + mean(rmets)
-	    nbGroups = nbGroups + 1
+    	means[as.character(i)] <- mean(rmets)
     }
   }
 
-  return(if(nbGroups>0) total / nbGroups else 0)
+  # compute scores and penalty
+  score <- mean(means)
+  penalty <- sd(means)
+  
+  # return score - penalties
+  return(score - penalty)
 }
 
 
-GA=ga(type='binary',fitness=fitness,nBits=nb_students*max_groups,maxiter=30,popSize=100, pcrossover=0.1, pmutation = 0.8, seed=seed, keepBest=TRUE)
-summary(GA)
-plot(GA)
+#GA=ga(type='binary',fitness=fitness,nBits=nbStudents*maxGroups,maxiter=10,popSize=10, pcrossover=0.1, pmutation = 0.8, seed=seed, keepBest=TRUE)
+#summary(GA)
+#plot(GA)
 ```
 
 ```{r nbComb}
 library(gtools)
+library(collections)
 
-nbBase <- 10
+nbBase <- 20
 min <- 3
-max <- 4
+max <- 5
 nbGroupMax <- nbBase %/% min
 nbGroupMin <- nbBase %/% max
 diffGroupSize <- c(min:max)
 
+diffGroupSizesCombinations <- dict()
+k <- 1
 nbcombinations <- 0
 for(i in nbGroupMin:nbGroupMax){
   c <- combinations(n=length(diffGroupSize), r=i, v = diffGroupSize, repeats.allowed = TRUE)
@@ -135,6 +143,8 @@ for(i in nbGroupMin:nbGroupMax){
     rj <- c[j, ]
     if(sum(rj) == nbBase){
       print(rj)
+      diffGroupSizesCombinations$set(as.character(k), rj)
+      k = k + 1
       nc <- 1.0
       n <- nbBase
       for(r in rj){
@@ -150,18 +160,62 @@ for(i in nbGroupMin:nbGroupMax){
 nbcombinations
 ```
 
+## Reduce scopes to only valid possibilities
+
+### Initial population
+
+```{r popFunc}
+group_population <- function(ga){
+  # init population with empty matrix
+  population <- matrix(rep(0, ga@nBits*ga@popSize),ncol=ga@nBits, nrow=ga@popSize)
+  
+  # generate chromosomes of each individual of the population
+  for(i in 1:ga@popSize){
+    # choose one possible combination of group size
+    k <- sample(1:diffGroupSizesCombinations$size(), 1)
+    groupSizes <- diffGroupSizesCombinations$get(as.character(k))
+    studentsNotGroupedYet <- 1:nbStudents
+    for(j in 1:length(groupSizes)){
+      # choose n students from students not grouped yet
+      studentIds <- sample(studentsNotGroupedYet, groupSizes[j])
+      for(id in studentIds){
+        # set student to group j
+        population[i, nbStudents * (j-1) + id] = 1
+        # remove student from students to group
+        studentsNotGroupedYet = studentsNotGroupedYet[studentsNotGroupedYet != id]
+      }
+    }
+  }
+  
+  return(population)
+}
+```
+
+```{r test-popFunc}
+GA=ga(
+  type='binary',
+  fitness=fitness,
+  nBits=nbStudents*maxGroups,
+  population = group_population,
+  maxiter=10,
+  popSize=100,
+  seed=seed,
+  keepBest=TRUE)
+```
+
+
+## TEST VARIATION
+
 ```{r testpermutation}
 library("rgenoud")
 
 func <- function(sol){
   
-  print(sol)
   counts <- c()
   for(i in 1:6){
-    if(length(test[test == i]) > 0)
-      counts[as.character(i)] <- length(test[test == i])
+    if(length(sol[sol == i]) > 0)
+      counts[as.character(i)] <- length(sol[sol == i])
   }
-  print(counts)
     
   
   if(any(counts < 3) || any(counts > 5))
@@ -177,8 +231,8 @@ GA <- genoud(
     func,
     nvars = 20,
     max = FALSE,
-    pop.size = 10,
-    max.generations = 1,
+    pop.size = 1000,
+    max.generations = 100,
     Domains = mat,
     boundary.enforcement = 2,
     data.type.int = TRUE
