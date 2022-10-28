@@ -83,7 +83,7 @@ library(GA)
 minStudentsByGroup <- 3
 maxStudentsByGroup <- 5
 
-maxGroups <- nbStudents %/% min
+maxGroups <- nbStudents %/% minStudentsByGroup
 
 fitness=function(x)
 {
@@ -160,7 +160,7 @@ for(i in nbGroupMin:nbGroupMax){
 nbcombinations
 ```
 
-## Reduce scopes to only valid possibilities
+## Reduce solutions’ scope to only valid possibilities
 
 ### Initial population
 
@@ -203,6 +203,88 @@ GA=ga(
   keepBest=TRUE)
 ```
 
+### Cross-over best solutions
+
+```{r coFunc}
+
+group_crossover = function(object, parents){
+  parentsFitness <- object@fitness[parents]
+  parents <- object@population[parents,,drop = FALSE]
+  n <- ncol(parents)
+  
+  children <- matrix(rep(0, 2*n), nrow = 2, ncol = n)
+  childrenFitness <- rep(NA, 2)
+  
+  for(i in 1:nrow(parents)){
+    # Select groups in parent 1
+    parent1 <- parents[i,]
+    groups <- matrix(parent1, ncol = nbStudents, byrow = TRUE)
+    nbStudentsByGroup <- rowSums(groups)
+    nbStudentsByGroup <- nbStudentsByGroup[nbStudentsByGroup != 0]
+    nbGroupKept <- (length(nbStudentsByGroup) - 1) %/% 2
+    groupKeptIds <- sample(1:length(nbStudentsByGroup), nbGroupKept, replace = FALSE)
+    groupIdsLeft <- 1:length(nbStudentsByGroup)
+    studentIdsLeft <-1:nbStudents
+    for(groupKeptId in groupKeptIds){
+      groupKept <- groups[groupKeptId,]
+      studentIds <- which(groupKept == 1)
+      for(studentId in studentIds){
+        children[i, nbStudents * (groupKeptId-1) + studentId] = 1
+        studentIdsLeft = studentIdsLeft[studentIdsLeft != studentId]
+      }
+      groupIdsLeft = groupIdsLeft[groupIdsLeft != groupKeptId]
+    }
+    
+    # Select groups in parent 2 to keep their internal structures
+    parent2 <- if(i==1) parents[2,] else parents[1,]
+    groupsInParent2 <- matrix(parent2, ncol = nbStudents, byrow = TRUE)
+    studentsByGroupsInParent2 <- rowSums(groupsInParent2)
+    nbGroupsInParent2 <- length(studentsByGroupsInParent2[studentsByGroupsInParent2 != 0])
+    
+    while(length(groupIdsLeft) > 1){
+      groupId <- sample(groupIdsLeft, 1)
+      groupSize <- nbStudentsByGroup[groupId]
+      while(groupSize > 0){
+        groupIdInParent2 <- sample(1:nbGroupsInParent2, 1)
+        studentIds <- which(groupsInParent2[groupIdInParent2, ] == 1)
+        studentSelectedIds <- intersect(studentIds, studentIdsLeft)
+        if(length(studentSelectedIds) > groupSize)
+          studentSelectedIds <- sample(studentSelectedIds, groupSize, replace = FALSE)
+        
+        for(studentId in studentSelectedIds){
+          children[i, nbStudents * (groupId-1) + studentId] = 1
+          studentIdsLeft = studentIdsLeft[studentIdsLeft != studentId]
+        }
+        groupSize = groupSize - length(studentSelectedIds)
+      }
+      groupIdsLeft = groupIdsLeft[groupIdsLeft != groupId]
+    }
+    
+    # Fill last group left with students left
+    for(studentId in studentIdsLeft){
+      groupId <- groupIdsLeft[1]
+      children[i, nbStudents * (groupId-1) + studentId] = 1
+    }
+  }
+  
+  return(list(children=children, fitness=childrenFitness))
+}
+
+```
+
+```{r test-coFunc}
+GA=ga(
+  type='binary',
+  fitness=fitness,
+  nBits=nbStudents*maxGroups,
+  population = group_population,
+  crossover = group_crossover,
+  pmutation=0.0,
+  maxiter=10,
+  popSize=10,
+  seed=seed,
+  keepBest=TRUE)
+```
 
 ## TEST VARIATION
 
