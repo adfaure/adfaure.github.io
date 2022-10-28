@@ -279,11 +279,61 @@ GA=ga(
   nBits=nbStudents*maxGroups,
   population = group_population,
   crossover = group_crossover,
-  pmutation=0.0,
   maxiter=10,
   popSize=10,
   seed=seed,
   keepBest=TRUE)
+```
+
+### Mutate solutions
+
+```{r mutateFunction}
+group_mutation <- function(object, parent){
+  mutate <- parent <- as.vector(object@population[parent,])
+  
+  groups <- matrix(parent, ncol = nbStudents, byrow = TRUE)
+  groups <- groups[rowSums(groups) != 0, ]
+  
+  selectedGroupIds <- sample(1:nrow(groups), 2, replace = FALSE)
+  
+  # select students to exchange
+  group1 <- selectedGroupIds[1]
+  student1 <- sample(which(groups[group1,] == 1), 1)
+  group2 <- selectedGroupIds[2]
+  student2 <- sample(which(groups[group2,] == 1), 1)
+  
+  # remove student from their groups
+  mutate[nbStudents * (group1-1) + student1] = 0
+  mutate[nbStudents * (group2-1) + student2] = 0
+  
+  # add them into the other groups
+  mutate[nbStudents * (group1-1) + student2] = 1
+  mutate[nbStudents * (group2-1) + student1] = 1
+  
+  return(mutate)
+}
+```
+
+```{r test-mutateFunction}
+GA=ga(
+  type='binary',
+  fitness=fitness,
+  nBits=nbStudents*maxGroups,
+  population = group_population,
+  crossover = group_crossover,
+  mutation = group_mutation,
+  maxiter=30,
+  popSize=100,
+  seed=seed,
+  keepBest=TRUE)
+```
+
+```{r summary}
+summary(GA)
+```
+
+```{r plot-GA}
+plot(GA)
 ```
 
 ## TEST VARIATION
