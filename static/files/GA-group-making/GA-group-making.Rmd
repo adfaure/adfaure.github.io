@@ -419,7 +419,38 @@ GA@fitnessValue
 matrix(GA@solution, ncol = nbStudents, byrow = TRUE)
 ```
 
-#### TEST VARIATION
+## Visualize solutions
+
+```{r test-igraph}
+library(igraph)
+g <- make_empty_graph(directed = FALSE)
+
+for(i in 1:nrow(students))
+  g <- add_vertices(g, 1, label=i)
+
+solution <- matrix(GA@solution, ncol = nbStudents, byrow = TRUE)
+for(i in 1:nbGroupsMax){
+  studentIds <- which(solution[i, ] == 1)
+  if(length(studentIds) > 0){
+    edges <- c()
+    for(j in 1:length(studentIds)){
+      if(j < length(studentIds)){
+        edges[length(edges)+1] <- studentIds[j]
+        edges[length(edges)+1] <- studentIds[j+1]
+      }
+      else{
+        edges[length(edges)+1] <- studentIds[j]
+        edges[length(edges)+1] <- studentIds[1]
+      }
+    }
+    g <- add_edges(g, edges)
+  }
+}
+
+plot(g)
+```
+
+## Conclusion
 
 ```{r test-genoud}
 library("rgenoud")
