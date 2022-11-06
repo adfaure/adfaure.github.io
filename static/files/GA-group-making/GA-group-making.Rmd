@@ -7,6 +7,10 @@ output:
     variant: gfm
 ---
 
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
 ## Introduction
 
 Making relevant groups of students, for example to do some practical exercises or in
@@ -401,7 +405,7 @@ GA=ga(
   population = group_population,
   crossover = group_crossover,
   mutation = group_mutation,
-  maxiter=50,
+  maxiter=1000,
   popSize=100,
   seed=seed,
   keepBest=TRUE,
@@ -414,41 +418,84 @@ plot(GA, ylim=c(0, max(students)))
 ```
 
 ```{r bestsol}
-GA@fitnessValue
-
-matrix(GA@solution, ncol = nbStudents, byrow = TRUE)
+summary(GA)
 ```
 
 ## Visualize solutions
 
+
 ```{r test-igraph}
 library(igraph)
-g <- make_empty_graph(directed = FALSE)
 
-for(i in 1:nrow(students))
-  g <- add_vertices(g, 1, label=i)
+display_groupmaking <- function(solution, fitness){
+  g <- make_empty_graph(directed = FALSE)
 
-solution <- matrix(GA@solution, ncol = nbStudents, byrow = TRUE)
-for(i in 1:nbGroupsMax){
-  studentIds <- which(solution[i, ] == 1)
-  if(length(studentIds) > 0){
-    edges <- c()
-    for(j in 1:length(studentIds)){
-      if(j < length(studentIds)){
-        edges[length(edges)+1] <- studentIds[j]
-        edges[length(edges)+1] <- studentIds[j+1]
+  for(i in 1:nrow(students))
+    g <- add_vertices(g, 1, label=paste(i, " (", students[i,], ")", sep=""), vertex.size=50)
+  
+  m <- matrix(solution, ncol = nbStudents, byrow = TRUE)
+  rmet_means <- c()
+  for(i in 1:nbGroupsMax){
+    studentIds <- which(m[i, ] == 1)
+    if(length(studentIds) > 0){
+      rmet_means[length(rmet_means)+1] <- mean(students[m[i,]==1,])
+      edges <- c()
+      for(j in 1:length(studentIds)){
+        if(j < length(studentIds)){
+          edges[length(edges)+1] <- studentIds[j]
+          edges[length(edges)+1] <- studentIds[j+1]
+        }
+        else{
+          edges[length(edges)+1] <- studentIds[j]
+          edges[length(edges)+1] <- studentIds[1]
+        }
       }
-      else{
-        edges[length(edges)+1] <- studentIds[j]
-        edges[length(edges)+1] <- studentIds[1]
-      }
+      g <- add_edges(g, edges)
     }
-    g <- add_edges(g, edges)
+  }
+  
+  # compute macro mean and standard deviation
+  macro_rmet_mean <- mean(rmet_means)
+  macro_rmet_sd <- sd(rmet_means)
+  
+  co <- layout_nicely(g)
+  plot(0, 
+       type="n",
+       ann=TRUE, axes=FALSE,
+       xlab="",
+       ylab="",
+       xlim=extendrange(co[,1]), 
+       ylim=extendrange(co[,2]),
+       main=paste("Score = ", fitness),
+       sub=paste("Macro mean =", macro_rmet_mean, "±", macro_rmet_sd)
+       )
+  plot(g, layout=co, rescale=FALSE, add=TRUE,
+       vertex.shape="rectangle",
+       vertex.size=strwidth(V(g)$label) * 100,
+       vertex.size2=strheight(V(g)$label) * 100 * 1.5,
+       edge.width=5
+       )
+  
+  
+  ## add rmet’s mean for each group
+  for(i in 1:nbGroupsMax){
+    studentIds <- which(m[i, ] == 1)
+    if(length(studentIds) > 0){
+      studentCoors <- co[studentIds,]
+      xcoor <- sum(studentCoors[,1]) / nrow(studentCoors)
+      ycoor <- sum(studentCoors[,2]) / nrow(studentCoors)
+      text(xcoor, ycoor, round(rmet_means[i], 1))
+    }
   }
 }
-
-plot(g)
 ```
+
+```{r displayBestSol}
+for(i in 1:nrow(GA@solution)){
+  display_groupmaking(GA@solution[i,], GA@fitnessValue)
+}
+```
+
 
 ## Conclusion
 
