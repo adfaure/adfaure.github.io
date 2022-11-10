@@ -13,31 +13,37 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 
 ## Introduction
 
-Making relevant groups of students, for example to do some practical exercises or in
+Making relevant groups of students, for example to do some practical exercises
+or in
 [problem-based learning](https://teaching.cornell.edu/teaching-resources/engaging-students/problem-based-learning), 
 is one common problem of teachers.
-Groups must not be too small, or too large, and the mean "level" of each group should be as
-homogeneous as possible.
-We don't want one group with only students in difficulty and one group with only "good-grades" students.
-In addition, students in each group should get along with each others, and all participate to solve the
-exercice.
+Groups must not be too small, or too large, and the mean "level" of each group
+should be as homogeneous as possible.
+We don't want one group with only students in difficulty and one group with only 
+"good-grades" students.
+In addition, students in each group should get along with each others,
+and all participate to solve the exercice.
 
-Generally, we just let the students make their own groups with a size limitation, or we just do
-random groups. Obviously, it's quite sub-optimal.
+Generally, we just let the students make their own groups with some size
+limitations, or we just do random groups.
+Obviously, it's quite sub-optimal.
 
-A possible way should be to use a metric (grades, IQ, et.) to evaluate students and make groups
-according to this metric.
+A possible way should be to use a metric (grades, IQ, et.) to evaluate
+students and make groups according to this metric.
 To illustrate this post, I decided to use the
 ["Reading the Mind in the Eyes" Test (RMET)](https://link.springer.com/referenceworkentry/10.1007/978-3-319-28099-8_549-1).
-This test aims evaluate the "emotional"/"social" intelligence of the subject.
+This test aims to evaluate the "emotional"/"social" intelligence of
+the subjects.
 According to [Riedl *et al.* (2021)](https://www.pnas.org/doi/full/10.1073/pnas.2005737118),
-an high social perceptiveness of group members is quite corelated to high collective intelligence.
+a high social perceptiveness of group members is quite corelated to
+a high collective intelligence.
 So, why not using RMET as a base to construct groups of students?
 
 Let's first generate some random RMET scores to represent our students.
 In my case, I'm teaching to 18-25 years old students at university.
 According to [Kynast *et al.* (2021)](https://www.frontiersin.org/articles/10.3389/fnagi.2020.607107/full),
-the mean RMET's score for this age range is 26 (with a standard deviation of 3.2).
+the mean RMET's score for this age range is 26
+(with a standard deviation of 3.2).
 
 ```{r students}
 nbStudents <- 20
@@ -48,7 +54,7 @@ students <- data.frame(rmets=round(rnorm(nbStudents, mean=26, sd=3.2)))
 students
 ```
 
-Now, what we want to distribute these students into N groups in the
+Now, we want to distribute these students into several groups in the
 most homogeneous way possible, with a minimum and maximum group size
 (defined below).
 
@@ -69,55 +75,200 @@ Knapsack problem is a
 [NP-hard problem](https://en.wikipedia.org/wiki/NP-hardness).
 We can then suppose that our variation of this problem is also
 NP-hard.
+Testing all the possible solutions is then not a option, it's too
+time consuming.
 
-Testing all the possible solutions is then not a option, and
-we have to use a 
+A possible way is to use a
 [metaheuristic algorithm](https://www.sciencedirect.com/science/article/pii/B9780128133149000104).
+Meta-heuristic algorithms compose a subclass of algorithms
+dedicated to explore the scope of possible solutions for
+a specific problem. They based on heuristic on how to
+explore solutions of problems in general, that why they are
+called "meta-heuristic" algorithms.
 
-(to rewrite)
-A genetic algorithm, in our case, could be quite adapted
-to explore possible solutions and find the best ones.
+One of these meta-heuristic algorithms is the Genetic Algorithm.
+This algorithm, as we'll see in this blog post,
+is quite adapted to explore solutions of
+problems for which we have several parameters,
+we can evaluate an output score and for which we want
+to known the combinations of parameters that maximize
+(or minimize) the output score.
+
+In our case, we have several ways to group students and
+we want find the most homogeneous one.
+Therefore, using a genetic algorithm seems quite adapted.
 It is also the occasion to test, and explain step by step, 
-genetic algorithms with a pratical use case.
-Beside, [classic knapsack problem](https://towardsdatascience.com/genetic-algorithm-in-r-the-knapsack-problem-3edc5b07d4a7) 
-can be solved by using genetic algorithm.
+a genetic algorithm with a pratical use case.
 
 ## Naively apply basic genetic algorithm
 
-TODO
+To apply a basic genetic algorithm on our problem,
+we need to define two things:
+
+* the parameters that describe our problem, also called "solutions"
+* our output score to evaluate a solution, also called "fitness"
+
+The genetic algorithm 
 
 ### Representing our solutions
 
-TODO
+First, let's define how to represent a possible solution
+of our problem.
+In the case of a binary genetic algorithm, this means that each
+parameter can only be set at 0 or 1, a solution of our
+problem can be seen as a matrix.
+Each row corresponding to a group and each column corresponding
+to a student.
+If a student is affected to a group, the corresponding cell
+is set at 1. Else, the cell is set at 0.
+
+```{r example}
+example <- c(
+  1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+)
+matrix(example, ncol=nbStudents, byrow=TRUE)
+```
+
+However, the genetic algorithm we'll use doesn't use matrices
+to describe solutions but lists. So, we'll have switch from
+matrices to lists and from lists to matrices when necessary.
+
+Besides, there are other ways to repersent our solutions.
+I'll talk about it at the end of this post and explain
+why I prefered to use this representation.
 
 ### Defining the score of a solution
 
-* valid group
-* a RMET mean score by group the highest possible
-* a global RMET standard deviation between groups the
-  lowest possible (we don't want one group with a poor RMET mean score
-  and one other group with a high RMET mean score)
+Now, let's define our fitness function that will
+evaluate the score of each solution explored by 
+the genetic algorithm.
+
+First, we want that a solution describe valid groups:
+each student is associated to only one group, no group
+is below the minimum number of students, and no group
+is above the maximum number of students.
+These are our "veto" conditions. If a solution
+doesn't respect these conditions the score is
+set a 0.
+
+This can be evaluated as follow.
+
+```{r veto-example}
+# convert solution to matrix
+m <- matrix(example, ncol=nbStudents, byrow=TRUE)
+
+# get number of groups by student
+nbGroupsByStudent <- colSums(m)
+
+# get number of students by group
+nbStudentsByGroup <- rowSums(m)
+
+# remove groups with zero student
+nbStudentsByGroup <- nbStudentsByGroup[nbStudentsByGroup != 0]
+
+if(any(nbGroupsByStudent !=1) # If any student is associated to zero or several groups
+   || any(nbStudentsByGroup < minStudentsByGroup) # or if any group is too small
+   || any(nbStudentsByGroup > maxStudentsByGroup) # or if any group is too big
+  )
+  print("solution not valid")
+#else
+print("solution valid")
+```
+
+Once we have tested whether a solution is
+valid, we want to evaluate its score.
+In our case, we want to maximize the
+"macro" RMET mean of the student groups.
+In other words, we want to compute the
+RMET means of each group, and then
+compute the mean of these RMET means.
+
+```{r rmetmean-example}
+# to keep RMET means in memory
+means <- c()
+
+# for each possible group
+for(i in 1:nbGroupsMax){
+  
+  # get the row corresponding to the group
+  studentsInGroup <- m[i, ]
+  
+  # get the students' RMET of this group
+  rmets <- students[studentsInGroup==1,]
+  
+  # if group not empty
+  if(length(rmets) > 0){
+
+    # compute the RMET mean of this group
+    mean_rmet <- mean(rmets)
+    print(paste("Group", i, ":",  mean_rmet))
+
+    # and keep it in memory
+    means[length(means)+1] <- mean_rmet
+  
+  }
+
+}
+
+# compute score as the "macro" mean of RMET means
+score <- mean(means)
+print(paste("Macro RMET mean :", score))
+```
+
+However, if we only focus on maximizing this "macro" RMET mean,
+we could obtain solutions with one group $g$ a very high RMET mean score
+while the other have poor RMET mean score.
+This means that the group $g$ will be favorised in comparison to
+the other.
+This is not what we want.
+We want that RMET scores are homogeneously dispatch amongs
+groups and that the distribution of groups' RMET mean score
+don't look like [actual salary distribution](todo).
+
+To do so, we have to compute the standard deviation
+of groups' RMET means.
+Then, we want to minimize this standard deviation while
+maximizing the "macro" RMET mean.
+The best way to do it should be to compute these two
+metrics and [pareto optimum](todo) solutions.
+However, this imply to compute all the means and
+standard deviations and then select pareto optimum
+solutions.
+Here, we want a unique fitness score that reflect
+our goal.
+
+An easy way to do it, simply consist to substract
+the standard deviation of RMET means to the "macro"
+RMET mean, as follow. This is generally called
+a "penalty".
+
+```{r penaltyexample}
+penalty <- sd(means)
+print(paste("Fitness =", score,"-",penalty,"=", score-penalty))
+```
+
+Now, we have all the elements to define our fitness
+function.
 
 ```{r fitnessFunc}
 fitness=function(solution)
 {
-  # each row correspond to a group, each column to a student
   m <- matrix(solution, ncol=nbStudents, byrow=TRUE)
 
-  # get number of groups by students and students by groups
   nbGroupsByStudent <- colSums(m)
   nbStudentsByGroup <- rowSums(m)
-  # remove empty groups
   nbStudentsByGroup <- nbStudentsByGroup[nbStudentsByGroup != 0]
   
-  # if solution propose groups not valid, return a score of zero
   if(any(nbGroupsByStudent != 1) 
      || any(nbStudentsByGroup < minStudentsByGroup) 
      || any(nbStudentsByGroup > maxStudentsByGroup))
     return(0)
 
-  # compute mean RMET by group
-  total <- 0.0
   means <- c()
   for(i in 1:nbGroupsMax){
     studentsInGroup <- m[i, ]
@@ -127,16 +278,48 @@ fitness=function(solution)
     }
   }
 
-  # compute score as the "macro" mean of means RMET by group
   score <- mean(means)
-  
-  # compute penalty as the standard deviation of means RMET by group
   penalty <- sd(means)
   
-  # return score - penalties
   return(score - penalty)
 }
+
+fitness(example)
 ```
+
+### Exploring solutions
+
+Now we have defined our solutions and how to
+evaluate them, we can apply genetic algorithm
+on our problem.
+
+To do so, we'll use the R package *GA* proposed by
+(REF).
+As input, the *ga* function needs to now:
+
+* the type of genetic algorithm to apply ("binary", in our case)
+* the number of parameters in a solution
+  ($nbStudents \times nbGroupsMax$, in our case)
+* the number of iterations, also called "generations"
+* the number of solutions tested by iteration
+* if we want to keep the best solution found in a generation N
+  into the generation N+1, a process called "Elitism"
+
+The steps of a genetic algorithm are quite simple:
+
+1. a first sample of solutions are generate
+2. the fitness of each solution is evaluated
+3. two solutions are selected according to their
+   fitness score, a step called "Selection"
+4. these two solutions are mixed up together to
+   generate two new solutions, a step called "cross-over"
+5. step 3. and 4. are repeated until a new sample
+   of solutions is generated
+6. repeat the process from step 2. until the
+   desired number of iteration is reached
+
+Let's then explore solutions of our problem with
+genetic algorithm.
 
 ```{r test-fitnessFunc}
 library(GA)
@@ -145,7 +328,7 @@ GA=ga(
   type='binary',
   fitness=fitness,
   nBits=nbStudents*nbGroupsMax,
-  maxiter=1000,
+  maxiter=10,
   popSize=100,
   seed=seed,
   keepBest=TRUE,
@@ -154,6 +337,12 @@ GA=ga(
 
 plot(GA, ylim=c(0, max(students)))
 ```
+
+Aaaaaand, it seems that it that it doesn't work.
+Even with a high number of solutions and generations,
+naively applying basic genetic algorithm on our problem 
+seems to not even being able to find
+valid solutions.
 
 ### Why it doesn’t work?
 
@@ -405,7 +594,7 @@ GA=ga(
   population = group_population,
   crossover = group_crossover,
   mutation = group_mutation,
-  maxiter=1000,
+  maxiter=50,
   popSize=100,
   seed=seed,
   keepBest=TRUE,

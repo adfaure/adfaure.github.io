@@ -8,7 +8,10 @@ let r_pkgs = with pkgs.rPackages;
     knitr
     rmarkdown
     GA
+    rgenoud
     igraph
+    gtools
+    collections
   ];
 in
 pkgs.mkShell {
