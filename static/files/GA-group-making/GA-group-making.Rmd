@@ -346,10 +346,31 @@ valid solutions.
 
 ### Why it doesn’t work?
 
-```{r nbComb}
-library(gtools)
-library(collections)
+There are two main reason to this fealure.
+The first one is that the number of valid group combinations
+is largery lesser than the number combinations tested by
+a basic binary genetic algorithm.
 
+For instance, the number of valid group combinations can be
+calculated as follow.
+
+$$
+\sum_{R \in \mathcal{R}} \prod_{i=0}^{|R|} C_{nbStudents - \sum_{j=0}^{i-1}r_j}^{r_i}
+$$
+
+With $\mathcal{R}$ the set of all possible combinations of
+group sizes $R \in \mathcal{R}$, such as
+$\sum_{i=0}^{i=|R|} r_i = nbStudents$.
+For example, the combination of group size $\{5,5,5,5,0,0\}$
+is in $\mathcal{R}$.
+
+Let's compute the number of valid group combinations,
+and intermediate number of combinations, for
+our use case.
+
+```{r nbComb}
+library(gtools) # to use the 'combinations' function
+library(collections) # to use the 'dict' structure
 
 # To keep the combinations found for later
 diffGroupSizesCombinations <- dict()
@@ -411,7 +432,31 @@ for(i in nbGroupsMin:nbGroupsMax){
 totNbCombinations
 ```
 
-## Customizing GA to reduce solutions’ scope to only valid possibilities
+Let's now compare this number of valid group combinations with
+the number of combinations tested by the genetic algorithm.
+
+```{r totNbComb}
+totNbCombinations / 2^(nbStudents*nbGroupsMax)
+```
+
+We can observe that the number of valid group combinations
+is just a very small fraction of all combinations tested
+by the genetic algorithm.
+This means that the genetic algorithm only has a small
+chance to find a valid group combination from random
+initial solutions.
+
+In addition, and this is the second reason of this failure,
+the valid solution are not "next to each other".
+It's very easy to go from a valid solution to non-valid one.
+By simply changing a 0 to a 1, we can add a student to two
+groups, or create a too large group.
+This means that, even with valid initial solutions, the
+modifications made by the genetic algorithm to explore
+possible solutions have a small chance to find another
+valid solution.
+
+## Customizing a Genetic Algorithm
 
 TODO
 
