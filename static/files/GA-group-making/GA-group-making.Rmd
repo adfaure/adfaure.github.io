@@ -456,11 +456,42 @@ modifications made by the genetic algorithm to explore
 possible solutions have a small chance to find another
 valid solution.
 
+(TODO: random landscape ?)
+
 ## Customizing a Genetic Algorithm
 
-TODO
+Fortunately, the different steps of a genetic algorithm
+are highly customizable.
+We'll then customize these different steps to reduce
+the scope of solution tested by the genetic algorithm 
+to only valid groups combinations.
+
+In the R package *GA*, we can customize the
+folliwing steps:
+
+* Initialization, to Generate an initial population
+  with only valid solutions
+* Selection, to select the best solutions for "reproduction"
+  (We'll not customize this step. But, if we want to select "pareto optimum"
+  solutions, this is the place)
+* Cross-over, to mixup characteristics of two valid
+  solutions to create two new valid solutions
+* Mutation, to change a characteristic of a valid solution
+  to obtain a new valid solution
 
 ### Initial population
+
+First of all, we need the genetic algorithm to start
+with only valid solutions.
+To do so, we'll use the following function, based on
+the valid combinations of group sizes computed before.
+
+To create a valid initial solution, this function
+will first choose one random combination $R$ of
+group sizes (for example $\{5, 5, 5, 5, 0, 0\}$).
+And then, for each group size $r \in R$, the function
+choose $r$ student among the students not grouped
+yet.
 
 ```{r popFunc}
 group_population <- function(object){
@@ -500,6 +531,9 @@ group_population <- function(object){
 }
 ```
 
+Let's now test genetic algorithm with
+this custom initialization function.
+
 ```{r test-popFunc}
 GA=ga(
     type='binary',
@@ -515,6 +549,18 @@ GA=ga(
 
 plot(GA, ylim=c(0, max(students)))
 ```
+
+We can observe that the first generation of solutions,
+the one generated with our custom function, are
+valid solutions.
+However, we can also see that genetic algorithm
+directly generate non-valid solutions, the median
+score being at zero.
+This means that the solutions created from
+the initial solutions are non-valid solutions
+and confirm our second assumption on why
+a basic binary genetic algorithm failed to
+solve our problem.
 
 ### Cross-over best solutions
 
