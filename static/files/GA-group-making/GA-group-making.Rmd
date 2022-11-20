@@ -890,10 +890,106 @@ However, sets of 0 and 1 are difficult to analyze.
 
 ## Visualize solutions
 
+To better visualize the solutions we can plot them as graph/network
+of students.
+To do so, we'll use the R package *igraph*.
 
-```{r test-igraph}
+```{r load-igraph}
 library(igraph)
+```
 
+First, we need to represent the students with their RMETs
+scores. Here, each student we'll be represented
+as nodes/vertices of the graph, with their id and RMET score as labels.
+
+```{r plot-students}
+g <- make_empty_graph(directed = FALSE)
+
+for(i in 1:nrow(students))
+  g <- add_vertices(g, 1, label=paste(i, " (", students[i,], ")", sep=""))
+
+
+# plot(g) ?
+co <- layout_nicely(g)
+plot(0, 
+     type="n",
+     ann=FALSE, axes=FALSE,
+     xlim=extendrange(co[,1]), 
+     ylim=extendrange(co[,2])
+   )
+plot(g, layout=co, rescale=FALSE, add=TRUE,
+     vertex.shape="rectangle",
+     vertex.size=strwidth(V(g)$label) * 100,
+     vertex.size2=strheight(V(g)$label) * 100 * 1.5,
+     edge.width=5
+     )
+```
+
+Then, each edge of the graph will represent the fact that 
+two students are in the same group.
+
+```{r plot-groups}
+m <- matrix(solution, ncol = nbStudents, byrow = TRUE)
+
+# for each group
+for(i in 1:nbGroupsMax){
+  # get the students in the group
+  studentIds <- which(m[i, ] == 1)
+  if(length(studentIds) > 0){ # group not empty
+    edges <- c()
+    # for each student if the group
+    for(j in 1:length(studentIds)){
+      edges[length(edges)+1] <- studentIds[j]
+      if(j < length(studentIds)) # if not last student
+	# connect students j and j+#
+        edges[length(edges)+1] <- studentIds[j+1]
+      else # if last student, connect it to the first
+        edges[length(edges)+1] <- studentIds[1]
+    }
+    g <- add_edges(g, edges)
+  }
+}
+
+# plot(g) ?
+co <- layout_nicely(g)
+plot(0, 
+     type="n",
+     ann=FALSE, axes=FALSE,
+     xlim=extendrange(co[,1]), 
+     ylim=extendrange(co[,2])
+   )
+plot(g, layout=co, rescale=FALSE, add=TRUE,
+     vertex.shape="rectangle",
+     vertex.size=strwidth(V(g)$label) * 100,
+     vertex.size2=strheight(V(g)$label) * 100 * 1.5,
+     edge.width=5
+     )
+
+```
+
+Now, it could be interesting to plot the RMET mean score of each
+group.
+To do so, we compute RMET mean and the center in the graph of each
+group.
+
+```{r plot-rmet-means}
+rmet_means <- c()
+for(i in 1:nbGroupsMax){
+  studentIds <- which(m[i, ] == 1)
+  if(length(studentIds) > 0){
+    rmet_means[i] <- mean(students[m[i,]==1,])
+    studentCoors <- co[studentIds,]
+    xcoor <- sum(studentCoors[,1]) / nrow(studentCoors)
+    ycoor <- sum(studentCoors[,2]) / nrow(studentCoors)
+    text(xcoor, ycoor, round(rmet_means[i], 1))
+  }
+}
+```
+
+Finally, we can aggregate all these elements in a function
+to plot any solutions.
+
+```{r displaygroup-function}
 display_groupmaking <- function(solution, fitness){
   g <- make_empty_graph(directed = FALSE)
 
@@ -905,17 +1001,14 @@ display_groupmaking <- function(solution, fitness){
   for(i in 1:nbGroupsMax){
     studentIds <- which(m[i, ] == 1)
     if(length(studentIds) > 0){
-      rmet_means[length(rmet_means)+1] <- mean(students[m[i,]==1,])
+      rmet_means[i] <- mean(students[m[i,]==1,])
       edges <- c()
       for(j in 1:length(studentIds)){
-        if(j < length(studentIds)){
-          edges[length(edges)+1] <- studentIds[j]
+	edges[length(edges)+1] <- studentIds[j]
+        if(j < length(studentIds))
           edges[length(edges)+1] <- studentIds[j+1]
-        }
-        else{
-          edges[length(edges)+1] <- studentIds[j]
+        else
           edges[length(edges)+1] <- studentIds[1]
-        }
       }
       g <- add_edges(g, edges)
     }
@@ -957,12 +1050,23 @@ display_groupmaking <- function(solution, fitness){
 }
 ```
 
+Now, we can visualize the different solutions found
+by our custom genetic algorithm.
+
 ```{r displayBestSol}
 for(i in 1:nrow(GA@solution)){
   display_groupmaking(GA@solution[i,], GA@fitnessValue)
 }
 ```
 
+We can observe that not all solutions have been
+found by the genetic algorithm. Some students
+with the same RMET scores can be exchange.
+But, it's not a problem because it give
+us a sample of good solutions to our problem.
+Moreover, we can exchange some students if 
+necessary, without losing score, to find
+a configuration that satisfy everyone.
 
 ## Conclusion
 
