@@ -795,13 +795,47 @@ non-valid solution by simply changing one parameter.
 
 ### Mutate solutions
 
+Last step we need to custom to apply genetic algorithm
+on our problem is the mutation step.
+
+Once children are created, the idea is to apply
+a little modification to add more diversities in
+solutons tested.
+Without mutation, there is a risk that genetic
+algorithm stay on local optimum solutions, even
+with the cross-over step.
+
+In a basic genetic algorithm, a mutation consist
+to change the value of one random parameter (from 0
+to 1, or from 1 to 0).
+However, applying this kind of mutation on a valid
+solution of our problem can easily lead to a non-valid
+solution.
+For example, it could set a student to two different groups
+or to no group at all,
+or simply create groups too small or too big.
+
+In our case, the idea is simply choose two
+random students from two different groups
+and exchange them.
+
+To do so, we'll use the following function.
+It simply choose two random groups, then one student
+in each of these two groups.
+Then, it update the solution to correspond
+to an exchange of the two selected students.
+
 ```{r mutateFunction}
-group_mutation <- function(object, parent){
-  mutate <- parent <- as.vector(object@population[parent,])
+group_mutation <- function(object, solution){
+  # get the solution to mutate
+  mutate <- solution <- as.vector(object@population[solution,])
   
-  groups <- matrix(parent, ncol = nbStudents, byrow = TRUE)
+  # transform to matrices to get groups
+  groups <- matrix(solution, ncol = nbStudents, byrow = TRUE)
+  # remove empty groups (useless)
   groups <- groups[rowSums(groups) != 0, ]
   
+  # sample two random groups
   selectedGroupIds <- sample(1:nrow(groups), 2, replace = FALSE)
   
   # select students to exchange
@@ -822,6 +856,9 @@ group_mutation <- function(object, parent){
 }
 ```
 
+Let's test our custom mutation function with
+our initialization and cross-over functions.
+
 ```{r test-mutateFunction}
 GA=ga(
   type='binary',
@@ -836,15 +873,20 @@ GA=ga(
   keepBest=TRUE,
   monitor=FALSE 
 )
-```
 
-```{r plotGA}
 plot(GA, ylim=c(0, max(students)))
 ```
+
+AAAND IT WORKS !
+
+Moreover, if we summarize the results of genetic algorithm,
+several solutions have been found.
 
 ```{r bestsol}
 summary(GA)
 ```
+
+However, sets of 0 and 1 are difficult to analyze.
 
 ## Visualize solutions
 
