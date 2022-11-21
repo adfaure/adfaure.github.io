@@ -37,7 +37,7 @@
             cp $theme_folder/styles/styles.css styles/styles.css
           '';
 
-          base-url = "https://adrien-faure.fr";
+          base-url = "https://adfaure.github.io";
 
           installPhase = ''
             zola build -o $out --base-url ${base-url}
@@ -46,7 +46,7 @@
 
         # Package for github-page
         ghp = self.packages.x86_64-linux.website.overrideAttrs (old: rec {
-          base-url = "https://adrien-faure.fr";
+          base-url = "https://adfaure.github.io";
           installPhase = "zola build -o $out --base-url ${base-url}";
         });
 
