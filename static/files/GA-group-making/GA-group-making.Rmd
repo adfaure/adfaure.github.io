@@ -171,17 +171,18 @@ nbStudentsByGroup <- rowSums(m)
 # remove groups with zero student
 nbStudentsByGroup <- nbStudentsByGroup[nbStudentsByGroup != 0]
 
-if(any(nbGroupsByStudent !=1) # If any student is associated to zero or several groups
+if(any(nbGroupsByStudent != 1) # If any student is associated to zero or several groups
    || any(nbStudentsByGroup < minStudentsByGroup) # or if any group is too small
-   || any(nbStudentsByGroup > maxStudentsByGroup) # or if any group is too big
-  )
+   || any(nbStudentsByGroup > maxStudentsByGroup)){ # or if any group is too big
   print("solution not valid")
-#else
-print("solution valid")
+} else {
+  print("solution valid")
+}
 ```
 
 Once we have tested whether a solution is
 valid, we want to evaluate its score.
+
 In our case, we want to maximize the
 "macro" RMET mean of the student groups.
 In other words, we want to compute the
@@ -220,13 +221,13 @@ score <- mean(means)
 print(paste("Macro RMET mean :", score))
 ```
 
-However, if we only focus on maximizing this "macro" RMET mean,
-we could obtain solutions with one group $g$ a very high RMET mean score
-while the other have poor RMET mean score.
-This means that the group $g$ will be favorised in comparison to
+However, as we can observe in our example, if we only focus on maximizing this
+"macro" RMET mean, we could obtain solutions with one group a very high RMET mean score
+(group 3 in our example) while the other have poor RMET mean score (group 5 in our example).
+This means, in our example, that the group 3 will be favorited in comparison to
 the other.
 This is not what we want.
-We want that RMET scores are homogeneously dispatch amongs
+We want that RMET scores are homogeneously dispatched among
 groups and that the distribution of groups' RMET mean score
 don't look like [actual salary distribution](todo).
 
@@ -328,17 +329,18 @@ GA=ga(
   type='binary',
   fitness=fitness,
   nBits=nbStudents*nbGroupsMax,
-  maxiter=10,
-  popSize=100,
+  maxiter=1000,
+  popSize=1000,
   seed=seed,
   keepBest=TRUE,
   monitor = FALSE
 )
 
-plot(GA, ylim=c(0, max(students)))
+plot(GA, ylim=c(0, mean(students$rmets)))
 ```
 
 Aaaaaand, it doesn't work.
+
 Even with a high number of solutions and generations,
 naively applying basic genetic algorithm on our problem 
 seems to not even being able to find
@@ -346,9 +348,9 @@ valid solutions.
 
 ### Why it doesn’t work?
 
-There are two main reason to this fealure.
+There are two main reasons to this failure.
 The first one is that the number of valid group combinations
-is largery lesser than the number combinations tested by
+is largely lesser than the number combinations tested by
 a basic binary genetic algorithm.
 
 For instance, the number of valid group combinations can be
@@ -547,7 +549,7 @@ GA=ga(
     monitor = FALSE
   )
 
-plot(GA, ylim=c(0, max(students)))
+plot(GA, ylim=c(0, mean(students$rmets)))
 ```
 
 We can observe that the first generation of solutions,
@@ -598,11 +600,11 @@ and generate the "children" with the four subparts.
 Let's apply this process to our example.
 
 ```{r crossoverExample-step2}
-split <- lenght(ex_parent1) %/% 2
-ex_children1 <- ex_parent1[1:split] + ex_parent2[split+1:lenght(ex_parent1)]
+split <- length(ex_parent1) %/% 2
+ex_children1 <- append(ex_parent1[1:split], ex_parent2[(split+1):length(ex_parent1)])
 matrix(ex_children1, ncol=6, byrow=TRUE)
 
-ex_children2 <- ex_parent2[1:split] + ex_parent1[split+1:lenght(ex_parent1)]
+ex_children2 <- append(ex_parent2[1:split], ex_parent1[(split+1):length(ex_parent1)])
 matrix(ex_children2, ncol=6, byrow=TRUE)
 ```
 
@@ -781,7 +783,7 @@ GA=ga(
     monitor=FALSE
   )
 
-plot(GA, ylim=c(0, max(students)))
+plot(GA, ylim=c(0, mean(students$rmets)))
 ```
 
 We can observe that fitness scores do not directly decrease
@@ -867,14 +869,14 @@ GA=ga(
   population = group_population,
   crossover = group_crossover,
   mutation = group_mutation,
-  maxiter=50,
+  maxiter=1000,
   popSize=100,
   seed=seed,
   keepBest=TRUE,
   monitor=FALSE 
 )
 
-plot(GA, ylim=c(0, max(students)))
+plot(GA, ylim=c(0, mean(students$rmets)))
 ```
 
 AAAND IT WORKS !
@@ -929,6 +931,7 @@ Then, each edge of the graph will represent the fact that
 two students are in the same group.
 
 ```{r plot-groups}
+solution <- GA@solution[1,]
 m <- matrix(solution, ncol = nbStudents, byrow = TRUE)
 
 # for each group
@@ -973,6 +976,20 @@ To do so, we compute RMET mean and the center in the graph of each
 group.
 
 ```{r plot-rmet-means}
+co <- layout_nicely(g)
+plot(0, 
+     type="n",
+     ann=FALSE, axes=FALSE,
+     xlim=extendrange(co[,1]), 
+     ylim=extendrange(co[,2])
+   )
+plot(g, layout=co, rescale=FALSE, add=TRUE,
+     vertex.shape="rectangle",
+     vertex.size=strwidth(V(g)$label) * 100,
+     vertex.size2=strheight(V(g)$label) * 100 * 1.5,
+     edge.width=5
+     )
+
 rmet_means <- c()
 for(i in 1:nbGroupsMax){
   studentIds <- which(m[i, ] == 1)
@@ -1106,7 +1123,7 @@ genoudGA <- genoud(
     nvars = nbStudents,
     max = TRUE,
     pop.size = 100,
-    max.generations = 50,
+    max.generations = 1000,
     hard.generation.limit = FALSE,
     Domains = mat,
     boundary.enforcement = 2,
