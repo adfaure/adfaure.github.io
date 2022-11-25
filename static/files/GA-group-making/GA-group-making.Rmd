@@ -102,8 +102,16 @@ problem.
 That why they are called "meta-heuristic" algorithms.
 
 One of these meta-heuristic algorithms is the Genetic Algorithm.
-This algorithm, as we'll see in this blog post, is quite adapted to explore
-solutions of problems for which we have several parameters,
+It's also what we called a [bio-inspired algorithm](todo),
+because it's inspired from the [theory of evolution](todo)
+in biology (aka: the most adapted to its environment will survive).
+The genetic algorithm emulate the process of species selection
+in biology. Its main "meta-heuristic" being: it works for species
+to find relevant adaptations to their environments, so why not
+for algorithms to find relevant solutions to a problem?
+
+The genetic algorithm, as we'll see in this blog post, is quite adapted
+to explore solutions of problems for which we have several parameters,
 we can evaluate an output score and for which we want
 to known the combinations of parameters that maximize
 (or minimize) the output score.
@@ -471,8 +479,9 @@ In the R package *GA*, we can customize the following steps:
 
 * Initialization, to Generate an initial population with only valid solutions
 * Selection, to select the best solutions for "reproduction"
-  (We'll not customize this step. But, if we want to select "pareto optimum"
-  solutions, this is the place)
+  (We'll not customize this step. But, if you want to select
+  [pareto optimum](todo)
+  solutions based on several fitness metrics, this is the place)
 * Cross-over, to mixup characteristics of two valid
   solutions to create two new valid solutions
 * Mutation, to change a characteristic of a valid solution
@@ -480,17 +489,14 @@ In the R package *GA*, we can customize the following steps:
 
 ### Initial population
 
-First of all, we need the genetic algorithm to start
-with only valid solutions.
-To do so, we'll use the following function, based on
-the valid combinations of group sizes computed before.
+First of all, we need the genetic algorithm to start with only valid solutions.
+To do so, we'll use the following function, based on the valid combinations of
+group sizes computed before.
 
-To create a valid initial solution, this function
-will first choose one random combination $R$ of
-group sizes (for example $\{5, 5, 5, 5, 0, 0\}$).
-And then, for each group size $r \in R$, the function
-choose $r$ student among the students not grouped
-yet.
+To create a valid initial solution, this function will first choose one random
+combination $R$ of group sizes (for example $\{5, 5, 5, 5, 0, 0\}$).
+And then, for each group size $r \in R$, the function choose $r$ students among
+the students not grouped yet.
 
 ```{r popFunc}
 group_population <- function(object){
@@ -501,7 +507,7 @@ group_population <- function(object){
       nrow=object@popSize
     )
   
-  # generate chromosomes of each individual of the population
+  # generate each individual of the population
   for(i in 1:object@popSize){
     # choose one possible combination of group size
     k <- sample(1:diffGroupSizesCombinations$size(), 1)
@@ -530,8 +536,7 @@ group_population <- function(object){
 }
 ```
 
-Let's now test genetic algorithm with
-this custom initialization function.
+Let's now test genetic algorithm with this custom initialization function.
 
 ```{r test-popFunc}
 GA=ga(
@@ -549,39 +554,30 @@ GA=ga(
 plot(GA, ylim=c(0, mean(students$rmets)))
 ```
 
-We can observe that the first generation of solutions,
-the one generated with our custom function, are
-valid solutions.
-However, we can also see that genetic algorithm
-directly generate non-valid solutions, the median
-score being at zero.
-This means that the solutions created from
-the initial solutions are non-valid solutions
-and confirm our second assumption on why
-a basic binary genetic algorithm failed to
-solve our problem.
+We can observe that the first generation of solutions, the one generated with
+our custom function, are valid solutions.
+However, we can also see that genetic algorithm directly generate non-valid solutions,
+the median score being at zero.
+This means that the solutions created from the initial solutions are non-valid
+solutions and confirm our second assumption about why a basic binary genetic algorithm
+failed to solve our problem.
 
 ### Cross-over best solutions
 
-Now we have valid initial solutions, we need to find
-a way two combine the characteristics of two "parents"
-valid solutions to generate two "children" solutions
-which:
+Now we have valid initial solutions, we need to find a way two combine the characteristics
+of two "parents" valid solutions to generate two "children" solutions which:
 
 * are also valid solutions
 * keep sub-characteristics of the two "parents" solutions
 
-This step is called "cross-over" and it's inspired
-from [chromosomes' cross-over](todo)
-(even if, in biology, cross-over occurs between two chromosomes
-of the same individual and not between two chromosomes of
-two distincts individuals).
-And, we'll see that, in our case, it's a very tricky step
-to customize.
+This step is called "cross-over" and it's inspired from
+[chromosomes' cross-over](todo)
+(even if, in biology, cross-over occurs between two chromosomes of the same individual and
+not between two chromosomes of two distincts individuals).
+And, we'll see that, in our case, it's a very tricky step to customize.
 
-Let's take an example of two "parents" valid solutions
-for groups of 6 students, with minimum 2 students by group
-and 3 maximum.
+Let's take an example of two "parents" valid solutions for groups of 6 students, with minimum
+2 students by group and 3 maximum.
 
 ```{r crossoverExample-step1}
 ex_parent1 <- c(1,1,1,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0)
@@ -591,9 +587,8 @@ ex_parent2 <- c(1,0,1,0,0,0,0,1,0,1,0,0,0,0,0,0,1,1)
 matrix(ex_parent2, ncol=6, byrow=TRUE)
 ```
 
-In basic binary genetic algorithm, the "cross-over"
-function will generally split the "parents" in two
-and generate the "children" with the four subparts.
+In a basic binary genetic algorithm, the "cross-over" function will generally split the
+"parents" in two and generate the "children" with the four subparts.
 Let's apply this process to our example.
 
 ```{r crossoverExample-step2}
@@ -605,45 +600,40 @@ ex_children2 <- append(ex_parent2[1:split], ex_parent1[(split+1):length(ex_paren
 matrix(ex_children2, ncol=6, byrow=TRUE)
 ```
 
-We can observe that the generated "children" solutions,
-with this method, are not valid at all.
-This explain the direct decrease of fitness observed
-before.
+We can observe that the generated "children" solutions, with this method, are not valid
+at all.
+This explain the direct decrease of fitness observed before.
 
-So, to customize the customize the cross-over function
-we need to understand the characteristics of a solution
-that we want "children" solutions inherit from "parents"
+So, to customize the customize the cross-over function we need to understand the
+characteristics of a solution that we want "children" solutions inherit from "parents"
 solutions.
-In my opinion, we have two main characteristics
-of a solution:
+In my opinion, we have two main characteristics of a solution:
 
 * the number of students by group
 * the sets of students that are grouped together
 
-To simplify the cross-over process, I decided to keep
-the number of students from parents to children (children1 will
-have the same number of students by group than parent1,
+To simplify the cross-over process, let's keep the number of students from parents to
+children (children1 will have the same number of students by group than parent1,
 and so on for parent2).
-This characteristic allow to be sure to generate solutions
-with valid group sizes.
+This characteristic allow us to be sure to generate solutions with valid group sizes.
 
-Concerning the sets of students grouped together,
-we can first observe that the composition of the 
-last group is implied by the other groups.
-So we can focus on the composition $nbGroupsMax - 1$ groups.
+Concerning the sets of students grouped together, we can first observe that the
+composition of the last group is implied by the other groups.
+So we can focus on the composition $nbGroups - 1$ groups.
 
-To keep a sub-part of students grouped together in the first parent,
-I simply keep the composition of $(nbGroupsMax - 1) / 2$
-random groups from this first parent.
-Then, and its the tricky part, for each other group $g$ I search
-for a subset of $|g|$ students that are grouped together in
-the second parent (or several subsets of students grouped
-together in the second parent until obtaining $|g|$ students).
-Then, I complete the last group with students not grouped yet.
+To keep a sub-part of students grouped together in the first parent, we can simply keep
+the composition of $(nbGroups - 1) / 2$ random groups from this first parent.
 
-In this way, I keep the subsets of students grouped together
-in "parents" solutions, while keeping a valid number
-of students by group.
+Then, and its the tricky part, we have to get some characteristics from parent 2.
+To do so, we can search, for each group $g$ not completed yet, for a subset of $|g|$
+students that are grouped together in the second parent (or several subsets of
+students grouped together in the second parent until obtaining $|g|$ students).
+
+Finally, now we have $nbGroups - 1$ completed, we just have to complete the last
+group with students not grouped yet.
+
+In this way, we keep the subsets of students grouped together in both "parents",
+while keeping a valid number of students by group.
 
 This give us the following function.
 
@@ -762,9 +752,8 @@ group_crossover = function(object, parents){
 
 ```
 
-Let's try genetic algorithm with this custom
-cross-over function, in combination with our
-custom initialization function.
+Let's try genetic algorithm with this custom cross-over function, in combination
+with our custom initialization function.
 
 ```{r test-coFunc}
 GA=ga(
@@ -783,46 +772,36 @@ GA=ga(
 plot(GA, ylim=c(0, mean(students$rmets)))
 ```
 
-We can observe that fitness scores do not directly decrease
-after the first generation, but still decrease generation
-after generation.
-This is due to the mutations (changing one parameter from 0
-to 1, or from 1 to 0) of solutions generated by our cross-over
-function.
-As introduce before, in our problem it's easy to obtain a
-non-valid solution by simply changing one parameter.
+We can observe that fitness scores do not directly decrease after the first generation.
+Moreover, best solutions increase generation after generation, but mean fitness score still
+decrease generation after generation.
+This is due to the mutations (changing one parameter from 0 to 1, or from 1 to 0) of solutions
+generated by our cross-over function.
+As introduce before, in our problem it's easy to obtain a non-valid solution by simply
+changing one parameter.
 
 ### Mutate solutions
 
-Last step we need to custom to apply genetic algorithm
-on our problem is the mutation step.
+The last step we need to custom to apply genetic algorithm on our problem is the mutation step.
 
-Once children are created, the idea is to apply
-a little modification to add more diversities in
-solutons tested.
-Without mutation, there is a risk that genetic
-algorithm stay on local optimum solutions, even
+The idea of this step is to apply, once children are created, a little modification to generate
+more diversity in solutions tested.
+Without mutation, there is a risk that genetic algorithm stay on local optimum solutions, even
 with the cross-over step.
 
-In a basic genetic algorithm, a mutation consist
-to change the value of one random parameter (from 0
-to 1, or from 1 to 0).
-However, applying this kind of mutation on a valid
-solution of our problem can easily lead to a non-valid
-solution.
-For example, it could set a student to two different groups
-or to no group at all,
-or simply create groups too small or too big.
+In a basic genetic algorithm, a mutation consist to change the value of one random parameter
+(from 0 to 1, or from 1 to 0).
+However, applying this kind of mutation on a valid solution of our problem can easily lead to
+a non-valid solution.
+For example, it could set a student to two different groups or to no group at all, or simply create
+groups too small or too big.
 
-In our case, the idea is simply choose two
-random students from two different groups
+In our case, the idea is simply choose two random students from two different groups
 and exchange them.
 
 To do so, we'll use the following function.
-It simply choose two random groups, then one student
-in each of these two groups.
-Then, it update the solution to correspond
-to an exchange of the two selected students.
+It simply choose two random groups, then one random student in each of these two groups.
+Then, it update the solution to correspond to an exchange of the two selected students.
 
 ```{r mutateFunction}
 group_mutation <- function(object, solution){
@@ -855,8 +834,8 @@ group_mutation <- function(object, solution){
 }
 ```
 
-Let's test our custom mutation function with
-our initialization and cross-over functions.
+Let's test genetic algorithm with this custom mutation function,
+in combination with our initialization and cross-over functions.
 
 ```{r test-mutateFunction}
 GA=ga(
@@ -878,8 +857,8 @@ plot(GA, ylim=c(0, mean(students$rmets)))
 
 AAAND IT WORKS !
 
-Moreover, if we summarize the results of genetic algorithm,
-several solutions have been found.
+Moreover, if we summarize the results of genetic algorithm, several solutions
+have been found.
 
 ```{r bestsol}
 summary(GA)
@@ -889,17 +868,16 @@ However, sets of 0 and 1 are difficult to analyze.
 
 ## Visualize solutions
 
-To better visualize the solutions we can plot them as graph/network
-of students.
+To better visualize the solutions we can plot them as graph/network of students.
 To do so, we'll use the R package *igraph*.
 
 ```{r load-igraph}
 library(igraph)
 ```
 
-First, we need to represent the students with their RMETs
-scores. Here, each student we'll be represented
-as nodes/vertices of the graph, with their id and RMET score as labels.
+First, we need to represent the students with their RMETs scores.
+Here, each student we'll be represented as nodes/vertices of the graph, with their 
+id and RMET score as labels.
 
 ```{r plot-students}
 g <- make_empty_graph(directed = FALSE)
@@ -908,7 +886,7 @@ for(i in 1:nrow(students))
   g <- add_vertices(g, 1, label=paste(i, " (", students[i,], ")", sep=""))
 
 
-# plot(g) ?
+# plot graph
 co <- layout_nicely(g)
 plot(0, 
      type="n",
@@ -924,8 +902,7 @@ plot(g, layout=co, rescale=FALSE, add=TRUE,
      )
 ```
 
-Then, each edge of the graph will represent the fact that 
-two students are in the same group.
+Then, each edge of the graph will represent the fact that two students are in the same group.
 
 ```{r plot-groups}
 solution <- GA@solution[1,]
@@ -950,7 +927,7 @@ for(i in 1:nbGroupsMax){
   }
 }
 
-# plot(g) ?
+# plot graph
 co <- layout_nicely(g)
 plot(0, 
      type="n",
@@ -967,10 +944,8 @@ plot(g, layout=co, rescale=FALSE, add=TRUE,
 
 ```
 
-Now, it could be interesting to plot the RMET mean score of each
-group.
-To do so, we compute RMET mean and the center in the graph of each
-group.
+Now, it could be interesting to plot the RMET mean score of each group.
+To do so, we compute RMET mean and the center in the graph of each group.
 
 ```{r plot-rmet-means}
 co <- layout_nicely(g)
@@ -1000,8 +975,7 @@ for(i in 1:nbGroupsMax){
 }
 ```
 
-Finally, we can aggregate all these elements in a function
-to plot any solutions.
+Finally, we can aggregate all these elements in a function to plot any solution.
 
 ```{r displaygroup-function}
 display_groupmaking <- function(solution, fitness){
@@ -1064,8 +1038,7 @@ display_groupmaking <- function(solution, fitness){
 }
 ```
 
-Now, we can visualize the different solutions found
-by our custom genetic algorithm.
+Now, we can visualize the different solutions found by our custom genetic algorithm.
 
 ```{r displayBestSol}
 for(i in 1:nrow(GA@solution)){
@@ -1073,13 +1046,10 @@ for(i in 1:nrow(GA@solution)){
 }
 ```
 
-We can observe that not all solutions have been
-found by the genetic algorithm. Some students
-with the same RMET scores can be exchange.
-But, it's not a problem because it give
-us a sample of good solutions to our problem.
-Moreover, we can exchange some students if 
-necessary, without losing score, to find
+We can observe that not all solutions have been found by the genetic algorithm.
+Some students with the same RMET scores can be exchange.
+But, it's not a problem because it give us a sample of good solutions to our problem.
+Moreover, we can exchange some students if necessary, without losing score, to find
 a configuration that satisfy everyone.
 
 ## Conclusion
@@ -1087,6 +1057,7 @@ a configuration that satisfy everyone.
 ```{r test-genoud}
 library("rgenoud")
 
+# define fitness function
 func <- function(sol){
   
   # compute info for each group
