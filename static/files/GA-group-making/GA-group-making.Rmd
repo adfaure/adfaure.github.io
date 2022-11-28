@@ -1057,6 +1057,61 @@ a configuration that satisfy everyone.
 
 ## Conclusion
 
+I had multiple objectives with this blog post.
+First, I wanted to practice genetic algorithms.
+It's a type of algorithm I found very promising,
+especially [genetic programming](https://www.sciencedirect.com/topics/medicine-and-dentistry/genetic-programming).
+But, nowadays, I work almost entirely on machine learning
+and deep learning.
+
+Secondly, I wanted to find a way to create homogeneous student groups.
+As I say in the introduction, it's a common problem for teachers
+I have sometimes to deal with, and there is no real optimal solutions.
+In addition, it was possible to apply genetic algorithm on
+this problem, so it was the perfect occasion to test it.
+
+Thirdly, I wanted to popularise the different how genetic algorithms
+works with a pratical use case.
+To do so, I tried to narrate the different steps I went through.
+But, maybe, it would be more understandable with another use case.
+
+Beside, I had to made some choices that could be not optimal.
+For example, the choice of representing our problem as a
+binary problem (I talk about that in the next section).
+Also, in the cross-over I choosed to keep the configuration
+of the parents' group size, which not a "bad" choice but
+could decrease the diversity of group sizes in solutions.
+Genetic algorithm will converge to a certain configuration of group sizes.
+It could be interesting to create mutation functions that
+could divide large groups or merge small groups.
+
+More generally, as I said in the introduction, genetic algorithms are
+quite interesting to find a set of parameters that
+optimize the result of fitness function.
+For example, genetic algorithms are sometimes used 
+in machine learning to find the best structures
+of neural networks, with a method called [NEAT](https://towardsdatascience.com/neat-an-awesome-approach-to-neuroevolution-3eca5cc7930f)
+(the number of neurons, the number of layers, etc. can be considered
+as parameters to optimize).
+
+Beside, genetic algorithms are also interesting to
+find solutions to multi-objectives problems.
+As I briefly said when I presented the customizable steps
+of genetic algorithms, it's possible to have several
+fitness scores to evaluate a solution and look
+for pareto optimal solutions at the selection phase.
+It's more appropriate than trying to do some weighted average, which
+is generally worst things to do, especially if the different
+objectives have nothing in common and cannot compensate
+each other.
+Unfortunately, I didn't have the occasion to try genetic algorithm
+on multi-objectives problems with our use case.
+So, may be another time.
+
+To conclude, I hope this blog post helped the few people
+who read it to better understand genetic algorithms
+and how to use/customize them.
+
 ### Bonus: another way to solve our problem with Genetic Algorithm
 
 ```{r genoud-example}
