@@ -102,11 +102,12 @@ problem.
 That why they are called "meta-heuristic" algorithms.
 
 One of these meta-heuristic algorithms is the Genetic Algorithm.
-It's also what we called a [bio-inspired algorithm](todo),
-because it's inspired from the [theory of evolution](todo)
+It's also what we called a [bio-inspired algorithm](https://www.researchgate.net/profile/Hassan-Chizari/publication/341594685_Review_and_Classification_of_Bio-inspired_Algorithms_and_Their_Applications/links/61504a12d2ebba7be74b8163/Review-and-Classification-of-Bio-inspired-Algorithms-and-Their-Applications.pdf),
+because it's inspired from the
+[theory of evolution](https://en.wikipedia.org/wiki/Evolution)
 in biology (aka: the most adapted to its environment will survive).
 The genetic algorithm emulate the process of species selection
-in biology. Its main "meta-heuristic" being: it works for species
+in biology, its main "meta-heuristic" being: it works for species
 to find relevant adaptations to their environments, so why not
 for algorithms to find relevant solutions to a problem?
 
@@ -482,7 +483,7 @@ In the R package *GA*, we can customize the following steps:
 * Initialization, to Generate an initial population with only valid solutions
 * Selection, to select the best solutions for "reproduction"
   (We'll not customize this step. But, if you want to select
-  [pareto optimum](todo)
+  [pareto optimum](https://en.wikipedia.org/wiki/Pareto_efficiency)
   solutions based on several fitness metrics, this is the place)
 * Cross-over, to mixup characteristics of two valid
   solutions to create two new valid solutions
@@ -573,10 +574,10 @@ of two "parents" valid solutions to generate two "children" solutions which:
 * keep sub-characteristics of the two "parents" solutions
 
 This step is called "cross-over" and it's inspired from
-[chromosomes' cross-over](todo)
+[chromosomes' cross-over](https://en.wikipedia.org/wiki/Chromosomal_crossover)
 (even if, in biology, cross-over occurs between two chromosomes of the same individual and
 not between two chromosomes of two distincts individuals).
-And, we'll see that, in our case, it's a very tricky step to customize.
+And, we'll see that, in our case, it's a tricky step to customize.
 
 Let's take an example of two "parents" valid solutions for groups of 6 students, with minimum
 2 students by group and 3 maximum.
