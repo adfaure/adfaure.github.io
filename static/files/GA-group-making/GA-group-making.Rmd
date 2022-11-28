@@ -1055,6 +1055,14 @@ But, it's not a problem because it give us a sample of good solutions to our pro
 Moreover, we can exchange some students if necessary, without losing score, to find
 a configuration that satisfy everyone.
 
+It could be interesting to use this visualization to observe
+the different generation of solutions generated
+by the genetic algorithm. For example, it's
+possible to define, with the *GA* package, a "monitor"
+function.
+However, this blog post is already way too long, so
+may be another time.
+
 ## Conclusion
 
 I had multiple objectives with this blog post.
