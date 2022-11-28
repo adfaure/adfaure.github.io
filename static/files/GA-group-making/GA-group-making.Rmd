@@ -1114,18 +1114,38 @@ and how to use/customize them.
 
 ### Bonus: another way to solve our problem with Genetic Algorithm
 
+To be totally honest with you I had to show you another way,
+way more easier, to solve our problem.
+May be some of the readers already find it.
+It simply consist to represent the solutions of our
+problem as a list of size $nbStudents$.
+A number between $1$ and $nbGroupsMax$ can
+be associated to each student.
+
 ```{r genoud-example}
 variation_example <- c(1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5)
 ```
 
+This way, the number of combinations tested by the
+genetic algorithm will be.
+
 $$
 nbGroupsMax^{nbStudents}
 $$
+
+With our use case it give us:
+
 ```{r genoud-combinations}
 nbGroupsMax^nbStudents
 
 totNbCombinations / nbGroupsMax^nbStudents
 ```
+
+The number of valid group combinations is still a
+fraction of all combinations tested by the genetic algorithm,
+but less than before.
+
+Now, we just have to rewrite our fitness function as follow:
 
 ```{r genoud-fitness}
 variation_fitness <- function(solution){
@@ -1152,9 +1172,17 @@ variation_fitness <- function(solution){
 variation_fitness(variation_example)
 ```
 
+And to apply genetic algorithm on this representation
+of our problem.
+I didn't find how to do this with the *GA* package.
+For this example, I'll use the package [*rgenoud*](https://cran.r-project.org/web/packages/rgenoud/index.html), 
+proposed by [Mebane and Sekhon (2011)](http://sekhon.berkeley.edu/papers/rgenoudJSS.pdf)
+which allows parameters to be integers.
+
 ```{r test-genoud}
 library("rgenoud")
 
+# Define the domain of each parameter
 mat <- matrix(
     rep(c(1,nbGroupsMax),nbStudents),
     nrow = nbStudents, 
@@ -1179,3 +1207,18 @@ variation_GA$value
 
 variation_GA$par
 ```
+
+We can see that, with this representation of our solutions,
+the genetic algorithm find solutions without need
+to be customized.
+However, it's still more relevant to customize it, to stay
+only on valid solutions and also because, with more students
+it doesn't work (I let you try it).
+
+The reason I didn't used this representation in this 
+blog was only because I found more interesting, in
+an "educational" point of view, to start from a
+something that doesn't work at all.
+But, I also had to show that there is not only
+one way to find solutions to a problem.
+
