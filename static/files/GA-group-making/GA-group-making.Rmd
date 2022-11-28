@@ -451,6 +451,8 @@ $$
 $$
 
 ```{r totNbComb}
+2^(nbStudents*nbGroupsMax)
+
 totNbCombinations / 2^(nbStudents*nbGroupsMax)
 ```
 
@@ -687,10 +689,10 @@ group_crossover = function(object, parents){
       studentIds <- which(groupKept == 1)
       # for each student
       for(studentId in studentIds){
-	# set the corresponding cell at 1 in the child 
+	      # set the corresponding cell at 1 in the child 
         children[i, nbStudents * (groupKeptId-1) + studentId] = 1
         # remove the student from the list of students not grouped yet
-	studentIdsLeft = studentIdsLeft[studentIdsLeft != studentId]
+	      studentIdsLeft = studentIdsLeft[studentIdsLeft != studentId]
       }
       # remove group from groups not completed yet
       groupIdsLeft = groupIdsLeft[groupIdsLeft != groupKeptId]
@@ -715,16 +717,16 @@ group_crossover = function(object, parents){
 
       # while the corresponding group in child is not completed
       while(groupSize > 0){
-	# get a random group g2 in parent 2
+	      # get a random group g2 in parent 2
         groupIdInParent2 <- sample(1:nbGroupsInParent2, 1)
 
-	# get the students in the group g2
+      	# get the students in the group g2
         studentIds <- which(groupsInParent2[groupIdInParent2, ] == 1)
 
-	# get the intersection between g2 and the students not grouped yet in the child
+	      # get the intersection between g2 and the students not grouped yet in the child
         studentSelectedIds <- intersect(studentIds, studentIdsLeft)
 
-	# get a subset of this intersection if necessary
+	      # get a subset of this intersection if necessary
         if(length(studentSelectedIds) > groupSize)
           studentSelectedIds <- sample(studentSelectedIds, groupSize, replace = FALSE)
        
@@ -734,7 +736,7 @@ group_crossover = function(object, parents){
           studentIdsLeft = studentIdsLeft[studentIdsLeft != studentId]
         }
 
-	# to know if we need more students to complete the group
+	      # to know if we need more students to complete the group
         groupSize = groupSize - length(studentSelectedIds)
       }
       groupIdsLeft = groupIdsLeft[groupIdsLeft != groupId]
@@ -845,7 +847,7 @@ GA=ga(
   population = group_population,
   crossover = group_crossover,
   mutation = group_mutation,
-  maxiter=500,
+  maxiter=300,
   popSize=100,
   seed=seed,
   keepBest=TRUE,
@@ -978,7 +980,7 @@ for(i in 1:nbGroupsMax){
 Finally, we can aggregate all these elements in a function to plot any solution.
 
 ```{r displaygroup-function}
-display_groupmaking <- function(solution, fitness){
+display_groupmaking <- function(solution){
   g <- make_empty_graph(directed = FALSE)
 
   for(i in 1:nrow(students))
@@ -1014,7 +1016,7 @@ display_groupmaking <- function(solution, fitness){
        ylab="",
        xlim=extendrange(co[,1]), 
        ylim=extendrange(co[,2]),
-       main=paste("Score = ", fitness),
+       main=paste("Score = ", macro_rmet_mean - macro_rmet_sd),
        sub=paste("Macro mean =", macro_rmet_mean, "±", macro_rmet_sd)
        )
   plot(g, layout=co, rescale=FALSE, add=TRUE,
@@ -1042,7 +1044,7 @@ Now, we can visualize the different solutions found by our custom genetic algori
 
 ```{r displayBestSol}
 for(i in 1:nrow(GA@solution)){
-  display_groupmaking(GA@solution[i,], GA@fitnessValue)
+  display_groupmaking(GA@solution[i,])
 }
 ```
 
@@ -1054,19 +1056,31 @@ a configuration that satisfy everyone.
 
 ## Conclusion
 
-```{r test-genoud}
-library("rgenoud")
+### Bonus: another way to solve our problem with Genetic Algorithm
 
-# define fitness function
-func <- function(sol){
+```{r genoud-example}
+variation_example <- c(1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5)
+```
+
+$$
+nbGroupsMax^{nbStudents}
+$$
+```{r genoud-combinations}
+nbGroupsMax^nbStudents
+
+totNbCombinations / nbGroupsMax^nbStudents
+```
+
+```{r genoud-fitness}
+variation_fitness <- function(solution){
   
   # compute info for each group
   counts <- c()
   means <- c()
   for(i in 1:nbGroupsMax){
-    if(length(sol[sol == i]) > 0){
-      counts[length(counts) + 1] <- length(sol[sol == i])
-      studentIds <- which(sol == i)
+    if(length(solution[solution == i]) > 0){
+      counts[length(counts) + 1] <- length(solution[solution == i])
+      studentIds <- which(solution == i)
       means[length(means) + 1] <- mean(students[studentIds,])
     }
   }
@@ -1079,6 +1093,12 @@ func <- function(sol){
   return(mean(means) - sd(means))
 }
 
+variation_fitness(variation_example)
+```
+
+```{r test-genoud}
+library("rgenoud")
+
 mat <- matrix(
     rep(c(1,nbGroupsMax),nbStudents),
     nrow = nbStudents, 
@@ -1086,12 +1106,12 @@ mat <- matrix(
     byrow = TRUE
   )
 
-genoudGA <- genoud(
-    func,
+variation_GA <- genoud(
+    variation_fitness,
     nvars = nbStudents,
     max = TRUE,
-    pop.size = 10,
-    max.generations = 10,
+    pop.size = 100,
+    max.generations = 300,
     hard.generation.limit = FALSE,
     Domains = mat,
     boundary.enforcement = 2,
@@ -1099,7 +1119,7 @@ genoudGA <- genoud(
     print.level = 0
   )
 
-genoudGA$value
+variation_GA$value
 
-genoudGA$par
+variation_GA$par
 ```
