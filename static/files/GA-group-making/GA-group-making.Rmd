@@ -1,14 +1,14 @@
 ---
 title: "Group making using genetic algorithm"
-date: "2022-10-14"
+date: "2022-11-30"
 output:
-  html_document:
+  md_document:
     preserve_yaml: true
     variant: gfm
 ---
 
 ```{r setup, include=FALSE} 
-knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
 ## Introduction
