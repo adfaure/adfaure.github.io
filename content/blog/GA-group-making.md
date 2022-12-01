@@ -2,9 +2,10 @@
 title = "[DEVLOG] Group making using genetic algorithm"
 date = "2022-11-30"
 description = """In this blog post, I explore and explain 
-how to use of a genetic algorithm to create homogeneous"""
+how to use of a genetic algorithm to create homogeneous groups
+of students"""
 
-tags = ["AI", "Genetic Algorithm", "teaching"]
+tags = ["AI", "Genetic Algorithm", "Educationnal Research"]
 categories = ["Devlog"]
 featured = false
 
@@ -54,7 +55,7 @@ set.seed(seed)
 
 # generate random RMET scores for each student
 nbStudents <- 20
-students <- data.frame(rmets=round(rnorm(nbStudents, mean=26, sd=3.2)))
+students <- data.frame(rmet=round(rnorm(nbStudents, mean=26, sd=3.2)))
 students
 ```
 
@@ -406,7 +407,7 @@ GA=ga(
   monitor = FALSE
 )
 
-plot(GA, ylim=c(0, mean(students$rmets)))
+plot(GA, ylim=c(0, mean(students$rmet)))
 ```
 
 ![](/img/test-fitnessFunc-1.png)<!-- -->
@@ -646,7 +647,7 @@ GA=ga(
     monitor = FALSE
   )
 
-plot(GA, ylim=c(0, mean(students$rmets)))
+plot(GA, ylim=c(0, mean(students$rmet)))
 ```
 
 ![](/img/test-popFunc-1.png)<!-- -->
@@ -1112,7 +1113,7 @@ GA=ga(
     monitor=FALSE
   )
 
-plot(GA, ylim=c(0, mean(students$rmets)))
+plot(GA, ylim=c(0, mean(students$rmet)))
 ```
 
 ![](/img/test-coFunc-1.png)<!-- -->
@@ -1201,7 +1202,7 @@ GA=ga(
   monitor=FALSE 
 )
 
-plot(GA, ylim=c(0, mean(students$rmets)))
+plot(GA, ylim=c(0, mean(students$rmet)))
 ```
 
 ![](/img/test-mutateFunction-1.png)<!-- -->
