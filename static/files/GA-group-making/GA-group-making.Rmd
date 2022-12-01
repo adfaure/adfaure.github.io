@@ -5,6 +5,8 @@ output:
   md_document:
     preserve_yaml: true
     variant: gfm
+bibliography: references.bib
+link-citations: true
 ---
 
 ```{r setup, include=FALSE} 
@@ -32,19 +34,16 @@ Obviously, it's quite sub-optimal.
 A possible way should be to use a metric (grades, IQ, etc.) to evaluate
 students and make groups according to this metric.
 To illustrate this post, I decided to use the
-["Reading the Mind in the Eyes" Test (RMET)](https://link.springer.com/referenceworkentry/10.1007/978-3-319-28099-8_549-1).
+"Reading the Mind in the Eyes" Test (RMET) proposed by @warrier2017.
 This test aims to evaluate the "emotional"/"social" intelligence of
 the subjects.
-According to [Riedl *et al.* (2021)](https://www.pnas.org/doi/full/10.1073/pnas.2005737118),
-a high social perceptiveness of group members is quite correlated to
-a high collective intelligence.
+According to @riedl2021, a high social perceptiveness of group members is quite
+correlated to a high collective intelligence.
 So, why not use RMET as a base to construct groups of students?
 
 Let's first generate some random RMET scores to represent our students.
 In my case, I'm teaching 18-25 years old students at university.
-According to
-[Kynast *et al.* (2021)](https://www.frontiersin.org/articles/10.3389/fnagi.2020.607107/full),
-the mean RMET score for this age range is 26
+According to @kynast2021, the mean RMET score for this age range is 26
 (with a standard deviation of 3.2).
 
 ```{r students}
@@ -78,12 +77,12 @@ create.
 # we round to the nearest value up with ceiling function
 # because if nbStudents %% maxStudentsByGroup != 0, we need an additionnal group
 nbGroupsMin <- ceiling(nbStudents / maxStudentsByGroup)
-cat("    ", nbGroupsMin, "\n")
+cat(nbGroupsMin, "\n")
 
 # we don’t care of nbStudents %% minStudentsByGroup in this case
 # because groups are not full
 nbGroupsMax <- nbStudents %/% minStudentsByGroup
-cat("    ", nbGroupsMax)
+cat(nbGroupsMax)
 ```
 
 This problem can be seen as a variation of the
@@ -98,19 +97,16 @@ NP-hard.
 Testing all the possible solutions is then not an option, it's too
 time-consuming.
 
-A possible way is to use a
-[metaheuristic algorithm](https://www.sciencedirect.com/science/article/pii/B9780128133149000104).
-Meta-heuristic algorithms compose a subclass of algorithms
-dedicated to exploring the scope of possible solutions for
-a specific problem. They are based on
-[heuristics](https://en.wikipedia.org/wiki/Heuristic)
-on how to explore solutions to problems in general, 
-and not on heuristics to solve a specific problem.
-That’s why they are called "meta-heuristic" algorithms.
+A possible way is to use a "meta-heuristic" algorithm.
+As described by @abdelbasset2018, meta-heuristic algorithms compose a subclass
+of algorithms dedicated to exploring the scope of possible solutions for
+a specific problem.
+They are based on [heuristics](https://en.wikipedia.org/wiki/Heuristic)
+on how to explore solutions to problems in general, and not on heuristics to
+solve a specific problem (hence the "meta").
 
 One of these meta-heuristic algorithms is the Genetic Algorithm.
-It's a [bio-inspired algorithm](https://www.researchgate.net/profile/Hassan-Chizari/publication/341594685_Review_and_Classification_of_Bio-inspired_Algorithms_and_Their_Applications/links/61504a12d2ebba7be74b8163/Review-and-Classification-of-Bio-inspired-Algorithms-and-Their-Applications.pdf)
-inspired by the
+It's a bio-inspired algorithm [@fan2020] based on the
 [theory of evolution](https://en.wikipedia.org/wiki/Evolution)
 (AKA: the most adapted to its environment will survive).
 The genetic algorithm emulates the process of species selection
@@ -198,9 +194,9 @@ nbStudentsByGroup <- nbStudentsByGroup[nbStudentsByGroup != 0]
 if(any(nbGroupsByStudent != 1) # If any student is associated to zero or several groups
    || any(nbStudentsByGroup < minStudentsByGroup) # or if any group is too small
    || any(nbStudentsByGroup > maxStudentsByGroup)){ # or if any group is too big
-  cat("    solution not valid")
+  cat("solution not valid")
 } else {
-  cat("    solution valid")
+  cat("solution valid")
 }
 ```
 
@@ -233,7 +229,7 @@ for(i in 1:nbGroupsMax){
 
     # compute the RMET mean of this group
     mean_rmet <- mean(rmets)
-    cat("    Group", i, ":",  mean_rmet,"\n")
+    cat("Group", i, ":",  mean_rmet,"\n")
 
     # and keep it in memory
     means[length(means)+1] <- mean_rmet
@@ -244,7 +240,7 @@ for(i in 1:nbGroupsMax){
 
 # compute score as the "macro" mean of RMET means
 score <- mean(means)
-cat("    Macro RMET mean :", score)
+cat("Macro RMET mean :", score)
 ```
 
 As we can observe in our example, if we only focus on mean RMET scores, we could
@@ -269,7 +265,7 @@ reducing, it’s more "visual", you’ll see).
 
 ```{r penaltyexample, results = 'asis'}
 penalty <- sd(means)
-cat("    Fitness =", score,"-",penalty,"=", score - penalty)
+cat("Fitness =", score,"-",penalty,"=", score - penalty)
 ```
 
 Now, we have all the elements to define our fitness function and test it
@@ -304,7 +300,7 @@ fitness=function(solution)
   return(score - penalty)
 }
 
-cat("    ", fitness(example))
+cat(fitness(example))
 ```
 
 ### Exploring solutions
@@ -313,8 +309,7 @@ Now we have defined our solutions and how to evaluate them, we can apply a
 genetic algorithm to our problem.
 
 To do so, we'll use the R package [*GA*](https://luca-scr.github.io/GA/)
-proposed by
-[Scrucca (2013)](https://www.jstatsoft.org/article/view/v053i04).
+proposed by @scrucca2013.
 
 As input, the *ga* function needs to know:
 
@@ -415,7 +410,7 @@ for(i in nbGroupsMin:nbGroupsMax){
     # check if the sum of groups’ size
     # correspond to the number of students
     if(sum(cj) == nbStudents){
-      cat("    Group sizes: ")
+      cat("Group sizes: ")
       cat(cj)
       
       # keep the combination for later
@@ -438,7 +433,7 @@ for(i in nbGroupsMin:nbGroupsMax){
         # update number of student not grouped yet
         nbStudentsLeft = nbStudentsLeft - groupSize
       }
-      cat(", Nb possible combinations: ", nbCombinations, "\n")
+      cat("\t\tNb possible combinations: ", nbCombinations, "\n")
       
       # add number of combinations found for cj to the total
       totNbCombinations = totNbCombinations + nbCombinations
@@ -446,7 +441,7 @@ for(i in nbGroupsMin:nbGroupsMax){
   }
 }
 
-cat("    ", totNbCombinations)
+cat(totNbCombinations)
 ```
 
 Let's now compare this number of valid group combinations with
@@ -457,9 +452,9 @@ $$
 $$
 
 ```{r totNbComb, results='asis'}
-cat("    ", 2^(nbStudents*nbGroupsMax), "\n")
+cat(2^(nbStudents*nbGroupsMax), "\n")
 
-cat("    ", totNbCombinations / 2^(nbStudents*nbGroupsMax))
+cat(totNbCombinations / 2^(nbStudents*nbGroupsMax))
 ```
 
 We can observe that the number of valid group combinations is just a very small
@@ -590,7 +585,7 @@ Let's take an example of two valid solutions we’ll use as "parents".
 ```{r crossoverExample-step1, results='asis'}
 ex_parent1 <- example
 knitr::kable(matrix(ex_parent1, ncol=nbStudents, byrow=TRUE), "pipe")
-cat("    ", fitness(ex_parent1), "\n")
+cat(fitness(ex_parent1), "\n")
 
 ex_parent2 <- c(
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0,
@@ -601,13 +596,12 @@ ex_parent2 <- c(
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 )
 knitr::kable(matrix(ex_parent2, ncol=nbStudents, byrow=TRUE), "pipe")
-cat("    ", fitness(ex_parent2))
+cat(fitness(ex_parent2))
 ```
 
 In a basic binary genetic algorithm, as illustrated in the figure below proposed
-by [Alamri and Alharbi (2020)](https://www.researchgate.net/publication/347003654_A_Framework_for_Optimum_Determination_of_LCL-Filter_Parameters_for_N-Level_Voltage_Source_Inverters_Using_Heuristic_Approach),
-the "cross-over" function will generally
-split the "parents" in two and generate the "children" with the four sub-parts.
+by @alamri2020, the "cross-over" function will generally split the "parents" in
+two and generate the "children" with the four sub-parts.
 
 
 ![](../../img/Example-of-GA-individual-crossover.png)
@@ -618,11 +612,11 @@ Let's apply this process to our example.
 split <- length(ex_parent1) %/% 2
 ex_child1 <- append(ex_parent1[1:split], ex_parent2[(split+1):length(ex_parent1)])
 knitr::kable(matrix(ex_child1, ncol=nbStudents, byrow=TRUE), "pipe")
-cat("    ", fitness(ex_child1), "\n")
+cat(fitness(ex_child1), "\n")
 
 ex_child2 <- append(ex_parent2[1:split], ex_parent1[(split+1):length(ex_parent1)])
 knitr::kable(matrix(ex_child2, ncol=nbStudents, byrow=TRUE), "pipe")
-cat("    ", fitness(ex_child2))
+cat(fitness(ex_child2))
 ```
 
 We can observe that the generated "children" solutions, with this method,
@@ -758,7 +752,7 @@ for(studentId in studentIdsLeft){
 }
 
 knitr::kable(matrix(ex_child1, ncol=nbStudents, byrow=TRUE), "pipe")
-cat("    ", fitness(ex_child1))
+cat(fitness(ex_child1))
 ```
 
 In this way, we keep the subsets of students grouped together in both "parents",
@@ -1199,7 +1193,7 @@ However, this blog post is already way too long, so maybe another time.
 I had multiple objectives with this blog post.
 First, I wanted to practice genetic algorithms.
 It's a type of algorithm I found very promising, especially
-[genetic programming](https://www.sciencedirect.com/topics/medicine-and-dentistry/genetic-programming).
+[genetic programming](https://en.wikipedia.org/wiki/Genetic_programming).
 But, nowadays, I work almost entirely on machine learning and deep learning.
 
 Secondly, I wanted to find a way to create homogeneous student groups.
@@ -1232,9 +1226,8 @@ function which exchange two students.
 More generally, as I said in the introduction, genetic algorithms are
 quite interesting to find a set of parameters that
 optimize the result of a fitness function.
-For example, genetic algorithms are sometimes used 
-in machine learning to find the best structures
-of neural networks, with a method called [NEAT](https://towardsdatascience.com/neat-an-awesome-approach-to-neuroevolution-3eca5cc7930f)
+For example, as proposed by @stanley2002, genetic algorithms can be used 
+in machine learning to find the best structures of neural networks
 (the number of neurons, the number of layers, etc. can be considered
 as parameters to optimize).
 
@@ -1278,9 +1271,9 @@ $$
 With our use case, it gives us:
 
 ```{r genoud-combinations, results='asis'}
-cat("    ", nbGroupsMax^nbStudents, "\n")
+cat(nbGroupsMax^nbStudents, "\n")
 
-cat("    ", totNbCombinations / nbGroupsMax^nbStudents)
+cat(totNbCombinations / nbGroupsMax^nbStudents)
 ```
 
 The number of valid group combinations is still a fraction of all combinations
@@ -1310,15 +1303,14 @@ variation_fitness <- function(solution){
   return(mean(means) - sd(means))
 }
 
-cat("    ", variation_fitness(variation_example))
+cat(variation_fitness(variation_example))
 ```
 
 Now, we can apply the genetic algorithm to this representation
 of our problem.
 I didn't find how to do this with the *GA* package.
 For this example, I'll use the package [*rgenoud*](https://cran.r-project.org/web/packages/rgenoud/index.html), 
-proposed by [Mebane and Sekhon (2011)](http://sekhon.berkeley.edu/papers/rgenoudJSS.pdf)
-which allows parameters to be integers.
+proposed by @mebane2011 which allows parameters to be integers.
 
 ```{r test-genoud, results='asis'}
 library("rgenoud")
@@ -1344,9 +1336,9 @@ variation_GA <- genoud(
     print.level = 0
   )
 
-cat("    ", variation_GA$value, "\n")
+cat(variation_GA$value, "\n")
 
-cat("    ", variation_GA$par)
+cat(variation_GA$par)
 ```
 
 We can see that, with this representation of our solutions, the genetic
@@ -1360,4 +1352,6 @@ it more interesting, from an "educational" point of view, to start from
 something that doesn't work at all.
 But, I also had to show that there is not only one way to find solutions to a
 problem.
+
+# References
 
