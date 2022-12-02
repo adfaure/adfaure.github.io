@@ -14,7 +14,6 @@ output:
   md_document:
     preserve_yaml: true
     variant: gfm
-    keep_tex: true
 bibliography: references.bib
 link-citations: true
 ---
@@ -378,7 +377,7 @@ $$
 
 With $\mathcal{G}$ the set of all possible combinations of group sizes
 $G \in \mathcal{G}$, such as $\sum_{i=0}^{i=|G|} g_i = nbStudents$.
-For example, the combination of group size $\{5,5,5,5,0,0\}$
+For example, the combination of group sizes $\{5,5,5,5,0,0\}$
 is in $\mathcal{G}$.
 
 Let's compute the number of valid group combinations, and the intermediate
@@ -456,13 +455,16 @@ $$
 2^{nbStudents \times nbGroupsMax}
 $$
 
+If we divide our number of valid group combinations by this number,
+we obtain:
+
 ```{r totNbComb, results='asis'}
 cat(2^(nbStudents*nbGroupsMax), "\n")
 
 cat(totNbCombinations / 2^(nbStudents*nbGroupsMax))
 ```
 
-We can observe that the number of valid group combinations is just a very small
+We can see that the number of valid group combinations is just a very small
 fraction of all combinations tested by the genetic algorithm.
 This means that the genetic algorithm only has a small chance to find a valid
 group combination from random initial solutions.
@@ -1268,7 +1270,7 @@ student.
 variation_example <- c(1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5)
 ```
 
-This way, the number of combinations tested by the genetic algorithm will be.
+This way, the number of combinations tested by the genetic algorithm will be:
 
 $$
 nbGroupsMax^{nbStudents}
