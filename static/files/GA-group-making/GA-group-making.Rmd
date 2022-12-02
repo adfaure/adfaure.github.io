@@ -14,6 +14,7 @@ output:
   md_document:
     preserve_yaml: true
     variant: gfm
+    keep_tex: true
 bibliography: references.bib
 link-citations: true
 ---
@@ -67,7 +68,7 @@ students <- data.frame(
     id=1:nbStudents, 
     rmet=round(rnorm(nbStudents, mean=26, sd=3.2))
   )
-knitr::kable(students, "pipe")
+knitr::kable(students, "pipe", align="cc")
 ```
 
 Now, we want to distribute these students into several groups in the
@@ -102,12 +103,12 @@ we want to take all the items and distribute them as homogeneously
 as possible into several bags.
 The knapsack problem is an
 [NP-hard problem](https://en.wikipedia.org/wiki/NP-hardness).
-We can then suppose that our variation of this problem is also
+So, we can suppose that our variation of this problem is also
 NP-hard.
 Testing all the possible solutions is then not an option, it's too
 time-consuming.
 
-A possible way is to use a "meta-heuristic" algorithm.
+A possible way to solve this problem is to use a "meta-heuristic" algorithm.
 As described by @abdelbasset2018, meta-heuristic algorithms compose a subclass
 of algorithms dedicated to exploring the scope of possible solutions for
 a specific problem.
@@ -132,7 +133,7 @@ to know the combinations of parameters that maximize
 (or minimize) the output score.
 
 In our use case, we have several ways to group students (parameters) and
-we want to find the most homogeneous one (output score).
+we want to find the most homogeneous ones (output score).
 Therefore, using a genetic algorithm seems quite adapted.
 It is also the occasion to test, and explain step by step, 
 a genetic algorithm with a practical use case.
@@ -165,10 +166,11 @@ example <- c(
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1,
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 )
+
 knitr::kable(matrix(example, ncol=nbStudents, byrow=TRUE), "pipe")
 ```
 
-However, the genetic algorithm we'll use doesn't use matrices to describe
+However, the genetic algorithm we'll use isn't based on matrices to describe
 solutions but lists. So, we'll have to switch from matrices to lists and from
 lists to matrices when necessary.
 
@@ -184,7 +186,7 @@ First, we want that a solution describes valid groups: each student is
 associated to only one group, no group is below the minimum number of students,
 and no group is above the maximum number of students.
 These are our "veto" conditions. If a solution doesn't respect these conditions
-the score is set a 0.
+the score will be 0.
 
 This can be evaluated as follow.
 
@@ -210,7 +212,7 @@ if(any(nbGroupsByStudent != 1) # If any student is associated to zero or several
 }
 ```
 
-Once we have tested whether a solution is valid, we want to evaluate its score.
+Once we have tested whether a solution is valid or not, we have to evaluate its score.
 
 In our case, we want that the RMET mean score of each group is as similar to
 each other.
@@ -258,20 +260,13 @@ obtain solutions with one group (group 3) with an unfair advantage over the
 other.
 Mathematically speaking, computing the mean of RMET means in our case
 will always give us the same result.
-So it’s quite useless to compute it, and even more, to try to maximize it.
+So it’s quite useless to compute it, and even more to try to maximize it.
 
 To obtain RMET scores homogeneously dispatched among groups, it’s the
 standard deviation between RMET mean of each group that we want to minimize.
-However, we’ll keep computing the "macro" mean of RMET means by group, 
-for the skeptical ones, and we’ll subtract the standard deviation of RMET means
-from this "macro" mean.
+However, we’ll keep computing the "macro" mean of RMET means by group (just in case),
+and we’ll subtract the standard deviation of RMET means from this "macro" mean.
 This is generally called a "penalty".
-This way, we have a maximum threshold to reach ("macro" RMET mean score) and the
-genetic algorithm will search for solutions with a fitness score the closest
-to this threshold.
-
-(It’s also because I found it more satisfying to see a fitness growing than
-reducing, it’s more "visual", you’ll see).
 
 ```{r penaltyexample, results = 'asis'}
 penalty <- sd(means)
@@ -318,16 +313,16 @@ cat(fitness(example))
 Now we have defined our solutions and how to evaluate them, we can apply a
 genetic algorithm to our problem.
 
-To do so, we'll use the R package [*GA*](https://luca-scr.github.io/GA/)
+To do so, we'll use the R package [GA](https://luca-scr.github.io/GA/)
 proposed by @scrucca2013.
 
-As input, the *ga* function needs to know:
+As input, the **ga** function needs to know:
 
 * the type of genetic algorithm to apply ("binary", in our case)
 * the number of parameters in a solution
   ($nbStudents \times nbGroupsMax$, in our case)
 * the number of iterations (also called "generations")
-* the number of solutions tested by iteration
+* the number of solutions tested by iteration (also called "population")
 * if we want to keep the best solution found in a generation N
   into the generation N+1 (a process called "Elitism")
 
@@ -335,10 +330,10 @@ The steps of a genetic algorithm are quite simple:
 
 1. the first sample of solutions, the generation 0, is generated
 2. the fitness of each solution is evaluated
-3. two solutions are selected according to their fitness score, a step called
-   "Selection"
-4. these two solutions are mixed up together to generate two new solutions,
-   a step called "cross-over"
+3. two solutions are selected according to their fitness score (a step called
+   "Selection")
+4. these two solutions are mixed up together to generate two new solutions
+   (a step called "cross-over")
 5. step 3. and 4. are repeated until a new sample of solutions is generated
 6. the process is repeated from step 2. until the desired number of iterations
    is reached
@@ -365,8 +360,8 @@ plot(GA, ylim=c(0, mean(students$rmet)))
 Aaaaaand, it doesn't work.
 
 Even with a high number of solutions and generations, naively applying a basic
-genetic algorithm to our problem seems to not even be able to find valid
-solutions.
+genetic algorithm to our problem seems to not even be able to find one valid
+solution.
 
 ### Why it doesn’t work?
 
@@ -505,10 +500,9 @@ First of all, we need the genetic algorithm to start with only valid solutions.
 To do so, we'll use the following function, based on the valid combinations of
 group sizes computed before.
 
-To create a valid initial solution, this function will first choose one random
-combination $G$ of group sizes (for example $\{5, 5, 5, 5, 0, 0\}$).
-And then, for each group size $g \in G$, the function chooses $g$ students among
-the students not grouped yet.
+This function will first choose one random combination $G$ of group sizes
+(for example $\{5, 5, 5, 5, 0, 0\}$). And then, for each group size $g \in G$,
+the function chooses $g$ students among the students not grouped yet.
 
 ```{r popFunc}
 group_population <- function(object){
@@ -521,7 +515,7 @@ group_population <- function(object){
   
   # generate each individual of the population
   for(i in 1:object@popSize){
-    # choose one possible combination of group size
+    # choose one possible combination of group sizes
     k <- sample(1:diffGroupSizesCombinations$size(), 1)
     groupSizes <- diffGroupSizesCombinations$get(as.character(k))
     
@@ -568,7 +562,8 @@ plot(GA, ylim=c(0, mean(students$rmet)))
 
 We can observe that the first generation of solutions, the one generated with
 our custom function, are valid solutions.
-However, we can also see that the median score is zero.
+However, we can also see that the median score directly drop to zero at
+the second step of the genetic algorithm.
 This means that more than half of the solutions created from the initial
 solutions are not valid.
 It confirms our second assumption about why a basic binary genetic
@@ -576,7 +571,7 @@ algorithm failed to solve our problem.
 
 ### Cross-over best solutions
 
-Now we have valid initial solutions, we need to find a way two combine the
+Now we have valid initial solutions, we need to find a way to combine the
 characteristics of two "parents" valid solutions to generate two "children"
 solutions which:
 
@@ -590,7 +585,7 @@ individual and not between two chromosomes of two distinct individuals).
 
 We'll see that, in our case, it's a tricky step to customize.
 
-Let's take an example of two valid solutions we’ll use as "parents".
+Let's take an example of two valid solutions that we’ll use as "parents".
 
 ```{r crossoverExample-step1, results='asis'}
 ex_parent1 <- example
@@ -631,16 +626,17 @@ cat(fitness(ex_child2))
 
 We can observe that the generated "children" solutions, with this method,
 are not valid at all.
-This explains the direct decrease in fitness scores observed before.
+This explains the direct decrease in fitness scores that we observed before.
 
 To customize the cross-over function, we need to understand the
 characteristics of a solution that we want "children" solutions to inherit
 from their "parents" solutions.
 
-In our use case, we have two main characteristics of a solution:
+In our use case, we have two main characteristics that "children" solutions
+could inherit from their "parents" solutions:
 
 * the number of students by group
-* the sets of students that are grouped together
+* how the students are grouped together
 
 To simplify the cross-over process, let's keep the number of students from
 parents to children (children1 will have the same number of students in each
@@ -661,7 +657,7 @@ nbStudentsByGroup <- rowSums(groups)
 nbStudentsByGroup <- nbStudentsByGroup[nbStudentsByGroup != 0]
 ```
 
-Concerning the sets of students grouped together, we can first observe that the
+Concerning how the students are grouped together, we can first observe that the
 composition of the last group is implied by the other groups.
 So we can focus on the composition of $nbGroups - 1$ groups.
 
@@ -704,10 +700,10 @@ knitr::kable(matrix(ex_child1, ncol=nbStudents, byrow=TRUE), "pipe")
 
 Then, and it’s the tricky part, we have to get some characteristics from parent
 2.
-To do so, we can search, for each group $g$ not completed yet, for a subset of
-$|g|$ students that are grouped together in the second parent (or several
+To do so, we can search, for each group not completed yet, for a subset of
+students that are grouped together in the second parent (or several
 subsets of students grouped together in the second parent until obtaining
-$|g|$ students).
+enough students).
 
 ```{r crossOverExample-step5}
 groupsInParent2 <- matrix(ex_parent2, ncol = nbStudents, byrow = TRUE)
@@ -905,28 +901,27 @@ GA=ga(
 plot(GA, ylim=c(0, mean(students$rmet)))
 ```
 
-We can observe that fitness scores do not directly decrease after the first
-generation.
+We can observe that the median of fitness scores doesn't directly drop to zero
+after the first generation.
 Moreover, the best solutions increase generation after generation.
 However, the mean fitness score still decreases generation after generation.
 
-This is due to the mutations (changing one parameter from 0 to 1, or from 1
-to 0) of solutions generated by our cross-over function.
+This is due to the mutations applied by the genetic algorithm on the solutions
+generated by our cross-over function.
 As introduced before, in our problem it's easy to obtain a non-valid solution
 by simply changing one parameter.
 
 ### Mutate solutions
 
-The last step we need to customize to apply the genetic algorithm to our problem
-is the mutation step.
+The last step we need to customize is the mutation step.
 
 The idea of this step is to apply, once children are created, a little
 modification to generate more diversity in the solutions tested.
 Without mutation, there is a risk that the genetic algorithm stays on local
 optimum solutions, even with the cross-over step.
 
-In a basic genetic algorithm, a mutation consists to change the value of one
-random parameter (from 0 to 1, or from 1 to 0).
+In a basic binary genetic algorithm, a mutation consists to change the value of one
+random parameter from 0 to 1, or from 1 to 0.
 However, applying this kind of mutation to a valid solution to our problem can
 easily lead to a non-valid solution.
 For example, it could set a student to two different groups or no group at all,
@@ -1007,7 +1002,7 @@ However, sets of 0 and 1 are difficult to analyze.
 ## Visualizing solutions
 
 To better visualize the solutions, we can plot them as a graph/network of
-students. To do so, we'll use the R package *igraph*.
+students. To do so, we'll use the R package [igraph](https://igraph.org/r/).
 
 ```{r load-igraph}
 library(igraph)
@@ -1207,18 +1202,19 @@ It's a type of algorithm I found very promising, especially
 But, nowadays, I work almost entirely on machine learning and deep learning.
 
 Secondly, I wanted to find a way to create homogeneous student groups.
-As I say in the introduction, it's a common problem for teachers
-I have sometimes to deal with, and there are no real optimal solutions.
+As I say in the introduction, it's a common problem for teachers.
+I have sometimes to deal with it, and its hard to find a solution
+that satistfies everyone.
 In addition, it was possible to apply a genetic algorithm to
 this problem, so it was the perfect occasion to test it.
 
-Thirdly, I wanted to popularise how a genetic algorithms works with a practical
+Thirdly, I wanted to popularise how a genetic algorithm works with a practical
 use case.
 To do so, I tried to narrate the different steps I went through.
 But, maybe, it would be more understandable with another use case.
 
 Besides, I had to make some choices that could be not optimal.
-For example, the choice of representing our problem as a binary problem
+For example, the choice of representing this problem as a binary problem
 (I talk about that in the next section).
 Also, for the cross-over step, I chose to keep the configuration of the parents'
 group size.
@@ -1227,7 +1223,7 @@ It stays coherent with the idea to keep sub-characteristics of parents
 in children. But, it mechanically decreases the diversity of group sizes in
 solutions.
 Generation after generation, the genetic algorithm converges to a certain
-configuration of group sizes, with the possibility to explore other
+configuration of group sizes, without the possibility to explore other
 configurations of group sizes.
 It could be interesting to create mutation functions that
 could divide large groups or merge small groups, in addition to the mutation
@@ -1316,11 +1312,11 @@ variation_fitness <- function(solution){
 cat(variation_fitness(variation_example))
 ```
 
-Now, we can apply the genetic algorithm to this representation
+Then, we can apply the genetic algorithm to this representation
 of our problem.
 I didn't find how to do this with the *GA* package.
 For this example, I'll use the package [*rgenoud*](https://cran.r-project.org/web/packages/rgenoud/index.html), 
-proposed by @mebane2011 which allows parameters to be integers.
+proposed by @mebane2011, which allows parameters to be integers.
 
 ```{r test-genoud, results='asis'}
 library("rgenoud")
