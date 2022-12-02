@@ -1,4 +1,13 @@
 ---
+# "THE BEER-WARE LICENSE" (Revision 42):
+# 
+# @a-t-richard wrote this file.
+# 
+# As long as you retain this notice you can do whatever you want with thi stuff.
+# If we meet some day, and you think this stuff is worth it, you can buy me a beer in return.
+# 
+# Antoine Richard
+
 title: "Group making using genetic algorithm"
 date: "2022-12-01"
 output:
@@ -9,6 +18,7 @@ bibliography: references.bib
 link-citations: true
 ---
 
+  
 ```{r setup, include=FALSE} 
 knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
