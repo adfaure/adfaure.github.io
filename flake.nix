@@ -24,7 +24,7 @@
           buildInputs = [
             pkgs.zola
             pkgs.nodePackages.npm
-            kodama-theme
+            kodama-theme.packages.x86_64-linux.website
           ];
 
           checkPhase = ''
