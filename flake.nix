@@ -13,18 +13,6 @@
         overlays = [ oxalica.overlay ];
         config.allowUnfree = true;
       };
-
-      # To update the tailwind packages use node2nix
-      # node2nix -c tailwindcss.nix
-      nodeDependencies = (pkgs.callPackage ({ pkgs, system }:
-        let nodePackages = import ./tailwindcss.nix { inherit pkgs system; };
-        in nodePackages // {
-          shell = nodePackages.shell.override {
-            buildInputs = [
-              # pkgs.nodePackages.node-gyp-build
-            ];
-          };
-        }) { }).shell.nodeDependencies;
     in {
 
       packages.x86_64-linux = {
@@ -46,11 +34,7 @@
           buildPhase = ''
             export theme_folder="themes/kodama-theme"
             cp -rL --no-preserve=mode ${kodama-theme} $theme_folder
-
-            ln -s ${nodeDependencies}/lib/node_modules ./node_modules
-            export PATH="${nodeDependencies}/bin:$PATH"
-
-            npx tailwindcss -i styles/styles.css -o static/styles/styles.css
+            cp $theme_folder/styles/styles.css styles/styles.css
           '';
 
           base-url = "https://a-t-richard.github.io";
@@ -62,7 +46,7 @@
 
         # Package for github-page
         ghp = self.packages.x86_64-linux.website.overrideAttrs (old: rec {
-          base-url = "https://a-t-richard.github.io/";
+          base-url = "https://a-t-richard.github.io";
           installPhase = "zola build -o $out --base-url ${base-url}";
         });
 
@@ -71,14 +55,13 @@
       devShell.x86_64-linux = pkgs.mkShell {
         buildInputs = with pkgs; [
           zola
-          nodeDependencies
           nodePackages.npm
           nodePackages.node2nix
         ];
         # This tells npx where to find the node lib.
         # The css generation can be done with:
         # npx tailwindcss -i styles/styles.css -o static/styles/styles.css
-        NODE_PATH="${nodeDependencies}/lib/node_modules";
+        # NODE_PATH="${nodeDependencies}/lib/node_modules";
       };
     };
 }
