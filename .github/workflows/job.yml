@@ -6,7 +6,7 @@ on:
 
 jobs:
   Nix-Flake-Build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - uses: cachix/install-nix-action@v18
@@ -15,7 +15,7 @@ jobs:
         install_options: '--tarball-url-prefix https://nixos-nix-install-tests.cachix.org/serve'
         extra_nix_config: |
           experimental-features = nix-command flakes
-    - run: nix build .#packages.x86_64-linux.ghp
+    - run: nix build .#packages.x86_64-linux.ghp --show-trace
     - run: cp -rL result ./site
     - run: chmod +xwr site &&  find site -type d -exec chmod +xwr {} + && find site -type f -exec chmod 644 {} +
     - name: Deploy 🚀
