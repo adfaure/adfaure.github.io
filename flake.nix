@@ -1,7 +1,7 @@
 {
   inputs = {
     oxalica.url = "github:oxalica/rust-overlay";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
     kodama-theme.url = "github:adfaure/kodama-theme";
   };
 
@@ -24,7 +24,7 @@
           buildInputs = [
             pkgs.zola
             pkgs.nodePackages.npm
-            kodama-theme
+            kodama-theme.packages.x86_64-linux.website
           ];
 
           checkPhase = ''
