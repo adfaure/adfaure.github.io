@@ -46,7 +46,7 @@ interests = [
   link = "https://www.goodreads.com/user/show/82099752-adrien"
 +++
 
-Hello, my name is Adrien Faure, I recently finished a PhD in computer science.
+Hello, my name is Adrien Faure, I finished my PhD in computer science in 2020.
+I am currently working at the LIG on the REGALE European project as an Engineer / Post-Doc.
 
-My PhD is about resources management for High Performance Computing platforms.
-Today, I am interested in distributed systems, such as cloud and edge systems.
+I am interested in distributed systems, such as cloud and edge systems.

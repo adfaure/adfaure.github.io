@@ -26,7 +26,7 @@ Le cours est basé sur le contenu écrit par [Millian Poquet](https://mpoquet.gi
         - [fiche exercice 2](/files/teaching/2022-software-quality/2-branches-and-conflicts.pdf)
 
    - **Cours du 6 janvier 2023**
-       - Cours de qualité logiciel: [slides](/files/teaching/2022-software-quality/software-quality.pdf).
-       - [TP gitlab](/files/teaching/2022-software-quality/3-gitlab-project-init.pdf).
-       - [TP pytest](/files/teaching/2022-software-quality/4-pytest.pdf).
+       - Cours de qualité logiciel: [slides](/files/teaching/2022-software-quality/software-quality.pdf)
+       - [TP gitlab](/files/teaching/2022-software-quality/3-gitlab-project-init.pdf)
+       - [TP pytest](/files/teaching/2022-software-quality/4-pytest.pdf)
 
