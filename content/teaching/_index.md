@@ -31,4 +31,4 @@ Le cours est basé sur le contenu écrit par [Millian Poquet](https://mpoquet.gi
        - [TP pytest](/files/teaching/2022-software-quality/4-pytest.pdf)
 
    - **Cours du 20 janvier et du 3 février**
-       - TP: [consignes](https://gitlab.com/soq-assr-22-23/project-dotfiles/-/blob/master/Assignement.md)
+       - Projet: [consignes](https://gitlab.com/soq-assr-22-23/project-dotfiles/-/blob/master/Assignement.md)
