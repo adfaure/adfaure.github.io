@@ -13,7 +13,7 @@ jobs:
     - run: cp -rL result ./site
     - run: chmod +xwr site &&  find site -type d -exec chmod +xwr {} + && find site -type f -exec chmod 644 {} +
     - name: Deploy 🚀
-      uses: JamesIves/github-pages-deploy-action@4
+      uses: JamesIves/github-pages-deploy-action@v4
       with:
         branch: gh-pages
         folder: ./site
