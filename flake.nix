@@ -2,7 +2,7 @@
   inputs = {
     oxalica.url = "github:oxalica/rust-overlay";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
-    kodama-theme.url = "github:beling/kodama-theme";
+    kodama-theme.url = "github:adfaure/kodama-theme";
   };
 
   outputs = { self, nixpkgs, oxalica, kodama-theme }:
