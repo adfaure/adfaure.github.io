@@ -36,11 +36,11 @@
         "oxalica": "oxalica"
       },
       "locked": {
-        "lastModified": 1678204696,
-        "narHash": "sha256-wYT2Uj++Blq8qghoeToNjSmdTe0OOLwCQVfNEgkz85s=",
+        "lastModified": 1678205481,
+        "narHash": "sha256-ugviyz5Z+b9UOZaHccTBnGyqV5pp5mIpKQiorx9wYvc=",
         "owner": "adfaure",
         "repo": "kodama-theme",
-        "rev": "6309c02426a00c38d2be1e377adc715bf80a6770",
+        "rev": "a0a9d2e4810cc9f3d6a1b8cb27b6f7359922b026",
         "type": "github"
       },
       "original": {
