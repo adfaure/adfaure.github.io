@@ -53,7 +53,7 @@ menu_items = [
 title = "Adrien Faure"
 
 [languages.fr.translations]
-Biography = "Biography"
+Biography = "Bio"
 Interests = "Interêts"
 Education = "Formation"
 Published = "Publication"
