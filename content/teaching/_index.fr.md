@@ -1,5 +1,5 @@
 +++
-title = "Teaching (in French)"
+title = "Cours"
 sort_by = "date"
 weight = 4
 template = "teaching.html"

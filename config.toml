@@ -10,6 +10,14 @@ theme = "kodama-theme"
 
 # Whether to build a search index to be used later on by a JavaScript library
 build_search_index = false
+# default_language = "en"
+
+[translations]
+Biography = "Biography"
+Published = "Published"
+Interests = "Interests"
+Education = "Education"
+Abstract = "Abstract"
 
 # Various slugification strategies, see below for details
 # Defaults to everything being a slug
@@ -24,7 +32,10 @@ anchors = "on"
 highlight_code = true
 highlight_theme = "base16-ocean-dark"
 
+# Global extra
 [extra]
+# Unfortunatelly necessary to keep the menu consistent
+language_codes = [ "en", "fr" ]
 
 avatar = "static/img/avatar.jpg"
 favicon = "static/img/avatar.jpg"
@@ -33,5 +44,23 @@ email = "adrien.faure[at]protonmail.com"
 
 contact_in_index = true
 menu_items = [
+  { path = "fr/teaching", name ="Teaching (in French)" },
   { path = "#contacts", name = "Contact" },
 ]
+
+# Your translations
+[languages.fr]
+title = "Adrien Faure"
+
+[languages.fr.translations]
+Biography = "Biography"
+Interests = "Interêts"
+Education = "Formation"
+Published = "Publication"
+Abstract = "Résumé"
+
+[extra.fr]
+menu_items = [
+  { path = "#contacts_fr", name = "Contact" },
+]
+
