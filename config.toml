@@ -35,7 +35,7 @@ highlight_theme = "base16-ocean-dark"
 # Global extra
 [extra]
 # Unfortunatelly necessary to keep the menu consistent
-language_codes = [ "en", "fr" ]
+# language_codes = [ "en", "fr" ]
 
 avatar = "static/img/avatar.jpg"
 favicon = "static/img/avatar.jpg"

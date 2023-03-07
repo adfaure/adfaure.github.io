@@ -8,6 +8,22 @@ extra.name = "Enseignement"
 extra.index_show = false
 +++
 
+## Faille logiciel (2022-2023)
+
+Cours de faille logiciel en Licence professionel à l'IUT2 Grenoble (24h).
+
+- **Cours du 8 Mars 2023**
+    - TBD
+- **Cours du 9 Mars 2023**
+    - TBD
+- **Cours du 23 Mars 2023**
+    - TBD
+- **Cours du 5 Avril 2023**
+    - TBD
+- **Cours du 6 Avril 2023**
+    - TBD
+- **Cours du 7 Avril 2023**
+    - TBD
 
 ## Qualité logiciel (2022-2023)
 
