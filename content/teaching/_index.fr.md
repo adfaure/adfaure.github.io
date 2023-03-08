@@ -11,9 +11,10 @@ extra.index_show = false
 ## Faille logiciel (2022-2023)
 
 Cours de faille logiciel en Licence professionel à l'IUT2 Grenoble (24h).
+Les TP seront postés sur le gitlab de gricad dans le groupe [2223-assr-admin5](https://gricad-gitlab.univ-grenoble-alpes.fr/2223-assr-admin5), **demandez l'accès au groupe via le site**.
 
 - **Cours du 8 Mars 2023**
-    - TBD
+    - Lien du [TP](https://gricad-gitlab.univ-grenoble-alpes.fr/2223-assr-admin5/tp1-buffer-overflow) sur les débordement de tampons (buffer overflow).
 - **Cours du 9 Mars 2023**
     - TBD
 - **Cours du 23 Mars 2023**
