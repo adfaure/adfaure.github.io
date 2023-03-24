@@ -19,7 +19,7 @@ Les TP seront postés sur le gitlab de gricad dans le groupe [2223-assr-admin5](
     - Présentation des failles XSS: [slides](/files/teaching/2022-faille-logiciel/1_browser_intro_xss_csrf.odp).
     - Lien du [TP](https://gricad-gitlab.univ-grenoble-alpes.fr/2223-assr-admin5/tp2-injection-xss).
 - **Cours du 24 Mars 2023**
-    - Présentation des injections SQL
+    - Présentation des injections SQL: [slides](/files/teaching/2022-faille-logiciel/2_sql_injection.odp).
     - Lien du [TP](https://gricad-gitlab.univ-grenoble-alpes.fr/2223-assr-admin5/tp3-sql-injection) sur les injections SQL.
 - **Cours du 5 Avril 2023**
     - TBD
