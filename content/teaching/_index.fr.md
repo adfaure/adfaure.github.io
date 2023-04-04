@@ -22,7 +22,7 @@ Les TP seront postés sur le gitlab de gricad dans le groupe [2223-assr-admin5](
     - Présentation des injections SQL: [slides](/files/teaching/2022-faille-logiciel/2_sql_injection.odp).
     - Lien du [TP](https://gricad-gitlab.univ-grenoble-alpes.fr/2223-assr-admin5/tp3-sql-injection) sur les injections SQL.
 - **Cours du 5 Avril 2023**
-    - TBD
+    - Lien du [TP](https://gricad-gitlab.univ-grenoble-alpes.fr/2223-assr-admin5/tp4-password) sur les mots de passe.
 - **Cours du 6 Avril 2023**
     - TBD
 - **Cours du 7 Avril 2023**
