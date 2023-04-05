@@ -23,10 +23,8 @@ Les TP seront postés sur le gitlab de gricad dans le groupe [2223-assr-admin5](
     - Lien du [TP](https://gricad-gitlab.univ-grenoble-alpes.fr/2223-assr-admin5/tp3-sql-injection) sur les injections SQL.
 - **Cours du 5 Avril 2023**
     - Lien du [TP](https://gricad-gitlab.univ-grenoble-alpes.fr/2223-assr-admin5/tp4-password) sur les mots de passe.
-- **Cours du 6 Avril 2023**
-    - TBD
-- **Cours du 7 Avril 2023**
-    - TBD
+- **Cours du 6 et 7 Avril 2023**
+    - Lien du [sujet](https://gricad-gitlab.univ-grenoble-alpes.fr/2223-assr-admin5/presentation)
 
 ## Qualité logiciel (2022-2023)
 
