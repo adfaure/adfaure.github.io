@@ -1,7 +1,6 @@
 +++
 title = "Comment rater la reproductibilité de ses expériences ?"
 date = 2023-07-04
-description = """*presentation and slides by [Quentin Guilloteau](https://guilloteauq.github.io/)*"""
 
 [extra]
 authors = ["Quentin Guilloteau", "Adrien Faure", "Millian Poquet", "Olivier Richard"]
