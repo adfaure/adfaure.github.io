@@ -18,4 +18,4 @@ My contributions on the project are:
 - Improving the code base (bug hunting, update libraries, refactoring etc).
 - Maintain the continuous integration [pipeline](https://github.com/oar-team/oar3/actions).
 - Continue writing and updating the [documentation](https://readthedocs.org/projects/oar-3/?badge=latest).
-- Doing support and helping users.
+- Providing support and assisting users.
