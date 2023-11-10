@@ -1,7 +1,7 @@
 {
   inputs = {
     oxalica.url = "github:oxalica/rust-overlay";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
     kodama-theme.url = "github:adfaure/kodama-theme";
   };
 
