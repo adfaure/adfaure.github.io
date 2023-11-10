@@ -11,7 +11,7 @@ OAR3 is a python project developed at Université Grenoble Alpes, and originally
 <!-- more -->
 
 
-**From 2021 to 2023 I have been the main developer of OAR3**. My objective was to improve the code base to make it a direct replacement for OAR2.
+**From 2021 to 2023 I have been the lead developer of OAR3**. My objective was to improve the code base to make it a direct replacement for [OAR2](https://github.com/oar-team/oar).
 My contributions on the project are:
 
 - Developing new features, including:
