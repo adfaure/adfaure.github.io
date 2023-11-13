@@ -2,6 +2,7 @@
 title = "MeloMelon"
 date = 2022-04-04
 
+extra.summary = "true"
 +++
 
 MeloMelon is a tool for twitch streamers that listen music from YouTube: MeloMelon forwards the music currently played on YouTube to your twitch chat. Let your viewers know what you are currently listening !
