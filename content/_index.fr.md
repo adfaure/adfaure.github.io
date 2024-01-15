@@ -7,9 +7,9 @@ page_template="simple-page.html"
 title = "Jeune chercheur en informatique"
 
 interests = [
-  "Ordonnancement",
-  "Simulation",
-  "Rust"
+  "Systèmes distribués",
+  "Programmation",
+  "DevOps et SRE"
 ]
 
 [[extra.education.courses]]
@@ -46,5 +46,4 @@ interests = [
   link = "https://www.goodreads.com/user/show/82099752-adrien"
 +++
 
-Bienvenue sur mon site.
-Je suis actuellement en postdoc à l'université Grenoble Alpes, et je travail sur le projet européen régale.
+Bonjour, je m'appelle Adrien Faure. J'ai obtenu mon doctorat en informatique en 2020. Après trois années de travail au sein du LIG sur le projet européen REGALE en tant qu'ingénieur / post-doc, je souhaite travailler en tant que freelance dans le domaine de l'informatique.

@@ -7,9 +7,9 @@ page_template="simple-page.html"
 title = "Software engineering expert"
 
 interests = [
-  "Parallel Task Scheduling",
-  "Simulation and Modeling",
-  "Reproducibility"
+    "Distributed System",
+    "Programming",
+    "SRE and DevOps",
 ]
 
 [[extra.education.courses]]
@@ -47,6 +47,4 @@ interests = [
 +++
 
 Hello, my name is Adrien Faure, I finished my PhD in computer science in 2020.
-I am currently working at the LIG on the REGALE European project as an Engineer / Post-Doc.
-
-I am interested in distributed systems, such as cloud and edge systems.
+After three years working at the LIG on the REGALE European project as an Engineer / Post-Doc, I am want to work as a freelancer in IT.
