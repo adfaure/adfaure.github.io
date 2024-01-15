@@ -1,7 +1,7 @@
 {
   inputs = {
     oxalica.url = "github:oxalica/rust-overlay";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
     kodama-theme.url = "github:adfaure/kodama-theme";
   };
 
@@ -10,7 +10,7 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         system = "x86_64-linux";
-        overlays = [ oxalica.overlay ];
+        overlays = [ oxalica.overlays.default ];
         config.allowUnfree = true;
       };
     in {
