@@ -33,6 +33,9 @@ interests = [
   year = 2014
 
 [[extra.avatar_icons]]
+  icon = "cv"
+  link = "/files/cv-eng.pdf"
+[[extra.avatar_icons]]
   icon = "github"
   link = "https://github.com/adfaure"
 [[extra.avatar_icons]]
@@ -41,9 +44,6 @@ interests = [
 [[extra.avatar_icons]]
   icon = "linkedin"
   link = "https://www.linkedin.com/in/adrien-faure-9958978b/"
-[[extra.avatar_icons]]
-  icon = "goodreads"
-  link = "https://www.goodreads.com/user/show/82099752-adrien"
 +++
 
 Hello, my name is Adrien Faure, I finished my PhD in computer science in 2020.

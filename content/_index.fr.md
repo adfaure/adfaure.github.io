@@ -33,6 +33,9 @@ interests = [
   year = 2014
 
 [[extra.avatar_icons]]
+  icon = "cv"
+  link = "/files/cv-fr.pdf"
+[[extra.avatar_icons]]
   icon = "github"
   link = "https://github.com/adfaure"
 [[extra.avatar_icons]]
@@ -41,9 +44,6 @@ interests = [
 [[extra.avatar_icons]]
   icon = "linkedin"
   link = "https://www.linkedin.com/in/adrien-faure-9958978b/"
-[[extra.avatar_icons]]
-  icon = "goodreads"
-  link = "https://www.goodreads.com/user/show/82099752-adrien"
 +++
 
 Bonjour, je m'appelle Adrien Faure. J'ai obtenu mon doctorat en informatique en 2020. Après trois années de travail au sein du LIG sur le projet européen REGALE en tant qu'ingénieur / post-doc, je souhaite travailler en tant que freelance dans le domaine de l'informatique.
