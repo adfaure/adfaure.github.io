@@ -2,6 +2,7 @@
 title = "Food Assistant"
 date = 2020-07-09
 extra.summary="true"
+draft = true
 +++
 
 Food Assistant is a free and open source (under GPL3) android application to watch and control your daily food.
