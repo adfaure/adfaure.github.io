@@ -39,12 +39,11 @@ interests = [
   icon = "github"
   link = "https://github.com/adfaure"
 [[extra.avatar_icons]]
-  icon = "gitlab"
-  link = "https://gitlab.com/adfaure"
-[[extra.avatar_icons]]
   icon = "linkedin"
   link = "https://www.linkedin.com/in/adrien-faure-9958978b/"
 +++
 
 Hello, my name is Adrien Faure, I finished my PhD in computer science in 2020.
-After three years working at the LIG on the REGALE European project as an Engineer / Post-Doc, I am want to work as a freelancer in IT.
+After three years working at the LIG on the REGALE European project as an Engineer / Post-Doc.
+
+**I am now looking for mission as a freelancer in IT.**
