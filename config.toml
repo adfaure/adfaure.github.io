@@ -44,7 +44,7 @@ email = "adrien.faure[at]protonmail.com"
 
 contact_in_index = true
 menu_items = [
-  { path = "/files/cv-eng.pdf", name = "CV (En)" },
+  { path = "/files/Adrien_FAURE_CV-eng.pdf", name = "CV (En)" },
   { path = "#contacts", name = "Contact" },
 ]
 
@@ -63,7 +63,7 @@ Abstract = "Résumé"
 contact_in_index = true
 menu_items = [
   { path = "/teaching", name ="Cours" },
-  { path = "../files/cv-fr.pdf", name = "CV (Fr)" },
+  { path = "../files/Adrien_FAURE_CV-fr.pdf", name = "CV (Fr)" },
   { path = "#Contacts", name = "Contact" },
 ]
 

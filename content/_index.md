@@ -34,7 +34,7 @@ interests = [
 
 [[extra.avatar_icons]]
   icon = "cv"
-  link = "/files/cv-eng.pdf"
+  link = "/files/Adrien_FAURE_CV-eng.pdf"
 [[extra.avatar_icons]]
   icon = "github"
   link = "https://github.com/adfaure"
