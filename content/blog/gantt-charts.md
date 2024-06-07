@@ -394,7 +394,7 @@ If in this case it remains simple to associate the last segment with the
 job 33, it becomes more difficult with more jobs. However, it gives a
 good idea of the intensity of the workload.
 
-``` r
+```r
 workload_sep  %>%
   ggplot(aes( xmin=starting_time,
               ymin=psetmin,
@@ -492,7 +492,7 @@ workload_sep  %>%
 When a plot is too loaded, we can consider zooming on a particular slice
 of the gantt.
 
-``` r
+```r
 # From sec
 from = 500000
 # to the terminason of the last job
@@ -539,79 +539,9 @@ what happens is our simulations.
 As I said in the previous section, it is not exhaustive list of we can
 do with ggplot2 to draw gantt, so I am open to new ideas :)
 
-You can download this [file](files/GanttCharts.Rmd) as a notebook to
+You can download this [file](/files/GanttCharts.Rmd) as a notebook to
 replay it.
-ax + 0.9,
-              xmax=finish_time,
-              fill=workload_name)) +
-        scale_color_viridis(discrete=F) + scale_fill_viridis(discrete=T) +
-  geom_rect(aes(alpha=waiting_time),color="black", size=0.1) +
-  geom_text(aes(x=starting_time +(finish_time-starting_time)/2, # size=stretch,
-              y=psetmin+((psetmax-psetmin)/2)+0.5,
-              label=paste(job_id, "")), alpha=1,check_overlap = TRUE) +
-  geom_segment(
-    aes(x=submission_time,
-        y=psetmin+0.1,
-        xend=starting_time,
-        yend=psetmax
-        ),
-    alpha=1,
-    size=0.1) +
-  theme_bw() +
-  ylab("resources") + xlab("time (in seconds)")
-```
+
 
 ![](/img/unnamed-chunk-13-1.png)<!-- -->
 
-## Zooming
-
-When a plot is too loaded, we can consider zooming on a particular slice
-of the gantt.
-
-``` r
-# From sec
-from = 500000
-# to the terminason of the last job
-to = max(workload$finish_time)
-
-workload_sep  %>% # filter(submission_time >  time | execution_time > time | finish_time > time) %>%
-  ggplot(aes( xmin=starting_time,
-              ymin=psetmin,
-              ymax=psetmax + 0.9,
-              xmax=finish_time,
-              fill=workload_name)) + coord_cartesian(xlim=c(from, to)) +
-        scale_color_viridis(discrete=F) + scale_fill_viridis(discrete=T) +
-  geom_rect(aes(alpha=waiting_time),color="black", size=0.1) +
-  geom_text(aes(x=starting_time +(finish_time-starting_time)/2, # size=stretch,
-              y=psetmin+((psetmax-psetmin)/2)+0.5,
-              label=paste(job_id, "")), alpha=1,check_overlap = TRUE) +
-  geom_segment(
-    aes(x=submission_time,
-        y=psetmin+0.1,
-        xend=starting_time,
-        yend=psetmax
-        ),
-    alpha=1,
-    size=0.1) +
-    geom_point(aes(y=psetmin+0.5, x=submission_time), size=0.0001) +
-  geom_segment(aes(x=submission_time,
-        y=-50,
-        xend=starting_time,
-        yend=-3), size=0.1) +
-  geom_point(aes(y=-50, x=submission_time), size=0.1) +
-  geom_point(aes(y=-3, x=starting_time), size=0.1) +
-  theme_bw() +
-  ylab("resources") + xlab("time (in seconds)")
-```
-
-![](/img/unnamed-chunk-14-1.png)<!-- -->
-
-In this post, I showed how we can use ggplot2 to draw gantt from a
-batsim output. It becomes clear that it is a powerful tool to allow us
-what happens is our simulations.
-
-As I said in the previous section, it is not exhaustive list of we can
-do with ggplot2 to draw gantt, so I am open to new ideas :)
-
-You can download this [file](files/GanttCharts.Rmd) as a notebook to
-replay it.
